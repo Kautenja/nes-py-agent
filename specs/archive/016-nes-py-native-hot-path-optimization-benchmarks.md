@@ -1,5 +1,7 @@
 # Specification: nes-py Native Hot Path Optimization Benchmarks
 
+## Status: COMPLETE
+
 ## Problem
 
 The native emulator hot paths were written for clarity and small mapper coverage. Specs 012 and 015 have now added mapper timing hooks and a Cython binding layer, and the mapper queue will continue to increase dispatch, timing, and memory-map complexity. Current performance needs to be measured and improved deliberately. Optimizations should be benchmark-driven and must not trade away deterministic emulator behavior.
@@ -40,19 +42,19 @@ Investigate these areas and optimize only when evidence supports it:
 
 ## Acceptance Criteria
 
-- [ ] A benchmark report captures before/after results for at least reset-heavy, step-heavy, render-heavy, and backup/restore-heavy profiles.
-- [ ] Profiling evidence is recorded in the completion log or a linked developer note for every non-trivial optimization.
-- [ ] At least one measured hot path is optimized or the spec documents that profiling found no safe optimization worth landing.
-- [ ] Behavior tests for ROM parsing, current mappers, environment stepping, rendering, and backup/restore pass after each optimization set.
-- [ ] Mapper timing and IRQ hooks from spec 012 are included in the benchmark profile.
-- [ ] CPU/bus/frame-timing benchmarks from spec 017 are included if that spec has landed.
-- [ ] PPU address/rendering benchmarks from spec 018 are included if that spec has landed.
-- [ ] Current Cython binding benchmarks from spec 015 are included, including frame stepping, render/view access, and backup/restore where relevant.
-- [ ] Optimizations prefer fixed-size arrays, direct dispatch, precomputed windows, and small local helpers over broad rewrites.
-- [ ] Any measurable regression is either fixed or explicitly accepted with a correctness reason and follow-up spec.
-- [ ] Benchmark code remains informational and portable; CI does not fail because a runner is slower than a developer machine.
-- [ ] No generated profiling dumps, caches, build artifacts, wheels, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] A benchmark report captures before/after results for at least reset-heavy, step-heavy, render-heavy, and backup/restore-heavy profiles.
+- [x] Profiling evidence is recorded in the completion log or a linked developer note for every non-trivial optimization.
+- [x] At least one measured hot path is optimized or the spec documents that profiling found no safe optimization worth landing.
+- [x] Behavior tests for ROM parsing, current mappers, environment stepping, rendering, and backup/restore pass after each optimization set.
+- [x] Mapper timing and IRQ hooks from spec 012 are included in the benchmark profile.
+- [x] CPU/bus/frame-timing benchmarks from spec 017 are included if that spec has landed.
+- [x] PPU address/rendering benchmarks from spec 018 are included if that spec has landed.
+- [x] Current Cython binding benchmarks from spec 015 are included, including frame stepping, render/view access, and backup/restore where relevant.
+- [x] Optimizations prefer fixed-size arrays, direct dispatch, precomputed windows, and small local helpers over broad rewrites.
+- [x] Any measurable regression is either fixed or explicitly accepted with a correctness reason and follow-up spec.
+- [x] Benchmark code remains informational and portable; CI does not fail because a runner is slower than a developer machine.
+- [x] No generated profiling dumps, caches, build artifacts, wheels, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -71,6 +73,16 @@ python -m nes_py.speedtest --rom nes_py/tests/games/the-legend-of-zelda.nes --st
 
 If profiling tools are platform-specific, document the platform and exact command in the completion log.
 
+## Completion Log
+
+Completed in `nes-py` commit `3caf8d4` by replacing main-bus unordered-map
+I/O register callbacks with direct CPU/PPU/controller dispatch, fixed-size CPU
+RAM storage, and callback-array fallbacks. Added a portable mapper hook smoke
+benchmark to `nes_py.speedtest` and recorded before/after benchmark medians in
+`docs/native-hot-path-optimization-benchmarks.md`. Specs 017 and 018 were still
+incomplete, so no landed CPU/bus/frame-timing or PPU-specific benchmark suites
+were available beyond the current step and render/view profiles.
+
 ## Completion Signal
 
 When all acceptance criteria are met:
@@ -81,4 +93,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-native-hot-path-optimization-benchmarks.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
