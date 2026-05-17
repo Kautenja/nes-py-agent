@@ -1,5 +1,7 @@
 # Specification: nes-py Cython Binding Migration
 
+## Status: COMPLETE
+
 ## Problem
 
 The current Python binding uses `ctypes` to load `lib_nes_env*`, discover symbols by globbing package paths, pass a wide-character ROM path into a C ABI, and call small native functions for reset, step, backup, restore, screen, memory, and controller buffers. This works, but it adds dynamic-loading complexity, weak error handling, path conversion risk, and avoidable Python overhead around hot operations.
@@ -79,4 +81,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-cython-binding-migration.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
