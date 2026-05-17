@@ -9,7 +9,7 @@ This repo tracks the child projects as git submodules:
 | `nes-py` | `git@github.com:Kautenja/nes-py` | `ralph-dev` |
 | `gym-super-mario-bros` | `git@github.com:Kautenja/gym-super-mario-bros.git` | `ralph-dev` |
 | `gym-tetris` | `git@github.com:Kautenja/gym-tetris.git` | `ralph-dev` |
-| `gym-zelda-1` | `git@github.com:Kautenja/gym-zelda-1.git` | `master` |
+| `gym-zelda-1` | `git@github.com:Kautenja/gym-zelda-1.git` | `ralph-dev` |
 
 ## Clone
 
