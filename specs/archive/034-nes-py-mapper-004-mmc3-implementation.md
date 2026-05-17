@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper 4 MMC3 Mapper Implementation
 
+## Status: COMPLETE
+
 ## Problem
 
 Mapper 4 (MMC3) appears in the NES mapper catalog but is not implemented in `nes-py`. ROMs using mapper 4 are rejected before the emulator can initialize, blocking a known slice of the NES library. The representative title for this spec is `Super Mario Bros. 3 (USA)`, selected from the NES catalog and cross-checked against the repository mapper list. The local fixture target is `nes_py/tests/games/super-mario-bros-3.nes`.
@@ -108,4 +110,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-004-mmc3.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
