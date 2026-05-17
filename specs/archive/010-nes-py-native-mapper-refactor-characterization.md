@@ -1,5 +1,7 @@
 # Specification: nes-py Native Mapper Refactor Characterization
 
+## Status: COMPLETE
+
 ## Problem
 
 The mapper queue in `specs/mappers/` now reaches far beyond the current `nes-py` native mapper surface. The C++ code supports mappers 0-3 through a narrow `Mapper` interface, while future specs require IRQ counters, scanline-sensitive behavior, CHR latches, nametable ROM/RAM banking, PRG RAM protection, bus conflicts, expansion register ranges, NES 2.0/submapper metadata, multicart variants, and mapper state that survives backup/restore correctly.
@@ -32,18 +34,18 @@ Before changing the native emulator architecture, the current behavior needs a c
 
 ## Acceptance Criteria
 
-- [ ] A mapper-focused test module exists in `nes-py` and runs through `python -m unittest`.
-- [ ] Tests identify mapper 0, 1, 2, and 3 from known fixtures or synthetic ROMs and assert expected PRG size, CHR size, CHR RAM/ROM mode, and mirroring.
-- [ ] Mapper 0 tests cover fixed PRG mapping, 16 KiB mirroring behavior, CHR ROM reads, and reset/step/render smoke behavior.
-- [ ] Mapper 1 tests cover serial register writes, PRG bank switching, CHR RAM persistence, switchable mirroring, and backup/restore determinism after mapper state changes.
-- [ ] Mapper 2 tests cover switchable 16 KiB PRG banking at `$8000`, fixed final bank at `$C000`, CHR RAM reads/writes, and documented bus-conflict assumptions.
-- [ ] Mapper 3 tests cover fixed PRG mapping, switchable 8 KiB CHR ROM banking, and screen stability across bank changes.
-- [ ] Tests fail on the current known mapper-state backup/restore weakness unless the implementation fixes it in the same spec.
-- [ ] The benchmark API or CLI can run a small current-mapper benchmark profile and emit structured JSON with environment, compiler/platform, mapper, operation, elapsed time, and steps-per-second fields.
-- [ ] Benchmark checks assert shape and positivity of results but do not assert machine-specific throughput.
-- [ ] A short developer note lists the native mapper capability gaps discovered from `specs/mappers/` and points to the follow-up specs.
-- [ ] No external ROM assets, generated binaries, wheels, caches, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] A mapper-focused test module exists in `nes-py` and runs through `python -m unittest`.
+- [x] Tests identify mapper 0, 1, 2, and 3 from known fixtures or synthetic ROMs and assert expected PRG size, CHR size, CHR RAM/ROM mode, and mirroring.
+- [x] Mapper 0 tests cover fixed PRG mapping, 16 KiB mirroring behavior, CHR ROM reads, and reset/step/render smoke behavior.
+- [x] Mapper 1 tests cover serial register writes, PRG bank switching, CHR RAM persistence, switchable mirroring, and backup/restore determinism after mapper state changes.
+- [x] Mapper 2 tests cover switchable 16 KiB PRG banking at `$8000`, fixed final bank at `$C000`, CHR RAM reads/writes, and documented bus-conflict assumptions.
+- [x] Mapper 3 tests cover fixed PRG mapping, switchable 8 KiB CHR ROM banking, and screen stability across bank changes.
+- [x] Tests fail on the current known mapper-state backup/restore weakness unless the implementation fixes it in the same spec.
+- [x] The benchmark API or CLI can run a small current-mapper benchmark profile and emit structured JSON with environment, compiler/platform, mapper, operation, elapsed time, and steps-per-second fields.
+- [x] Benchmark checks assert shape and positivity of results but do not assert machine-specific throughput.
+- [x] A short developer note lists the native mapper capability gaps discovered from `specs/mappers/` and points to the follow-up specs.
+- [x] No external ROM assets, generated binaries, wheels, caches, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -71,4 +73,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-native-mapper-refactor-characterization.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
