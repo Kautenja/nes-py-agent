@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper Test Package Refactor
 
+## Status: COMPLETE
+
 ## Problem
 
 `nes-py/nes_py/tests/test_mappers.py` currently mixes mapper registry checks, native mapper lifecycle smoke tests, and mapper-specific characterization coverage for every supported mapper. That structure is already dense with mappers 0-3, and it will become difficult to review, navigate, and extend as the mapper implementation queue adds more console boards.
@@ -51,18 +53,18 @@ Future mapper work should add a new `test_mapper_NNN_name.py` module for the new
 
 ## Acceptance Criteria
 
-- [ ] `nes_py/tests/mappers/` is a real Python test package with an `__init__.py`.
-- [ ] Each currently implemented native mapper class/family has one canonical mapper test module under `nes_py/tests/mappers/`.
-- [ ] Existing mapper-specific test assertions from `test_mappers.py` are preserved or made stricter; no coverage is silently dropped.
-- [ ] Registry/support checks and lifecycle/hook smoke tests live in clearly named package modules separate from per-mapper modules.
-- [ ] Shared helpers such as `MapperTestCase`, `_write_mmc1_register`, mirroring constants, and temporary ROM handling are available without circular imports or duplicated fixture code.
-- [ ] `nes_py/tests/test_mappers.py` is removed or reduced to a non-duplicating compatibility shim with an explanatory module docstring.
-- [ ] Normal unittest discovery runs the mapper package tests exactly once; compatibility imports, if present, do not duplicate test cases.
-- [ ] Focused unittest invocations exist for both the whole mapper package and individual mapper modules.
-- [ ] Active documentation or specs that instruct developers where mapper tests live point at the new package layout.
-- [ ] Existing non-mapper test modules continue to import fixture helpers successfully.
-- [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] `nes_py/tests/mappers/` is a real Python test package with an `__init__.py`.
+- [x] Each currently implemented native mapper class/family has one canonical mapper test module under `nes_py/tests/mappers/`.
+- [x] Existing mapper-specific test assertions from `test_mappers.py` are preserved or made stricter; no coverage is silently dropped.
+- [x] Registry/support checks and lifecycle/hook smoke tests live in clearly named package modules separate from per-mapper modules.
+- [x] Shared helpers such as `MapperTestCase`, `_write_mmc1_register`, mirroring constants, and temporary ROM handling are available without circular imports or duplicated fixture code.
+- [x] `nes_py/tests/test_mappers.py` is removed or reduced to a non-duplicating compatibility shim with an explanatory module docstring.
+- [x] Normal unittest discovery runs the mapper package tests exactly once; compatibility imports, if present, do not duplicate test cases.
+- [x] Focused unittest invocations exist for both the whole mapper package and individual mapper modules.
+- [x] Active documentation or specs that instruct developers where mapper tests live point at the new package layout.
+- [x] Existing non-mapper test modules continue to import fixture helpers successfully.
+- [x] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -93,4 +95,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-test-package-refactor.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

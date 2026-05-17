@@ -32,9 +32,9 @@ speedtest API/CLI.
 - `nes_py/tests/test_nes_env.py` covers many public environment workflows but
   also imports `_native`, asserts implementation details of `NativeEmulator`,
   and uses private backup/restore behavior directly.
-- `nes_py/tests/test_mappers.py` currently characterizes native mapper behavior
-  through private `_read_prg`, `_write_prg`, `_read_chr`, and `_write_chr`
-  helpers.
+- `nes_py/tests/mappers/` characterizes native mapper behavior through package
+  modules that currently use private `_read_prg`, `_write_prg`, `_read_chr`,
+  and `_write_chr` helpers.
 - `nes_py/tests/test_native_cpu_bus.py` validates native CPU and main-bus
   characterization helpers through Python rather than through C++ tests.
 - `nes_py/tests/test_speedtest.py` currently covers both public `NESEnv`
