@@ -31,3 +31,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py mapper 002 UxROM representative coverage with Mega Man application workflow tests and emulator save-state PRG-bank/CHR-RAM coverage.
 2026-05-17: Completed nes-py mapper 000 NROM representative coverage with Super Mario Bros. application workflow tests and emulator save-state PRG-RAM coverage.
 2026-05-17: Completed nes-py mapper 003 CNROM representative coverage with Adventure Island application workflow tests and emulator save-state CHR-bank coverage.
+2026-05-17: Completed nes-py mapper 069 Sunsoft FME-7 support with native command/banking/IRQ coverage and Batman Return of the Joker public smoke coverage.
