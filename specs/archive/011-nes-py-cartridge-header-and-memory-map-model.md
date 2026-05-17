@@ -1,5 +1,7 @@
 # Specification: nes-py Cartridge Header and Memory Map Model
 
+## Status: COMPLETE
+
 ## Problem
 
 The native `Cartridge` parser and memory model are too small for the mapper queue. Future mapper specs require reliable iNES parsing, NES 2.0/submapper metadata where available, PRG RAM and save RAM sizes, trainer-aware offsets, CHR RAM sizing, four-screen mirroring, one-screen mapper mirroring, VS/PlayChoice flags, and variant data that both Python and C++ can agree on.
@@ -37,18 +39,18 @@ The cartridge model should expose at least:
 
 ## Acceptance Criteria
 
-- [ ] C++ `Cartridge` rejects invalid magic, truncated headers, truncated PRG/CHR payloads, and unsupported trainer/PAL cases with deterministic errors instead of relying only on Python prevalidation.
-- [ ] Python `ROM` and native `Cartridge` agree on mapper number, submapper, PRG/CHR sizes, RAM sizes, mirroring, trainer, battery, VS, PlayChoice, PAL, and NES 2.0 status for existing fixtures and synthetic headers.
-- [ ] Mapper number storage is widened beyond `NES_Byte` so mapper registration is not capped by the old byte-sized API.
-- [ ] PRG RAM allocation is based on header/default RAM size and mapper policy, not only battery-backed RAM.
-- [ ] Battery-backed RAM is represented separately from ordinary PRG RAM.
-- [ ] CHR RAM is represented as cartridge metadata, with default iNES CHR RAM behavior covered by tests.
-- [ ] Four-screen mirroring is represented distinctly and cannot fall through to one-screen lower mirroring when header bits combine.
-- [ ] Trainer offsets are parsed correctly in tests even if trainers remain unsupported by `NESEnv`.
-- [ ] The user-facing `NESEnv` validation remains clear and names the unsupported feature when rejecting a ROM.
-- [ ] Existing ROM tests still pass, and new synthetic-header tests cover edge cases without adding ROM assets.
-- [ ] No generated binaries, wheels, caches, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] C++ `Cartridge` rejects invalid magic, truncated headers, truncated PRG/CHR payloads, and unsupported trainer/PAL cases with deterministic errors instead of relying only on Python prevalidation.
+- [x] Python `ROM` and native `Cartridge` agree on mapper number, submapper, PRG/CHR sizes, RAM sizes, mirroring, trainer, battery, VS, PlayChoice, PAL, and NES 2.0 status for existing fixtures and synthetic headers.
+- [x] Mapper number storage is widened beyond `NES_Byte` so mapper registration is not capped by the old byte-sized API.
+- [x] PRG RAM allocation is based on header/default RAM size and mapper policy, not only battery-backed RAM.
+- [x] Battery-backed RAM is represented separately from ordinary PRG RAM.
+- [x] CHR RAM is represented as cartridge metadata, with default iNES CHR RAM behavior covered by tests.
+- [x] Four-screen mirroring is represented distinctly and cannot fall through to one-screen lower mirroring when header bits combine.
+- [x] Trainer offsets are parsed correctly in tests even if trainers remain unsupported by `NESEnv`.
+- [x] The user-facing `NESEnv` validation remains clear and names the unsupported feature when rejecting a ROM.
+- [x] Existing ROM tests still pass, and new synthetic-header tests cover edge cases without adding ROM assets.
+- [x] No generated binaries, wheels, caches, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -75,4 +77,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-cartridge-header-and-memory-map-model.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
