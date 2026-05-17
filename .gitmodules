@@ -1,0 +1,16 @@
+[submodule "nes-py"]
+	path = nes-py
+	url = git@github.com:Kautenja/nes-py
+	branch = ralph-dev
+[submodule "gym-super-mario-bros"]
+	path = gym-super-mario-bros
+	url = git@github.com:Kautenja/gym-super-mario-bros.git
+	branch = ralph-dev
+[submodule "gym-tetris"]
+	path = gym-tetris
+	url = git@github.com:Kautenja/gym-tetris.git
+	branch = ralph-dev
+[submodule "gym-zelda-1"]
+	path = gym-zelda-1
+	url = git@github.com:Kautenja/gym-zelda-1.git
+	branch = master
