@@ -19,3 +19,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed gym-super-mario-bros pyproject distribution modernization with canonical PEP 621 metadata, preserved ROM package data, console script metadata, and verified install/build workflows.
 2026-05-17: Completed gym-zelda-1 pyproject distribution modernization with canonical PEP 621 metadata, preserved ROM package data, console script metadata, and verified install/build workflows.
 2026-05-17: Completed gym-tetris pyproject distribution modernization with canonical PEP 621 metadata, preserved ROM package data, console script metadata, and verified install/build workflows.
+2026-05-17: Completed nes-py native emulator root layout migration with the C++ tree moved to nes_emu, scoped includes, updated CMake/Cython packaging, and verified install/build workflows.

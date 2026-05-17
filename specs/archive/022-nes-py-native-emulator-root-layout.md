@@ -1,5 +1,7 @@
 # Specification: nes-py Native Emulator Root Layout
 
+## Status: COMPLETE
+
 ## Problem
 
 The native NES emulator code currently lives under `nes_py/nes`, which made sense when the Python package tree also owned the extension build layout. After the scikit-build/CMake migration, the C++ code no longer needs to live literally inside the import package. Keeping it there makes the repository layout harder to scan, blurs Python package contents with native source layout, and keeps includes in an un-namespaced `include/*` form that is less standard for C++ projects.
@@ -39,19 +41,19 @@ Move the native emulator implementation into a root-level C++ source tree and gi
 
 ## Acceptance Criteria
 
-- [ ] The native emulator tree lives at `nes-py/nes_emu`.
-- [ ] No native emulator headers or sources remain under `nes-py/nes_py/nes`; the old directory is removed once the move is complete.
-- [ ] Public and internal native headers live under `nes_emu/include/nes_emu`, including mapper headers under `nes_emu/include/nes_emu/mappers`.
-- [ ] Native source files live under `nes_emu/src/nes_emu`, including mapper sources under `nes_emu/src/nes_emu/mappers`.
-- [ ] CMake no longer references `nes_py/nes`; it discovers native sources from `nes_emu/src/nes_emu` and adds `nes_emu/include` to the extension include path.
-- [ ] All project header includes in C++ use the project-scoped include path, for example `#include "nes_emu/common.hpp"` or an equivalent angle-bracket include.
-- [ ] `nes_py/_native.pyx` Cython extern declarations include headers through the project-scoped path, for example `cdef extern from "nes_emu/emulator.hpp" namespace "NES"`.
-- [ ] Any source-distribution configuration includes the root-level `nes_emu` tree, while wheel/install contents do not accidentally expose the native source tree as Python package data.
-- [ ] `rg "nes_py/nes|nes-py/nes|nes/.*include|from \"common.hpp\"|#include \"common.hpp\"" nes-py` finds no stale layout references except in intentional historical notes or archived logs.
-- [ ] Editable install, wheel build, and sdist build still compile the native extension with the moved layout.
-- [ ] Existing Python tests for imports, ROM parsing, mapper behavior, environment stepping, app entry points, and speedtest behavior still pass.
-- [ ] No generated profiling dumps, build artifacts, wheels, caches, compiled extensions, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] The native emulator tree lives at `nes-py/nes_emu`.
+- [x] No native emulator headers or sources remain under `nes-py/nes_py/nes`; the old directory is removed once the move is complete.
+- [x] Public and internal native headers live under `nes_emu/include/nes_emu`, including mapper headers under `nes_emu/include/nes_emu/mappers`.
+- [x] Native source files live under `nes_emu/src/nes_emu`, including mapper sources under `nes_emu/src/nes_emu/mappers`.
+- [x] CMake no longer references `nes_py/nes`; it discovers native sources from `nes_emu/src/nes_emu` and adds `nes_emu/include` to the extension include path.
+- [x] All project header includes in C++ use the project-scoped include path, for example `#include "nes_emu/common.hpp"` or an equivalent angle-bracket include.
+- [x] `nes_py/_native.pyx` Cython extern declarations include headers through the project-scoped path, for example `cdef extern from "nes_emu/emulator.hpp" namespace "NES"`.
+- [x] Any source-distribution configuration includes the root-level `nes_emu` tree, while wheel/install contents do not accidentally expose the native source tree as Python package data.
+- [x] `rg "nes_py/nes|nes-py/nes|nes/.*include|from \"common.hpp\"|#include \"common.hpp\"" nes-py` finds no stale layout references except in intentional historical notes or archived logs.
+- [x] Editable install, wheel build, and sdist build still compile the native extension with the moved layout.
+- [x] Existing Python tests for imports, ROM parsing, mapper behavior, environment stepping, app entry points, and speedtest behavior still pass.
+- [x] No generated profiling dumps, build artifacts, wheels, caches, compiled extensions, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -87,4 +89,34 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-native-emulator-root-layout.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+## Completion Log
+
+Completed in `nes-py` commit `bbecebc` by moving the native emulator source
+tree from `nes_py/nes` to `nes_emu`, with headers under
+`nes_emu/include/nes_emu` and sources under `nes_emu/src/nes_emu`. Updated CMake
+source discovery, Cython extern declarations, C++ project includes, sdist
+configuration, and README development notes for the new layout.
+
+Verification used `.venv/bin/python`:
+
+- `.venv/bin/python -m pip install --upgrade pip build`
+- `.venv/bin/python -m pip install -e .`
+- `.venv/bin/python -m unittest nes_py.tests.test_app_imports`
+- `.venv/bin/python -m unittest nes_py.tests.test_rom`
+- `.venv/bin/python -m unittest nes_py.tests.test_mappers`
+- `.venv/bin/python -m unittest nes_py.tests.test_nes_env`
+- `.venv/bin/python -m unittest nes_py.tests.test_speedtest`
+- `.venv/bin/python -m unittest discover .`
+- `.venv/bin/python -m build`
+- `.venv/bin/python -m pip install dist/*.whl --force-reinstall`
+- `.venv/bin/python -c "import nes_py; import nes_py._native; print(nes_py.__name__)"`
+- `.venv/bin/python -m zipfile -l dist/*.whl`
+- `.venv/bin/python -m tarfile -l dist/*.tar.gz`
+- `rg "nes_py/nes|nes-py/nes|nes/.*include|from \"common.hpp\"|#include \"common.hpp\"" .`
+- `git diff --check`
+
+The wheel listing included only the Python package and compiled extension; the
+sdist listing included `nes_emu/include/nes_emu/...` and
+`nes_emu/src/nes_emu/...`.
+
+<!-- NR_OF_TRIES: 1 -->
