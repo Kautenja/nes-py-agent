@@ -22,4 +22,4 @@
 ## Commits Pushed
 
 - `Kautenja/nes-py@989aa02` - `Package speedtest and cover backup restore`
-- `Kautenja/gym-nes@PENDING` - `Complete nes-py backup restore speedtest spec`
+- `Kautenja/gym-nes@bb36e66` - `Complete nes-py backup restore speedtest spec`
