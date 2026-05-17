@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper 5 MMC5 Mapper Implementation
 
+## Status: COMPLETE
+
 ## Problem
 
 Mapper 5 (MMC5) appears in the NES mapper catalog but is not implemented in `nes-py`. ROMs using mapper 5 are rejected before the emulator can initialize, blocking a known slice of the NES library. The representative title for this spec is `Castlevania III - Dracula's Curse (USA)`, selected from the NES catalog and cross-checked against the repository mapper list. The local fixture target is `nes_py/tests/games/castlevania-iii-draculas-curse.nes`.
@@ -65,17 +67,17 @@ Implementation notes:
 
 ## Acceptance Criteria
 
-- [ ] A C++ mapper class for mapper 5 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
-- [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 5 with a clear mapper name.
-- [ ] Python `NESEnv` validation accepts mapper 5 through `_native.is_mapper_supported` only after the mapper implementation is wired.
-- [ ] The mapper implements MMC5 PRG modes, CHR modes, WRAM protect/banking, ExRAM, nametable/fill mapping, scanline IRQ/status, multiplier behavior, and the representative-title variant behavior; vertical split and audio are either implemented or explicitly documented as unsupported secondary features.
-- [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc5]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
-- [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
-- [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
-- [ ] Existing mapper tests still pass after this spec lands.
-- [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] A C++ mapper class for mapper 5 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
+- [x] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 5 with a clear mapper name.
+- [x] Python `NESEnv` validation accepts mapper 5 through `_native.is_mapper_supported` only after the mapper implementation is wired.
+- [x] The mapper implements MMC5 PRG modes, CHR modes, WRAM protect/banking, ExRAM, nametable/fill mapping, scanline IRQ/status, multiplier behavior, and the representative-title variant behavior; vertical split and audio are either implemented or explicitly documented as unsupported secondary features.
+- [x] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
+- [x] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc5]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
+- [x] The test module explains how to provide the representative ROM legally and never fetches it from the network.
+- [x] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
+- [x] Existing mapper tests still pass after this spec lands.
+- [x] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -108,4 +110,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-005-mmc5.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
