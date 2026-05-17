@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper 1 MMC1 SxROM Test Coverage
 
+## Status: COMPLETE
+
 ## Problem
 
 Mapper 1 (MMC1 / SxROM) is already implemented in `nes-py`, and recent mapper characterization work now covers its synthetic ROM behavior. This spec now tracks any remaining representative-fixture alignment for `The Legend of Zelda (USA)` without duplicating the mapper-focused synthetic coverage already added by the archived mapper cleanup specs. The local fixture target is `nes_py/tests/games/the-legend-of-zelda.nes`.
@@ -43,17 +45,17 @@ Each mapper must still have a Python application-layer test keyed to the represe
 
 ## Acceptance Criteria
 
-- [ ] Native C++ tests preserve mapper 1 characterization coverage without reimplementing native internals through Python private hooks.
-- [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Representative fixture header coverage is kept or explicitly referenced from the mapper tests or completion log.
-- [ ] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is added or explicitly referenced from an existing test.
-- [ ] Native C++ mapper 1 backup/restore coverage proves bank registers, CHR RAM, mirroring, and PRG RAM protect state survive emulator save-state operations.
-- [ ] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using Catch2 test-runner coverage and native benchmarks where timing or hot-path behavior matters.
-- [ ] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
-- [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
-- [ ] Existing mapper tests still pass after this spec lands.
-- [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] Native C++ tests preserve mapper 1 characterization coverage without reimplementing native internals through Python private hooks.
+- [x] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
+- [x] Representative fixture header coverage is kept or explicitly referenced from the mapper tests or completion log.
+- [x] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is added or explicitly referenced from an existing test.
+- [x] Native C++ mapper 1 backup/restore coverage proves bank registers, CHR RAM, mirroring, and PRG RAM protect state survive emulator save-state operations.
+- [x] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using Catch2 test-runner coverage and native benchmarks where timing or hot-path behavior matters.
+- [x] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
+- [x] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
+- [x] Existing mapper tests still pass after this spec lands.
+- [x] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -76,6 +78,12 @@ Run native benchmarks as well when the mapper changes timing hooks, hot-path dis
 
 Native C++ tests must run even when the representative commercial fixture is absent. If the fixture is absent, the Python representative-title application test must skip only that integration case and the completion log must document the skipped ROM-backed coverage. If a legal local fixture is present, the Python application-layer mapper test must run and pass.
 
+## Completion Notes
+
+- Added native `Emulator::backup()` / `restore()` coverage for mapper 1 bank registers, CHR RAM, mirroring, PRG RAM contents, and PRG RAM protect state.
+- Added a representative-title mapper 1 Python application test for `nes_py/tests/games/the-legend-of-zelda.nes`; the local fixture was present during verification, so the ROM-backed integration test ran instead of skipping.
+- Existing `nes_py.tests.test_rom.ShouldReadLegendOfZelda` header coverage was preserved and re-run.
+
 ## Completion Signal
 
 When all acceptance criteria are met:
@@ -86,4 +94,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-001-mmc1-sxrom.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
