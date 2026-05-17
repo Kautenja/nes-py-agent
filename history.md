@@ -13,3 +13,13 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py mapper bank helpers and current mapper cleanup with shared PRG/CHR windows, CHR RAM ownership, MMC1 fixes, safe bank masking, and benchmark documentation.
 2026-05-17: Completed nes-py pyproject build modernization with canonical PEP 621 metadata, deterministic native source discovery, packaged C++ sources/headers, and verified install/build workflows.
 2026-05-17: Completed nes-py Cython binding migration with direct Emulator ownership, no-copy native buffers, GIL-released frame stepping, ctypes loader removal, and verified package builds.
+2026-05-17: Completed nes-py native hot-path benchmark pass with main-bus direct device dispatch, fixed RAM storage, portable mapper hook profiling, and before/after benchmark documentation.
+2026-05-17: Completed nes-py CPU, bus dispatch, and frame timing optimization with portable CPU flags, opcode-family dispatch, native CPU/main-bus characterization, and hot-path benchmark profiling.
+2026-05-17: Completed nes-py PPU addressing and render pipeline optimization with normalized picture-bus mirroring, fixed-size PPU storage, corrected PPUDATA buffering, mapper-safe tile-row caching, and native smoke coverage.
+2026-05-17: Completed gym-super-mario-bros pyproject distribution modernization with canonical PEP 621 metadata, preserved ROM package data, console script metadata, and verified install/build workflows.
+2026-05-17: Completed gym-zelda-1 pyproject distribution modernization with canonical PEP 621 metadata, preserved ROM package data, console script metadata, and verified install/build workflows.
+2026-05-17: Completed gym-tetris pyproject distribution modernization with canonical PEP 621 metadata, preserved ROM package data, console script metadata, and verified install/build workflows.
+2026-05-17: Completed nes-py native emulator root layout migration with the C++ tree moved to nes_emu, scoped includes, updated CMake/Cython packaging, and verified install/build workflows.
+2026-05-17: Completed nes-py mapper test package refactor with per-mapper modules, shared mapper helpers, separated registry/lifecycle smoke coverage, and deterministic unittest discovery.
+2026-05-17: Completed nes-py native test and benchmark API separation with opt-in Catch2 targets, Cython smoke/benchmark wrapper removal, public Python benchmark cleanup, and verified native/package builds.
+2026-05-17: Completed nes-py Python application test coverage review with public ROM/env/speedtest coverage, native cartridge Catch2 coverage, and private native-helper cleanup.
