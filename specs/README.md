@@ -19,6 +19,19 @@ Each spec should include concrete acceptance criteria and verification commands.
 ## Status: COMPLETE
 ```
 
+## Active Mapper Queue
+
+The current active root queue promotes the popular unsupported NES mappers
+identified from the mapper backlog, excluding mapper 24 / VRC6:
+
+| Prefix | Mapper | Anchor title |
+| --- | --- | --- |
+| `034` | MMC3 | `Super Mario Bros. 3 (USA)` |
+| `035` | AxROM / AOROM | `Battletoads (USA)` |
+| `036` | MMC5 | `Castlevania III - Dracula's Curse (USA)` |
+| `037` | MMC2 | `Mike Tyson's Punch-Out!! (USA)` |
+| `038` | Sunsoft FME-7 / Sunsoft 5B | `Batman - Return of the Joker (USA)` |
+
 ## Parallel Mapper Specs
 
 Specs `031`, `032`, and `033` are intentionally scoped so they can run in

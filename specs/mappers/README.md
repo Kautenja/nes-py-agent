@@ -94,10 +94,21 @@ backup/restore behavior if that remains part of the package workflow.
 
 ## Priority Ordering
 
-The numeric filename prefixes in this directory are the mapper work queue. This
-backlog is numbered after the root-level specs through `029`, so individual
-mapper specs are ready to promote or target without colliding with the active
-root queue. Current ordering policy:
+This directory is the mapper planning backlog. Root-level files under `specs/`
+are the active Ralph queue, so individual mapper specs may be promoted out of
+this directory and renumbered when they become active work.
+
+Currently promoted to the root queue:
+
+- `specs/034-nes-py-mapper-004-mmc3-implementation.md`
+- `specs/035-nes-py-mapper-007-axrom-implementation.md`
+- `specs/036-nes-py-mapper-005-mmc5-implementation.md`
+- `specs/037-nes-py-mapper-009-mmc2-implementation.md`
+- `specs/038-nes-py-mapper-069-sunsoft-fme7-implementation.md`
+
+Mapper 24 / VRC6 remains in this planning backlog. The historical backlog table
+below preserves the mapper ordering policy used when the per-mapper specs were
+generated:
 
 - Specs for mappers already present in the native core come first. These protect
   the compatibility baseline before new mapper work broadens the surface.
