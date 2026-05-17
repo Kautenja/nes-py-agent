@@ -18,3 +18,17 @@ Each spec should include concrete acceptance criteria and verification commands.
 ```markdown
 ## Status: COMPLETE
 ```
+
+## Parallel Mapper Specs
+
+Specs `031`, `032`, and `033` are intentionally scoped so they can run in
+parallel when each run keeps to its mapper-specific files:
+
+- `031` owns UxROM coverage in `nes-py/nes_emu/test/nes_emu/mappers/test_mapper_UxROM.cpp` and `nes-py/nes_py/tests/mappers/test_mapper_002_uxrom.py`.
+- `032` owns NROM coverage in `nes-py/nes_emu/test/nes_emu/mappers/test_mapper_NROM.cpp` and `nes-py/nes_py/tests/mappers/test_mapper_000_nrom.py`.
+- `033` owns CNROM coverage in `nes-py/nes_emu/test/nes_emu/mappers/test_mapper_CNROM.cpp` and `nes-py/nes_py/tests/mappers/test_mapper_003_cnrom.py`.
+
+Shared native support helpers, mapper factory/registry wiring, build files,
+history, completion logs, and the umbrella submodule pointer are coordination
+points. Merge and push those sequentially after the mapper-specific submodule
+work is complete.

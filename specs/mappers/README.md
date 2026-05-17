@@ -40,6 +40,16 @@ queue was first generated:
 
 - Mappers 0-3 already have synthetic characterization coverage that must be
   preserved through the post-refactor native test layout.
+- Native mapper characterization is split by mapper under
+  `nes_emu/test/nes_emu/mappers/`. Mapper-specific test additions should go in
+  one dedicated file named like `test_mapper_MMC3.cpp` or
+  `test_mapper_AxROM.cpp`, with mapper-specific Catch2 tags such as
+  `[mapper][mmc3]`. Do not recreate or grow a consolidated
+  `test_current_mappers.cpp`-style file.
+- Shared mapper test helpers belong under `nes_emu/test/nes_emu/support/` only
+  when they are genuinely reusable across mapper specs. Parallel mapper work
+  should treat support helpers, CMake/build wiring, and mapper factory/registry
+  edits as coordination points.
 - Mapper lifetime, backup/restore cloning, IRQ callbacks, CPU/PPU hooks,
   expansion-area routing, PRG RAM hooks, nametable delegation, bus-conflict
   helpers, and shared PRG/CHR bank helpers now exist in the native core.
@@ -57,12 +67,22 @@ queue was first generated:
 ## Post-023 Test Layering
 
 Mapper work in this backlog is expected to run after the mapper test package
-and native test separation specs. C++ mapper correctness, native-internal edge
-cases, synthetic ROM characterization, IRQ timing, backup/restore internals,
-and performance-sensitive hook behavior belong in native C++ test runners or
-benchmarks under `nes_emu/test/nes_emu/*` and
-`nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests
-whose purpose is to characterize C++ internals.
+native test separation specs, and the native per-mapper test split. C++ mapper
+correctness, native-internal edge cases, synthetic ROM characterization, IRQ
+timing, backup/restore internals, and performance-sensitive hook behavior
+belong in native C++ test runners or benchmarks. Mapper-specific coverage
+belongs under `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp`; shared
+mapper API harnesses stay under `nes_emu/test/nes_emu/*`; benchmark coverage
+stays under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or
+Python tests whose purpose is to characterize C++ internals.
+
+For focused verification, run the mapper-specific Catch2 tag first, then run
+the full native suite. Example:
+
+```sh
+./build/nes-emu-debug/nes_emu_tests "[mapper][mmc3]"
+ctest --test-dir build/nes-emu-debug -C Debug --output-on-failure
+```
 
 Every mapper still needs a Python application-layer test based on the
 representative title named in its spec. The test should use the listed expected

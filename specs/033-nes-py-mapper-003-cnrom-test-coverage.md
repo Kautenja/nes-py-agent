@@ -8,9 +8,11 @@ Mapper 3 (CNROM) is already implemented in `nes-py`, and recent mapper character
 
 Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/13 lists the representative title, but do not download commercial ROMs from that site. Use a legally owned dump or a redistributable test ROM. Do not commit new commercial ROM assets. The Emuparadise link below is a catalog/title-page reference only; do not add direct download URLs, downloader scripts, or ROM acquisition steps to this spec or tests. If the representative title is already present in the repository, use that fixture. Otherwise, write tests so they use a legally supplied local ROM at `nes_py/tests/games/adventure-island.nes` and skip only the commercial-ROM integration portion with a clear message when the file is absent. Any redistributable public-domain or homebrew mapper test ROM may be committed only if its license is included and permits redistribution.
 
-## Post-023 Test Layering
+## Native Test Layout
 
-Mapper work in this backlog runs after the mapper test package and native test separation specs. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage under `nes_emu/test/nes_emu/*` and `nes_emu/benchmark/nes_emu/*`, not as Python private-hook tests.
+Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage, not as Python private-hook tests.
+
+Mapper 3 native tests belong in `nes_emu/test/nes_emu/mappers/test_mapper_CNROM.cpp` and should use the `[mapper][cnrom]` Catch2 tags. Mapper 3 Python application tests belong in `nes_py/tests/mappers/test_mapper_003_cnrom.py`. Shared native helpers belong in `nes_emu/test/nes_emu/support/mapper_test_helpers.hpp` only when the helper is truly reusable by more than one mapper.
 
 Each mapper must still have a Python application-layer test keyed to the representative title and expected local fixture path listed below. That test should be written so a legal ROM can be placed at the fixture path later; when the ROM is absent, skip only that representative-title integration check with a clear message. The Python test should exercise public package behavior such as ROM/header metadata, `NESEnv` construction, reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if that remains part of the package workflow.
 
@@ -18,6 +20,7 @@ Each mapper must still have a Python application-layer test keyed to the represe
 ## Scope
 
 - Work inside the `nes-py` submodule unless an umbrella gitlink update is required after committing the submodule.
+- Parallel execution note: this spec should be safe to run alongside specs 031 and 032 because it owns CNROM-specific test and mapper files. Avoid editing UxROM or NROM files unless diagnosing a cross-mapper regression.
 - Do not change mapper behavior except to fix a real regression exposed by focused tests.
 - Preserve the behavior covered by the existing `ShouldCharacterizeMapper003CNROM` coverage, but move any native-internal assertions to C++ tests instead of relying on Python private hooks. Keep Python coverage focused on the representative-title application-layer workflow.
 - Preserve existing behavior for all already-supported mappers.
@@ -27,6 +30,7 @@ Each mapper must still have a Python application-layer test keyed to the represe
 
 - Existing `ShouldCharacterizeMapper003CNROM` coverage inventory covers fixed PRG mapping, switchable 8 KiB CHR ROM banking, screen validity/stability across CHR bank changes, and safe CHR bank masking.
 - Existing `ShouldIdentifySupportedMapperFixtures` coverage inventory covers mapper 3 native metadata through synthetic fixtures.
+- Native mapper 3 characterization now lives in `nes_emu/test/nes_emu/mappers/test_mapper_CNROM.cpp`, separate from the NROM, SxROM, and UxROM native test files.
 - Explicit mapper 3 backup/restore coverage for the selected CHR bank is still needed.
 
 ## Mapper Details
@@ -43,12 +47,13 @@ Each mapper must still have a Python application-layer test keyed to the represe
 
 ## Acceptance Criteria
 
-- [ ] Native C++ tests preserve mapper 3 characterization coverage without reimplementing native internals through Python private hooks.
+- [ ] Native C++ tests preserve mapper 3 characterization coverage in `nes_emu/test/nes_emu/mappers/test_mapper_CNROM.cpp` without reimplementing native internals through Python private hooks.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
 - [ ] Representative fixture header coverage is added when a legal fixture is available, or the mapper-level synthetic coverage remains runnable without the commercial ROM.
 - [ ] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is added when a legal fixture is available.
 - [ ] Native C++ mapper 3 backup/restore coverage proves the selected CHR bank survives emulator save-state operations.
-- [ ] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using Catch2 test-runner coverage and native benchmarks where timing or hot-path behavior matters.
+- [ ] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using the dedicated `[mapper][cnrom]` Catch2 coverage and native benchmarks where timing or hot-path behavior matters.
+- [ ] The spec implementation does not grow a consolidated mapper test or benchmark file; mapper 3 changes stay in CNROM-specific files unless a cross-mapper helper is justified.
 - [ ] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.
@@ -67,7 +72,9 @@ cmake -S . -B build/nes-emu-debug \
   -DNES_EMU_BUILD_TESTS=ON \
   -DNES_EMU_BUILD_BENCHMARKS=OFF
 cmake --build build/nes-emu-debug --config Debug --target nes_emu_tests
+./build/nes-emu-debug/nes_emu_tests "[mapper][cnrom]"
 ctest --test-dir build/nes-emu-debug -C Debug --output-on-failure
+python -m unittest nes_py.tests.mappers.test_mapper_003_cnrom
 python -m unittest discover nes_py/tests/mappers
 ```
 
