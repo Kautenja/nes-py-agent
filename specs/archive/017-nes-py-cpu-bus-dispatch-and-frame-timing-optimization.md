@@ -1,5 +1,7 @@
 # Specification: nes-py CPU, Bus Dispatch, and Frame Timing Optimization
 
+## Status: COMPLETE
+
 ## Problem
 
 The native CPU and main-bus path has several obvious sources of overhead and portability risk now that mapper timing hooks have landed. `Emulator::step` runs a fixed `CYCLES_PER_FRAME` loop and calls `cpu.cycle` once per CPU cycle. Most of those calls only decrement `skip_cycles`, while actual opcode execution re-decodes each opcode by trying several helper families. Main-bus I/O register reads and writes go through `unordered_map` lookups and `std::function` callbacks even though the register set is fixed. CPU flags are stored in a bitfield union over a byte, which is implementation-defined and harder to reason about across compilers.
@@ -32,18 +34,18 @@ This spec targets the CPU/bus/frame-time hot path as its own measured refactor.
 
 ## Acceptance Criteria
 
-- [ ] CPU characterization tests cover reset vectors, stack pushes/pops, representative addressing modes, branch page crossing, interrupt entry, DMA cycle skipping, and flag behavior.
-- [ ] Main-bus tests cover RAM mirroring, PPU register mirroring, controller reads, OAM DMA page access, expansion-area delegation or default behavior, PRG RAM access, and mapper PRG reads/writes.
-- [ ] A benchmark profile isolates CPU dispatch cost, main-bus I/O dispatch cost, mapper-hook overhead for hooked versus unhooked mapper paths, and normal `NESEnv.step` throughput.
-- [ ] Fixed I/O register dispatch no longer uses `unordered_map` and `std::function` in the hot path unless benchmarks prove the old approach is competitive.
-- [ ] Any replacement for `CPU::cycle` preserves CPU/PPU ordering, DMA stall behavior, NMI delivery, IRQ delivery, and current mapper per-cycle hooks.
-- [ ] If an instruction-level CPU API is introduced, it returns consumed cycles and has tests for instructions with base cycles plus page-crossing cycles.
-- [ ] `Emulator::step` either remains cycle-count based with documented timing tests or advances until a PPU frame-complete signal with tests for even/odd frame behavior, mapper CPU-cycle hooks, and mirroring synchronization.
-- [ ] CPU flags no longer rely on implementation-defined bitfield layout, or the completion log documents why replacing them was deferred.
-- [ ] Current ROM, mapper, environment, backup/restore, and speedtest tests pass.
-- [ ] Before/after benchmark output is included in the completion log, and any regression is investigated or explicitly accepted for a correctness reason.
-- [ ] No generated profiling dumps, build artifacts, wheels, caches, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] CPU characterization tests cover reset vectors, stack pushes/pops, representative addressing modes, branch page crossing, interrupt entry, DMA cycle skipping, and flag behavior.
+- [x] Main-bus tests cover RAM mirroring, PPU register mirroring, controller reads, OAM DMA page access, expansion-area delegation or default behavior, PRG RAM access, and mapper PRG reads/writes.
+- [x] A benchmark profile isolates CPU dispatch cost, main-bus I/O dispatch cost, mapper-hook overhead for hooked versus unhooked mapper paths, and normal `NESEnv.step` throughput.
+- [x] Fixed I/O register dispatch no longer uses `unordered_map` and `std::function` in the hot path unless benchmarks prove the old approach is competitive.
+- [x] Any replacement for `CPU::cycle` preserves CPU/PPU ordering, DMA stall behavior, NMI delivery, IRQ delivery, and current mapper per-cycle hooks.
+- [x] If an instruction-level CPU API is introduced, it returns consumed cycles and has tests for instructions with base cycles plus page-crossing cycles.
+- [x] `Emulator::step` either remains cycle-count based with documented timing tests or advances until a PPU frame-complete signal with tests for even/odd frame behavior, mapper CPU-cycle hooks, and mirroring synchronization.
+- [x] CPU flags no longer rely on implementation-defined bitfield layout, or the completion log documents why replacing them was deferred.
+- [x] Current ROM, mapper, environment, backup/restore, and speedtest tests pass.
+- [x] Before/after benchmark output is included in the completion log, and any regression is investigated or explicitly accepted for a correctness reason.
+- [x] No generated profiling dumps, build artifacts, wheels, caches, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -61,6 +63,10 @@ python -m nes_py.speedtest --rom nes_py/tests/games/super-mario-bros-1.nes --ste
 
 If native C++ tests are added for CPU and bus internals, run the documented native test command for the active build system.
 
+## Completion Log
+
+Completed in `nes-py` commit `42597816802f33baf9c1a4320634470f9e962859` by replacing implementation-defined CPU flag bitfields with portable status-byte masks, adding an opcode-family dispatch table for `CPU::cycle`, and adding native CPU/main-bus characterization plus a packaged native hot-path benchmark profile. `Emulator::step` remains cycle-count based; the new characterization covers DMA stalls, IRQ entry, mapper CPU-cycle hooks, and the existing environment and backup/restore tests cover frame stepping and state round-trips. No instruction-level CPU API was introduced.
+
 ## Completion Signal
 
 When all acceptance criteria are met:
@@ -71,4 +77,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-cpu-bus-dispatch-and-frame-timing-optimization.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
