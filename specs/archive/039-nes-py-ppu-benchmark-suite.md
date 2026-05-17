@@ -45,19 +45,21 @@ trustworthy baseline, not a favorable number.
 
 ## Acceptance Criteria
 
-- [ ] A native benchmark suite builds through the existing CMake benchmark
+- [x] A native benchmark suite builds through the existing CMake benchmark
   target or a clearly documented equivalent target.
-- [ ] The suite includes render-off, background-only, sprite-heavy, mapper
+- [x] The suite includes render-off, background-only, sprite-heavy, mapper
   direct-read / CHR read stress, and full-frame ROM profiles.
-- [ ] The profiles are deterministic enough for before/after comparison on one
+- [x] The profiles are deterministic enough for before/after comparison on one
   machine.
-- [ ] The benchmark output includes enough labels to identify mapper, ROM or
+- [x] The benchmark output includes enough labels to identify mapper, ROM or
   synthetic scenario, render mode, and measured throughput or elapsed time.
-- [ ] Baseline results are recorded in a developer note under `nes-py/docs/`.
-- [ ] The note includes current public `nes_py.speedtest` numbers for at least
+- [x] Baseline results are recorded in a developer note under `nes-py/docs/`.
+- [x] The note includes current public `nes_py.speedtest` numbers for at least
   Mario and Zelda for comparison with the native profiles.
-- [ ] No generated benchmark output, build tree, cache, wheel, virtualenv, or
+- [x] No generated benchmark output, build tree, cache, wheel, virtualenv, or
   profiling dump is committed.
+
+## Status: COMPLETE
 
 ## Verification
 
@@ -84,4 +86,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
