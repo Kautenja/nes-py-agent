@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper 9 MMC2 Mapper Implementation
 
+## Status: COMPLETE
+
 ## Problem
 
 Mapper 9 (MMC2) appears in the NES mapper catalog but is not implemented in `nes-py`. ROMs using mapper 9 are rejected before the emulator can initialize, blocking a known slice of the NES library. The representative title for this spec is `Mike Tyson's Punch-Out!! (USA)`, selected from the NES catalog and cross-checked against the repository mapper list. The local fixture target is `nes_py/tests/games/mike-tysons-punch-out.nes`.
@@ -105,4 +107,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-009-mmc2.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

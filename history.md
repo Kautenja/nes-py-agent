@@ -34,3 +34,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py mapper 007 AxROM implementation with 32 KiB PRG banking, CHR RAM, one-screen mirroring, NES 2.0 bus-conflict coverage, and Battletoads application workflow tests.
 2026-05-17: Completed nes-py mapper 004 MMC3 implementation with 8 KiB PRG banking, 1/2 KiB CHR banking, mirroring, PRG RAM protection, filtered A12 IRQs, and SMB3 public fixture coverage.
 2026-05-17: Completed nes-py mapper 005 MMC5 first-pass implementation with PRG/CHR banking, ExRAM/nametable/fill mapping, IRQ/multiplier support, and Castlevania III public smoke coverage.
+2026-05-17: Completed nes-py mapper 009 MMC2 support with PRG banking, PPU-read CHR latches, mirroring, native save-state coverage, and Punch-Out application smoke coverage.
