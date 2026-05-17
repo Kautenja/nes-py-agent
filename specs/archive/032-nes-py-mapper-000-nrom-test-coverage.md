@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper 0 NROM Test Coverage
 
+## Status: COMPLETE
+
 ## Problem
 
 Mapper 0 (NROM) is already implemented in `nes-py`, and recent mapper characterization work now covers its synthetic ROM behavior. This spec now tracks any remaining representative-fixture alignment for `Super Mario Bros. (USA)` without duplicating the mapper-focused synthetic coverage already added by the archived mapper cleanup specs. The local fixture target is `nes_py/tests/games/super-mario-bros-1.nes`.
@@ -48,18 +50,18 @@ Each mapper must still have a Python application-layer test keyed to the represe
 
 ## Acceptance Criteria
 
-- [ ] Native C++ tests preserve mapper 0 characterization coverage in `nes_emu/test/nes_emu/mappers/test_mapper_NROM.cpp` without reimplementing native internals through Python private hooks.
-- [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Representative fixture header coverage is kept or explicitly referenced from the mapper tests or completion log.
-- [ ] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is kept or explicitly referenced from the mapper tests or completion log.
-- [ ] Native C++ mapper 0 backup/restore coverage proves mapper-owned PRG RAM survives emulator save-state operations.
-- [ ] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using the dedicated `[mapper][nrom]` Catch2 coverage and native benchmarks where timing or hot-path behavior matters.
-- [ ] The spec implementation does not grow a consolidated mapper test or benchmark file; mapper 0 changes stay in NROM-specific files unless a cross-mapper helper is justified.
-- [ ] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
-- [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
-- [ ] Existing mapper tests still pass after this spec lands.
-- [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] Native C++ tests preserve mapper 0 characterization coverage in `nes_emu/test/nes_emu/mappers/test_mapper_NROM.cpp` without reimplementing native internals through Python private hooks.
+- [x] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
+- [x] Representative fixture header coverage is kept or explicitly referenced from the mapper tests or completion log.
+- [x] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is kept or explicitly referenced from the mapper tests or completion log.
+- [x] Native C++ mapper 0 backup/restore coverage proves mapper-owned PRG RAM survives emulator save-state operations.
+- [x] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using the dedicated `[mapper][nrom]` Catch2 coverage and native benchmarks where timing or hot-path behavior matters.
+- [x] The spec implementation does not grow a consolidated mapper test or benchmark file; mapper 0 changes stay in NROM-specific files unless a cross-mapper helper is justified.
+- [x] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
+- [x] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
+- [x] Existing mapper tests still pass after this spec lands.
+- [x] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -85,6 +87,14 @@ Run native benchmarks as well when the mapper changes timing hooks, hot-path dis
 
 Native C++ tests must run even when the representative commercial fixture is absent. If the fixture is absent, the Python representative-title application test must skip only that integration case and the completion log must document the skipped ROM-backed coverage. If a legal local fixture is present, the Python application-layer mapper test must run and pass.
 
+## Completion Notes
+
+- Added native `Emulator::backup()` / `restore()` coverage proving mapper 0 PRG RAM contents survive save-state restore.
+- Added a representative-title mapper 0 Python application test for `nes_py/tests/games/super-mario-bros-1.nes`; the local fixture was present during verification, so the ROM-backed integration test ran instead of skipping.
+- Existing `nes_py.tests.test_rom.ShouldReadSuperMarioBros` and `nes_py.tests.test_nes_env` coverage was preserved and re-run.
+- Shared mapper Python helpers now centralize RGB frame, deterministic step, and backup/restore replay assertions for the representative mapper application tests.
+- No mapper behavior or timing-sensitive hook changes were made, so native benchmarks were not required.
+
 ## Completion Signal
 
 When all acceptance criteria are met:
@@ -95,4 +105,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-000-nrom.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

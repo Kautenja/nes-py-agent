@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper 3 CNROM Test Coverage
 
+## Status: COMPLETE
+
 ## Problem
 
 Mapper 3 (CNROM) is already implemented in `nes-py`, and recent mapper characterization work now covers its core synthetic ROM behavior. This spec now tracks the remaining mapper 3 coverage gaps, especially representative-fixture alignment for `Adventure Island (USA)` and explicit save-state coverage for switchable CHR bank state. The local fixture target is `nes_py/tests/games/adventure-island.nes`.
@@ -47,18 +49,18 @@ Each mapper must still have a Python application-layer test keyed to the represe
 
 ## Acceptance Criteria
 
-- [ ] Native C++ tests preserve mapper 3 characterization coverage in `nes_emu/test/nes_emu/mappers/test_mapper_CNROM.cpp` without reimplementing native internals through Python private hooks.
-- [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Representative fixture header coverage is added when a legal fixture is available, or the mapper-level synthetic coverage remains runnable without the commercial ROM.
-- [ ] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is added when a legal fixture is available.
-- [ ] Native C++ mapper 3 backup/restore coverage proves the selected CHR bank survives emulator save-state operations.
-- [ ] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using the dedicated `[mapper][cnrom]` Catch2 coverage and native benchmarks where timing or hot-path behavior matters.
-- [ ] The spec implementation does not grow a consolidated mapper test or benchmark file; mapper 3 changes stay in CNROM-specific files unless a cross-mapper helper is justified.
-- [ ] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
-- [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
-- [ ] Existing mapper tests still pass after this spec lands.
-- [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] Native C++ tests preserve mapper 3 characterization coverage in `nes_emu/test/nes_emu/mappers/test_mapper_CNROM.cpp` without reimplementing native internals through Python private hooks.
+- [x] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
+- [x] Representative fixture header coverage is added when a legal fixture is available, or the mapper-level synthetic coverage remains runnable without the commercial ROM.
+- [x] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is added when a legal fixture is available.
+- [x] Native C++ mapper 3 backup/restore coverage proves the selected CHR bank survives emulator save-state operations.
+- [x] Native C++ tests cover the mapper-specific behavior listed in this spec's focus section, using the dedicated `[mapper][cnrom]` Catch2 coverage and native benchmarks where timing or hot-path behavior matters.
+- [x] The spec implementation does not grow a consolidated mapper test or benchmark file; mapper 3 changes stay in CNROM-specific files unless a cross-mapper helper is justified.
+- [x] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
+- [x] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
+- [x] Existing mapper tests still pass after this spec lands.
+- [x] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -82,6 +84,13 @@ Run native benchmarks as well when the mapper changes timing hooks, hot-path dis
 
 Native C++ tests must run even when the representative commercial fixture is absent. If the fixture is absent, the Python representative-title application test must skip only that integration case and the completion log must document the skipped ROM-backed coverage. If a legal local fixture is present, the Python application-layer mapper test must run and pass.
 
+## Completion Notes
+
+- Added native `Emulator::backup()` / `restore()` coverage proving mapper 3 selected CHR bank state survives save-state restore.
+- Added a representative-title mapper 3 Python application test for `nes_py/tests/games/adventure-island.nes`; the local fixture was present during verification, so the ROM-backed integration test ran instead of skipping.
+- Shared mapper Python helpers now centralize RGB frame, deterministic step, and backup/restore replay assertions for the representative mapper application tests.
+- No mapper behavior or timing-sensitive hook changes were made, so native benchmarks were not required.
+
 ## Completion Signal
 
 When all acceptance criteria are met:
@@ -92,4 +101,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-003-cnrom.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
