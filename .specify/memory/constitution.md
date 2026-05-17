@@ -48,6 +48,7 @@ When not in Ralph Loop Mode, collaborate normally: answer questions, refine spec
 
 - Python packages using setuptools.
 - `nes-py` includes a native C++ NES emulator extension.
+- Any C++-level tests for native emulator code must use Catch2.
 - Game wrappers depend on `nes-py` and expose OpenAI Gym environments.
 - The umbrella repo uses Git submodules pinned to the active development branch of each child project.
 - Ralph Wiggum scripts live in `scripts/`; generated runtime logs live in `logs/`.

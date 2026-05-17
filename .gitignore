@@ -30,6 +30,9 @@ pip-wheel-metadata/
 *.a
 .sconsign.dblite
 
+# Local ROM fixtures supplied for mapper testing. Existing tracked fixtures stay tracked.
+nes-py/nes_py/tests/games/*.nes
+
 # Ralph Wiggum generated runtime files
 logs/
 PROMPT_build.md
