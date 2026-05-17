@@ -33,15 +33,42 @@ Each mapper must still have a Python application-layer test keyed to the represe
 - Representative test title: `Super Mario Bros. 3 (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Super_Mario_Bros._3_%28USA%29/57092
 - Expected local fixture: `nes_py/tests/games/super-mario-bros-3.nes`
-- Technical reference: https://www.nesdev.org/wiki/Mapper
+- Technical reference: https://www.nesdev.org/wiki/MMC3
 - Focus: 8 KiB PRG banking, 1 KiB/2 KiB CHR banking, mirroring control, PRG RAM protect bits where relevant, scanline IRQ counter.
+
+## Research Findings (2026-05-17)
+
+Hardware and emulator references consulted:
+
+- NESdev MMC3 hardware reference: https://www.nesdev.org/wiki/MMC3
+- NESdev NES 2.0 submapper reference for MMC3/MMC6 board variants: https://www.nesdev.org/wiki/NES_2.0_submappers
+- Mesen2 MMC3 implementation: https://github.com/SourMesen/Mesen2/blob/fabc9a62174f8734a113df6d244f5539ef6b8fcf/Core/NES/Mappers/Nintendo/MMC3.h
+- FCEUX MMC3 implementation: https://github.com/TASEmulators/fceux/blob/1e1168db6662ce86848460b5d078e17c6dc6e2ce/src/boards/mmc3.cpp
+
+Required behavior:
+
+- Decode CPU writes by `$8000-$9FFF`, `$A000-$BFFF`, `$C000-$DFFF`, and `$E000-$FFFF`, with even/odd register selection from address bit 0.
+- Implement the eight MMC3 bank registers: R0/R1 select 2 KiB CHR banks and must ignore bit 0; R2-R5 select 1 KiB CHR banks; R6/R7 select the switchable 8 KiB PRG banks.
+- Implement PRG mode 0 and 1 exactly: one switchable bank at `$8000` or `$C000`, one switchable bank at `$A000`, one fixed second-last bank, and one fixed last bank.
+- Implement CHR inversion mode so the two 2 KiB banks and four 1 KiB banks swap between `$0000-$0FFF` and `$1000-$1FFF`.
+- Implement `$A000` mirroring control, but leave four-screen cartridges under cartridge-controlled mirroring.
+- Implement `$A001` PRG RAM enable/write-protect behavior and use the cartridge PRG RAM metadata already parsed from iNES/NES 2.0 headers.
+- Implement the MMC3 IRQ latch/reload/enable/disable registers and clock the counter from PPU A12 rising edges, with the required low-period filter rather than one tick per PPU access.
+- Preserve mapper state in backup/restore, including bank select, bank registers, mirroring, PRG RAM protect state, IRQ latch/counter/reload/enable state, and the PPU A12 filter state needed for deterministic restore.
+
+Implementation notes:
+
+- Use existing bank-window helpers for O(1) PRG/CHR reads after register writes; avoid computing bank topology on every memory access.
+- Enable PPU address observation only because MMC3 needs A12 edge detection. Do not use a broad per-scanline polling path when `onPPUAddress()` can derive the hardware edge directly.
+- Only enable the CPU-cycle hook if the final IRQ implementation truly needs it; the researched MMC3 IRQ source is PPU A12, not CPU-cycle countdown.
+- Add native tests for both common MMC3A/MMC3B-style IRQ reload behavior if the implementation exposes a variant distinction; otherwise document the chosen compatible behavior and cover it with synthetic ROM/register tests.
 
 ## Acceptance Criteria
 
 - [ ] A C++ mapper class for mapper 4 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
 - [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 4 with a clear mapper name.
 - [ ] Python `NESEnv` validation accepts mapper 4 through `_native.is_mapper_supported` only after the mapper implementation is wired.
-- [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
+- [ ] The mapper implements MMC3 PRG/CHR bank modes, mirroring, PRG RAM enable/protect behavior, PPU A12 IRQ behavior, and the variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
 - [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
 - [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.

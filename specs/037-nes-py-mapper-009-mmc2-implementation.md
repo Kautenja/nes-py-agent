@@ -10,7 +10,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 ## Post-023 Test Layering
 
-Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
+Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc2]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
 
 Each mapper must still have a Python application-layer test keyed to the representative title and expected local fixture path listed below. That test should be written so a legal ROM can be placed at the fixture path later; when the ROM is absent, skip only that representative-title integration check with a clear message. The Python test should exercise public package behavior such as ROM/header metadata, `NESEnv` construction, reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if that remains part of the package workflow.
 
@@ -33,17 +33,41 @@ Each mapper must still have a Python application-layer test keyed to the represe
 - Representative test title: `Mike Tyson's Punch-Out!! (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Mike_Tyson's_Punch-Out!!_(USA)/56303
 - Expected local fixture: `nes_py/tests/games/mike-tysons-punch-out.nes`
-- Technical reference: https://www.nesdev.org/wiki/Mapper
+- Technical reference: https://www.nesdev.org/wiki/MMC2
 - Focus: CHR latch behavior on PPU reads, PRG banking, mirroring, Punch-Out title-screen/gameplay smoke tests.
+
+## Research Findings (2026-05-17)
+
+Hardware and emulator references consulted:
+
+- NESdev MMC2 hardware reference: https://www.nesdev.org/wiki/MMC2
+- Mesen2 MMC2 implementation: https://github.com/SourMesen/Mesen2/blob/fabc9a62174f8734a113df6d244f5539ef6b8fcf/Core/NES/Mappers/Nintendo/MMC2.h
+
+Required behavior:
+
+- Map one switchable 8 KiB PRG bank at `$8000-$9FFF` and three fixed 8 KiB PRG banks at `$A000-$FFFF`.
+- Implement two independent 4 KiB CHR latch regions: the left latch controls `$0000-$0FFF` and the right latch controls `$1000-$1FFF`.
+- Implement CPU writes `$B000`, `$C000`, `$D000`, and `$E000` as the four CHR bank registers selected by the two latch states; bank values use the low 5 bits.
+- Implement PPU-address-triggered latch transitions at `$0FD8`, `$0FE8`, `$1FD8-$1FDF`, and `$1FE8-$1FEF`. These transitions must happen from PPU pattern-table accesses, not CPU writes.
+- Initialize latches to the FE-selection state used by flagship emulator implementations unless hardware tests prove a different power-on value is required.
+- Implement `$A000` PRG bank select from the low 4 bits and `$F000` mirroring from bit 0.
+- Do not implement IRQ behavior for MMC2; the mapper does not provide an IRQ counter.
+- Preserve PRG bank, CHR bank registers, latch states, mirroring, and CHR RAM/ROM mapping state in backup/restore.
+
+Implementation notes:
+
+- Use the existing PPU address observer for latch transitions and keep CPU-cycle hooks disabled.
+- Recompute the two 4 KiB CHR windows only when a latch or CHR register changes; do not branch through all latch cases on every CHR byte read.
+- Native tests should cover each exact latch address/range, non-latch neighboring addresses, initial latch selection, PRG bank masking, mirroring, and backup/restore from both latch states.
 
 ## Acceptance Criteria
 
 - [ ] A C++ mapper class for mapper 9 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
 - [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 9 with a clear mapper name.
 - [ ] Python `NESEnv` validation accepts mapper 9 through `_native.is_mapper_supported` only after the mapper implementation is wired.
-- [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
+- [ ] The mapper implements MMC2 PRG banking, PPU-address-driven CHR latch behavior, mirroring, and backup/restore behavior needed by the representative title; no IRQ path is added for MMC2.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
+- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc2]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
 - [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.

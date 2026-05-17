@@ -10,7 +10,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 ## Post-023 Test Layering
 
-Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
+Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][fme7]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
 
 Each mapper must still have a Python application-layer test keyed to the representative title and expected local fixture path listed below. That test should be written so a legal ROM can be placed at the fixture path later; when the ROM is absent, skip only that representative-title integration check with a clear message. The Python test should exercise public package behavior such as ROM/header metadata, `NESEnv` construction, reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if that remains part of the package workflow.
 
@@ -33,17 +33,42 @@ Each mapper must still have a Python application-layer test keyed to the represe
 - Representative test title: `Batman - Return of the Joker (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Batman_-_Return_of_the_Joker_(USA)/54874
 - Expected local fixture: `nes_py/tests/games/batman-return-of-the-joker.nes`
-- Technical reference: https://www.nesdev.org/wiki/Mapper
+- Technical reference: https://www.nesdev.org/wiki/Sunsoft_FME-7
 - Focus: command/parameter register model, PRG banking, CHR banking, mirroring, IRQ counter, optional Sunsoft 5B audio documented if not implemented.
+
+## Research Findings (2026-05-17)
+
+Hardware and emulator references consulted:
+
+- NESdev Sunsoft FME-7 hardware reference: https://www.nesdev.org/wiki/Sunsoft_FME-7
+- Mesen2 Sunsoft FME-7 implementation: https://github.com/SourMesen/Mesen2/blob/fabc9a62174f8734a113df6d244f5539ef6b8fcf/Core/NES/Mappers/Sunsoft/SunsoftFme7.h
+- FCEUX Mapper 69 implementation: https://github.com/TASEmulators/fceux/blob/1e1168db6662ce86848460b5d078e17c6dc6e2ce/src/boards/69.cpp
+
+Required behavior:
+
+- Implement the command register at `$8000-$9FFF` and parameter register at `$A000-$BFFF`; command selection uses the low 4 bits.
+- Implement commands 0-7 as eight 1 KiB CHR bank registers.
+- Implement command 8 for `$6000-$7FFF` mapping, including PRG ROM vs PRG RAM selection and RAM enable/write behavior.
+- Implement commands 9-B as the 8 KiB PRG ROM bank registers for `$8000-$9FFF`, `$A000-$BFFF`, and `$C000-$DFFF`; keep the last 8 KiB PRG ROM bank fixed at `$E000-$FFFF`.
+- Implement command C mirroring modes: vertical, horizontal, one-screen lower/screen A, and one-screen upper/screen B.
+- Implement commands D-F for IRQ control and the 16-bit IRQ counter low/high bytes. The IRQ counter is CPU-cycle based and decrements once per CPU cycle while enabled; flagship implementations assert IRQ when the enabled counter wraps.
+- Treat Sunsoft 5B audio as an optional secondary feature: implement it if the audio system can host it cleanly, otherwise document it as unsupported while still preserving the register writes if useful for future compatibility.
+- Preserve command select, PRG/CHR registers, `$6000` RAM/ROM state, mirroring, IRQ control/counter state, PRG RAM contents, and any audio register state in backup/restore.
+
+Implementation notes:
+
+- Enable the mapper CPU-cycle hook for the IRQ counter; no PPU address hook is needed for FME-7 banking.
+- Keep PRG and CHR mapping table-driven after command writes. Reads should only index active 8 KiB PRG or 1 KiB CHR windows.
+- Native tests should cover command/parameter latch behavior, all CHR and PRG windows, `$6000` RAM/ROM switching and RAM disable semantics, all mirroring modes, IRQ countdown/wrap/disable behavior, and backup/restore.
 
 ## Acceptance Criteria
 
 - [ ] A C++ mapper class for mapper 69 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
 - [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 69 with a clear mapper name.
 - [ ] Python `NESEnv` validation accepts mapper 69 through `_native.is_mapper_supported` only after the mapper implementation is wired.
-- [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
+- [ ] The mapper implements FME-7 command/parameter registers, 1 KiB CHR banking, 8 KiB PRG banking, `$6000` RAM/ROM mapping, mirroring modes, CPU-cycle IRQ counter behavior, backup/restore, and any representative-title variant behavior; Sunsoft 5B audio is either implemented or explicitly documented as unsupported.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
+- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][fme7]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
 - [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.

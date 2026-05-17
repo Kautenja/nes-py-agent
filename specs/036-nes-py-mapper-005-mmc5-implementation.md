@@ -10,7 +10,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 ## Post-023 Test Layering
 
-Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
+Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc5]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
 
 Each mapper must still have a Python application-layer test keyed to the representative title and expected local fixture path listed below. That test should be written so a legal ROM can be placed at the fixture path later; when the ROM is absent, skip only that representative-title integration check with a clear message. The Python test should exercise public package behavior such as ROM/header metadata, `NESEnv` construction, reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if that remains part of the package workflow.
 
@@ -33,17 +33,44 @@ Each mapper must still have a Python application-layer test keyed to the represe
 - Representative test title: `Castlevania III - Dracula's Curse (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Castlevania_III_-_Dracula's_Curse_(USA)/55043
 - Expected local fixture: `nes_py/tests/games/castlevania-iii-draculas-curse.nes`
-- Technical reference: https://www.nesdev.org/wiki/Mapper
+- Technical reference: https://www.nesdev.org/wiki/MMC5
 - Focus: PRG banking modes, CHR banking modes, extended attributes, ExRAM, IRQ scanline behavior, multiplication registers, save RAM.
+
+## Research Findings (2026-05-17)
+
+Hardware and emulator references consulted:
+
+- NESdev MMC5 hardware reference: https://www.nesdev.org/wiki/MMC5
+- Mesen2 MMC5 implementation: https://github.com/SourMesen/Mesen2/blob/fabc9a62174f8734a113df6d244f5539ef6b8fcf/Core/NES/Mappers/Nintendo/MMC5.h
+- Mesen2 MMC5 memory-handler implementation: https://github.com/SourMesen/Mesen2/blob/fabc9a62174f8734a113df6d244f5539ef6b8fcf/Core/NES/Mappers/Nintendo/Mmc5MemoryHandler.h
+- FCEUX MMC5 implementation: https://github.com/TASEmulators/fceux/blob/1e1168db6662ce86848460b5d078e17c6dc6e2ce/src/boards/mmc5.cpp
+
+Required behavior:
+
+- Implement PRG mode register `$5100` and PRG bank registers `$5113-$5117`, including 8 KiB, 16 KiB, and 32 KiB PRG arrangements and the correct fixed/switchable windows.
+- Implement CHR mode register `$5101`, CHR bank registers `$5120-$512B`, and upper CHR bank bits from `$5130`. Support separate sprite/background CHR banks well enough for the representative title and native synthetic tests.
+- Implement WRAM protection registers `$5102/$5103`, PRG RAM banking, and battery-backed PRG RAM state according to parsed cartridge metadata.
+- Implement ExRAM mode `$5104` and CPU access at `$5C00-$5FFF`; cover attribute, nametable, ordinary RAM, and read-only behavior as supported by the first implementation.
+- Implement nametable mapping register `$5105` and fill-mode registers `$5106/$5107` by using mapper-owned nametable mapping rather than trying to express MMC5 through the two-bit base mirroring mode alone.
+- Implement scanline IRQ/status registers `$5203/$5204` and multiplier registers `$5205/$5206`.
+- Treat vertical split registers `$5200-$5202` and MMC5 pulse/PCM audio as explicit secondary features: implement them if practical, otherwise document them in code and completion logs as intentionally unsupported while ensuring the representative title does not depend on them for the smoke path.
+- Preserve all mapper registers, selected banks, ExRAM/WRAM contents, IRQ state, multiplier state, nametable/fill state, and any PPU rendering-context state in backup/restore.
+
+Implementation notes:
+
+- MMC5 is materially larger than the other pending specs. Prefer a focused but honest first pass that covers the representative title and synthetic tests over a partial-looking "supported" flag with undocumented gaps.
+- Reuse the existing mapper-owned nametable hooks for `$5105-$5107` and ExRAM-backed nametable behavior.
+- Use PPU address/read/write observation only for the MMC5 rendering-context and scanline IRQ details that need it. Keep hot-path read/write mapping table-driven once registers change.
+- Native tests should be broad enough to pin PRG modes, CHR modes, WRAM protect behavior, ExRAM access modes, nametable/fill mapping, IRQ/status semantics, multiplier behavior, and backup/restore. Add benchmarks if the implementation introduces always-on PPU or CPU hooks.
 
 ## Acceptance Criteria
 
 - [ ] A C++ mapper class for mapper 5 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
 - [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 5 with a clear mapper name.
 - [ ] Python `NESEnv` validation accepts mapper 5 through `_native.is_mapper_supported` only after the mapper implementation is wired.
-- [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
+- [ ] The mapper implements MMC5 PRG modes, CHR modes, WRAM protect/banking, ExRAM, nametable/fill mapping, scanline IRQ/status, multiplier behavior, and the representative-title variant behavior; vertical split and audio are either implemented or explicitly documented as unsupported secondary features.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
+- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc5]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
 - [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.

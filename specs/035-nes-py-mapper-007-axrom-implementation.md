@@ -10,7 +10,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 ## Post-023 Test Layering
 
-Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
+Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][axrom]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
 
 Each mapper must still have a Python application-layer test keyed to the representative title and expected local fixture path listed below. That test should be written so a legal ROM can be placed at the fixture path later; when the ROM is absent, skip only that representative-title integration check with a clear message. The Python test should exercise public package behavior such as ROM/header metadata, `NESEnv` construction, reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if that remains part of the package workflow.
 
@@ -33,17 +33,41 @@ Each mapper must still have a Python application-layer test keyed to the represe
 - Representative test title: `Battletoads (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Battletoads_(USA)/54899
 - Expected local fixture: `nes_py/tests/games/battletoads.nes`
-- Technical reference: https://www.nesdev.org/wiki/Mapper
+- Technical reference: https://www.nesdev.org/wiki/AxROM
 - Focus: 32 KiB PRG bank switching, one-screen lower/upper nametable mirroring, CHR RAM, bus conflicts if applicable.
+
+## Research Findings (2026-05-17)
+
+Hardware and emulator references consulted:
+
+- NESdev AxROM hardware reference: https://www.nesdev.org/wiki/AxROM
+- NESdev NES 2.0 submapper reference for Mapper 7 bus-conflict variants: https://www.nesdev.org/wiki/NES_2.0_submappers
+- Mesen2 AXROM implementation: https://github.com/SourMesen/Mesen2/blob/fabc9a62174f8734a113df6d244f5539ef6b8fcf/Core/NES/Mappers/Nintendo/AXROM.h
+- FCEUX data-latch mapper implementation covering ANROM/AxROM: https://github.com/TASEmulators/fceux/blob/1e1168db6662ce86848460b5d078e17c6dc6e2ce/src/boards/datalatch.cpp
+
+Required behavior:
+
+- Map one switchable 32 KiB PRG ROM bank at `$8000-$FFFF`; writes select the bank from the low bits of the written value and should mask to available banks.
+- Provide 8 KiB CHR RAM at `$0000-$1FFF`; AxROM cartridges normally do not provide CHR ROM banking.
+- Implement one-screen nametable mirroring from bit 4: clear selects the lower/screen-A nametable and set selects the upper/screen-B nametable.
+- Preserve bank select, mirroring state, and CHR RAM in backup/restore.
+- Do not implement IRQ behavior for AxROM; Mapper 7 does not provide an IRQ counter.
+- Handle bus conflicts only when the cartridge metadata identifies a bus-conflict variant, such as NES 2.0 submapper 2, or document that the first pass intentionally supports only the no-conflict boards used by the representative title.
+
+Implementation notes:
+
+- AxROM should be one of the lightest mapper implementations: a 32 KiB PRG bank window, CHR RAM, and one-screen mirroring.
+- Keep all CPU-cycle and PPU-observer hooks disabled unless a later verified board variant requires one; Mesen2 and FCEUX both model basic AxROM as a data-latch mapper with no timing hook.
+- Native tests should cover bank masking, one-screen mirroring changes, CHR RAM reads/writes, backup/restore, and both no-conflict and bus-conflict write resolution when submapper coverage is implemented.
 
 ## Acceptance Criteria
 
 - [ ] A C++ mapper class for mapper 7 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
 - [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 7 with a clear mapper name.
 - [ ] Python `NESEnv` validation accepts mapper 7 through `_native.is_mapper_supported` only after the mapper implementation is wired.
-- [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
+- [ ] The mapper implements 32 KiB PRG banking, CHR RAM, one-screen mirroring, backup/restore, and any documented bus-conflict variant behavior needed by supported cartridges; no IRQ path is added for AxROM.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
+- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][axrom]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
 - [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.
