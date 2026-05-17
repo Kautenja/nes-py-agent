@@ -1,5 +1,7 @@
 # Specification: nes-py Gymnasium API Migration
 
+## Status: COMPLETE
+
 ## Problem
 
 `nes-py` exposes the old OpenAI Gym API. Environments currently import `gym`, use `Env.seed()`, return only an observation from `reset()`, return `(observation, reward, done, info)` from `step()`, and select render mode through `render(mode=...)`. Modern Gym-compatible reinforcement learning tooling expects the Gymnasium/v0.26+ contract: `reset()` returns `(observation, info)`, `step()` returns `(observation, reward, terminated, truncated, info)`, render mode is selected when the environment is constructed, and seeding happens through `reset(seed=...)`.
@@ -85,4 +87,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-gymnasium-api.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

@@ -23,3 +23,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py mapper test package refactor with per-mapper modules, shared mapper helpers, separated registry/lifecycle smoke coverage, and deterministic unittest discovery.
 2026-05-17: Completed nes-py native test and benchmark API separation with opt-in Catch2 targets, Cython smoke/benchmark wrapper removal, public Python benchmark cleanup, and verified native/package builds.
 2026-05-17: Completed nes-py Python application test coverage review with public ROM/env/speedtest coverage, native cartridge Catch2 coverage, and private native-helper cleanup.
+2026-05-17: Completed nes-py Gymnasium API migration with Gymnasium dependency metadata, v0.26 reset/step/render contracts, JoypadSpace forwarding, CLI/helper updates, and focused API coverage.
