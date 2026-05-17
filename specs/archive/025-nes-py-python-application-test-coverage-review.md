@@ -1,5 +1,7 @@
 # Specification: nes-py Python Application Test Coverage Review
 
+## Status: COMPLETE
+
 ## Problem
 
 As native emulator tests and benchmarks move out of the Python extension surface,
@@ -111,37 +113,37 @@ The final Python suite should cover these public workflows:
 
 ## Acceptance Criteria
 
-- [ ] Every Python test module under `nes_py/tests` has been reviewed and
+- [x] Every Python test module under `nes_py/tests` has been reviewed and
   classified in the completion log or a short developer note.
-- [ ] Useful native-internal assertions removed from Python are covered by
+- [x] Useful native-internal assertions removed from Python are covered by
   Catch2 tests under `nes_emu/test/nes_emu/*`, unless an equivalent Catch2 test
   already exists and is cited.
-- [ ] Python tests no longer import `_native` directly for native internals.
-- [ ] Python tests no longer import `nes_env` helper functions whose only
+- [x] Python tests no longer import `_native` directly for native internals.
+- [x] Python tests no longer import `nes_env` helper functions whose only
   purpose is native smoke, characterization, or microbenchmark coverage.
-- [ ] Python tests no longer use private PRG/CHR mapper read/write hooks to
+- [x] Python tests no longer use private PRG/CHR mapper read/write hooks to
   characterize mapper internals.
-- [ ] If Python tests still call any private `NESEnv` helper, each remaining use
+- [x] If Python tests still call any private `NESEnv` helper, each remaining use
   is justified as package-level behavior that has no public equivalent yet, or a
   follow-up spec is created to expose/remove that behavior intentionally.
-- [ ] Application-level tests exercise every usable on-disk `.nes` ROM at least
+- [x] Application-level tests exercise every usable on-disk `.nes` ROM at least
   for construction, reset, short deterministic stepping, and close.
-- [ ] Invalid on-disk fixtures `blank` and `empty.nes` remain covered through
+- [x] Invalid on-disk fixtures `blank` and `empty.nes` remain covered through
   public error paths.
-- [ ] Synthesized ROMs are used for edge cases not covered by the on-disk ROM
+- [x] Synthesized ROMs are used for edge cases not covered by the on-disk ROM
   set, such as unsupported mappers, PAL flags, trainers, NES 2.0 metadata, or
   small deterministic mapper smoke workflows.
-- [ ] Speedtest tests cover the public API/CLI only and do not invoke native
+- [x] Speedtest tests cover the public API/CLI only and do not invoke native
   C++ microbenchmarks through Cython.
-- [ ] Multi-environment behavior is covered at the Python level.
-- [ ] Test names and helper docstrings reflect application-level intent rather
+- [x] Multi-environment behavior is covered at the Python level.
+- [x] Test names and helper docstrings reflect application-level intent rather
   than native characterization when they remain in Python.
-- [ ] Python test discovery is deterministic and does not depend on commercial
+- [x] Python test discovery is deterministic and does not depend on commercial
   ROM downloads or network access.
-- [ ] No generated build trees, FetchContent downloads, compiled binaries,
+- [x] No generated build trees, FetchContent downloads, compiled binaries,
   wheels, sdists, caches, `.pyc` files, or local virtual environments are
   committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository
   records the updated submodule pointer.
 
 ## Verification
@@ -199,4 +201,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
