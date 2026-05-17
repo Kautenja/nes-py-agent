@@ -1,5 +1,7 @@
 # Specification: nes-py Native Test and Benchmark API Separation
 
+## Status: COMPLETE
+
 ## Problem
 
 Native emulator characterization and benchmarking code has leaked into the
@@ -232,4 +234,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
