@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper API Lifecycle and Timing Hooks
 
+## Status: COMPLETE
+
 ## Problem
 
 The current native mapper API is not ready for the mapper specs. Many planned mappers need timing-sensitive callbacks, IRQ signaling, PPU read side effects, expansion register routing, nametable banking, and stateful backup/restore. The emulator also allocates mappers with raw pointers and copies buses that hold mapper pointers, so mapper lifetime and snapshot behavior are fragile.
@@ -38,21 +40,21 @@ The new mapper-facing API should support:
 
 ## Acceptance Criteria
 
-- [ ] The emulator owns mapper instances using RAII, not unmanaged raw `new` without a matching owner.
-- [ ] Mapper creation is moved out of a header-defined global function if needed to avoid ODR/linkage issues as mapper count grows.
-- [ ] `MapperFactory` registration is easy to extend and can represent mapper IDs from all current mapper specs.
-- [ ] Backup/restore saves and restores mapper state, not just CPU, PPU, and bus state.
-- [ ] Backed-up and restored buses point to the restored active mapper, not a stale or current-state mapper by accident.
-- [ ] Backup/restore does not copy fixed wiring such as callback maps, lambda captures, or device pointers when a smaller state object would be sufficient.
-- [ ] A mapper can request a CPU IRQ, and a focused test proves the CPU observes it through the existing IRQ vector path.
-- [ ] A mapper can observe PPU pattern-table reads or address transitions sufficiently for MMC3 A12 and MMC2/MMC4 latch follow-up specs.
-- [ ] A mapper can handle expansion-area reads/writes in `$4020-$5FFF` without logging them as globally unsupported.
-- [ ] A mapper can handle PRG RAM reads/writes, write protection, and banked RAM in `$6000-$7FFF`.
-- [ ] The picture bus can delegate nametable reads/writes to a mapper when the mapper owns nametable memory or ROM banking.
-- [ ] Mappers 0-3 continue to pass the characterization tests from spec 010.
-- [ ] The tiny benchmark profile from spec 010 is run before and after the refactor, and any measurable slowdown is documented with a follow-up optimization note or fixed in this spec.
-- [ ] No external ROM assets, generated binaries, wheels, caches, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] The emulator owns mapper instances using RAII, not unmanaged raw `new` without a matching owner.
+- [x] Mapper creation is moved out of a header-defined global function if needed to avoid ODR/linkage issues as mapper count grows.
+- [x] `MapperFactory` registration is easy to extend and can represent mapper IDs from all current mapper specs.
+- [x] Backup/restore saves and restores mapper state, not just CPU, PPU, and bus state.
+- [x] Backed-up and restored buses point to the restored active mapper, not a stale or current-state mapper by accident.
+- [x] Backup/restore does not copy fixed wiring such as callback maps, lambda captures, or device pointers when a smaller state object would be sufficient.
+- [x] A mapper can request a CPU IRQ, and a focused test proves the CPU observes it through the existing IRQ vector path.
+- [x] A mapper can observe PPU pattern-table reads or address transitions sufficiently for MMC3 A12 and MMC2/MMC4 latch follow-up specs.
+- [x] A mapper can handle expansion-area reads/writes in `$4020-$5FFF` without logging them as globally unsupported.
+- [x] A mapper can handle PRG RAM reads/writes, write protection, and banked RAM in `$6000-$7FFF`.
+- [x] The picture bus can delegate nametable reads/writes to a mapper when the mapper owns nametable memory or ROM banking.
+- [x] Mappers 0-3 continue to pass the characterization tests from spec 010.
+- [x] The tiny benchmark profile from spec 010 is run before and after the refactor, and any measurable slowdown is documented with a follow-up optimization note or fixed in this spec.
+- [x] No external ROM assets, generated binaries, wheels, caches, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -79,4 +81,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-api-lifecycle-and-timing-hooks.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
