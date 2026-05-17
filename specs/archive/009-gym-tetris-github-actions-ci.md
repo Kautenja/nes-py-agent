@@ -1,5 +1,7 @@
 # Specification: gym-tetris GitHub Actions CI Migration
 
+## Status: COMPLETE
+
 ## Problem
 
 `gym-tetris` still uses Travis CI and an obsolete Python/runtime matrix. The project needs to follow the same GitHub Actions CI rules and release-artifact pattern now used by `nes-py`, while keeping the wrapper package independently buildable and testable.
@@ -46,26 +48,26 @@ Use Python 3.13 for the required GitHub Actions matrix, matching `nes-py`. Do no
 
 ## Acceptance Criteria
 
-- [ ] `gym-tetris/.travis.yml` is deleted.
-- [ ] `gym-tetris/README.md` no longer links to Travis CI and its build badge points to the GitHub Actions workflow.
-- [ ] A GitHub Actions workflow exists under `gym-tetris/.github/workflows/`.
-- [ ] The workflow runs automatically for pull request commits.
-- [ ] The workflow runs automatically for commits pushed to `master`.
-- [ ] The workflow runs automatically for tags.
-- [ ] The workflow does not run automatically for arbitrary branch pushes outside `master` and tags.
-- [ ] The required workflow matrix uses Python 3.13 on Linux x64, Linux arm64, Windows x64, macOS x64, and macOS arm64.
-- [ ] The workflow installs package dependencies and then installs `gym-tetris` through the Python packaging path.
-- [ ] The workflow runs `python -m unittest discover .` after installation.
-- [ ] The workflow builds distributions with `python -m build` or an equivalently modern Python packaging command.
-- [ ] Build artifacts from each platform are uploaded as workflow artifacts with package-specific names.
-- [ ] Tag builds attach completed distribution artifacts to the corresponding GitHub Release or create the release if needed.
-- [ ] Release artifact upload steps are gated so they do not run for pull requests or non-tag pushes.
-- [ ] Any compiler or native dependency setup copied from `nes-py` is platform-specific and justified by the `nes-py` dependency install path; unnecessary native setup is omitted rather than kept as cargo-cult CI.
-- [ ] `requirements.txt`, `setup.py`, `pyproject.toml`, `makefile`, or related packaging files are updated as needed so normal install/test/build paths match the GitHub Actions workflow.
-- [ ] Package metadata no longer advertises unsupported Travis-era Python versions unless those versions remain tested elsewhere.
-- [ ] Stale CI or release dependencies that are no longer needed for normal installs are removed or moved to an appropriate tooling path.
-- [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, and compiled objects are not committed.
-- [ ] The `gym-tetris` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] `gym-tetris/.travis.yml` is deleted.
+- [x] `gym-tetris/README.md` no longer links to Travis CI and its build badge points to the GitHub Actions workflow.
+- [x] A GitHub Actions workflow exists under `gym-tetris/.github/workflows/`.
+- [x] The workflow runs automatically for pull request commits.
+- [x] The workflow runs automatically for commits pushed to `master`.
+- [x] The workflow runs automatically for tags.
+- [x] The workflow does not run automatically for arbitrary branch pushes outside `master` and tags.
+- [x] The required workflow matrix uses Python 3.13 on Linux x64, Linux arm64, Windows x64, macOS x64, and macOS arm64.
+- [x] The workflow installs package dependencies and then installs `gym-tetris` through the Python packaging path.
+- [x] The workflow runs `python -m unittest discover .` after installation.
+- [x] The workflow builds distributions with `python -m build` or an equivalently modern Python packaging command.
+- [x] Build artifacts from each platform are uploaded as workflow artifacts with package-specific names.
+- [x] Tag builds attach completed distribution artifacts to the corresponding GitHub Release or create the release if needed.
+- [x] Release artifact upload steps are gated so they do not run for pull requests or non-tag pushes.
+- [x] Any compiler or native dependency setup copied from `nes-py` is platform-specific and justified by the `nes-py` dependency install path; unnecessary native setup is omitted rather than kept as cargo-cult CI.
+- [x] `requirements.txt`, `setup.py`, `pyproject.toml`, `makefile`, or related packaging files are updated as needed so normal install/test/build paths match the GitHub Actions workflow.
+- [x] Package metadata no longer advertises unsupported Travis-era Python versions unless those versions remain tested elsewhere.
+- [x] Stale CI or release dependencies that are no longer needed for normal installs are removed or moved to an appropriate tooling path.
+- [x] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, and compiled objects are not committed.
+- [x] The `gym-tetris` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -117,4 +119,12 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--gym-tetris-github-actions-ci.md` file.
 - Output `DONE` only after the pushed GitHub Actions run passes for the full required matrix.
 
-<!-- NR_OF_TRIES: 0 -->
+## Completion Log
+
+- Child commit: `c17c60d4a6850ee0ba462e026cebc262d03c3ba7`
+- Pull request: `https://github.com/Kautenja/gym-tetris/pull/26`
+- GitHub Actions run: `25983924981`
+- Verification: local Python 3.13 install/test/build checks passed; workflow trigger/matrix validation passed; pushed PR CI passed on Linux x64, Linux arm64, Windows x64, macOS x64, and macOS arm64.
+- Tag release behavior was verified by workflow configuration only to avoid publishing a throwaway release.
+
+<!-- NR_OF_TRIES: 1 -->
