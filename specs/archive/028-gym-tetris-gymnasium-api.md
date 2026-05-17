@@ -1,5 +1,7 @@
 # Specification: gym-tetris Gymnasium API Migration
 
+## Status: COMPLETE
+
 ## Problem
 
 `gym-tetris` still uses the old OpenAI Gym API in registration, tests, CLI flows, and documentation. It expects `env.seed(...)`, `reset()` returning only an observation, and `step()` returning `(observation, reward, done, info)`. After `nes-py` moves to Gymnasium, `gym-tetris` must expose the modern API while preserving existing Tetris modes, reward options, deterministic-start behavior, and info fields.
@@ -93,4 +95,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--gym-tetris-gymnasium-api.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

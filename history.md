@@ -24,3 +24,6 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py native test and benchmark API separation with opt-in Catch2 targets, Cython smoke/benchmark wrapper removal, public Python benchmark cleanup, and verified native/package builds.
 2026-05-17: Completed nes-py Python application test coverage review with public ROM/env/speedtest coverage, native cartridge Catch2 coverage, and private native-helper cleanup.
 2026-05-17: Completed nes-py Gymnasium API migration with Gymnasium dependency metadata, v0.26 reset/step/render contracts, JoypadSpace forwarding, CLI/helper updates, and focused API coverage.
+2026-05-17: Completed gym-super-mario-bros Gymnasium API migration with modern reset/step/render contracts, random-stage seeding, Gymnasium registration, CLI/docs updates, and focused wrapper coverage.
+2026-05-17: Completed gym-tetris Gymnasium API migration with modern reset/step/render contracts, preserved reward modes and info fields, Gymnasium registration, CLI/docs updates, and focused wrapper coverage.
+2026-05-17: Completed gym-zelda-1 Gymnasium API migration with modern reset/step/render contracts, preserved placeholder rewards and info fields, Gymnasium registration, CLI/docs updates, and focused wrapper coverage.

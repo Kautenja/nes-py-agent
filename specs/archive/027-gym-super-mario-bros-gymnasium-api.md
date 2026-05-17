@@ -1,5 +1,7 @@
 # Specification: gym-super-mario-bros Gymnasium API Migration
 
+## Status: COMPLETE
+
 ## Problem
 
 `gym-super-mario-bros` still presents old OpenAI Gym examples and runtime behavior. It imports `gym`, registers environments through the legacy package, uses old reset and step tuple shapes in tests and docs, and contains `SuperMarioBrosRandomStagesEnv`, a direct `gym.Env` subclass that still implements `seed()` and `reset(..., return_info=None)`.
@@ -95,4 +97,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--gym-super-mario-bros-gymnasium-api.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

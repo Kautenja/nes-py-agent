@@ -1,5 +1,7 @@
 # Specification: gym-zelda-1 Gymnasium API Migration
 
+## Status: COMPLETE
+
 ## Problem
 
 `gym-zelda-1` still registers and documents a legacy OpenAI Gym environment. It imports `gym`, exposes `gym_zelda_1.make` from the old package, uses `env.seed(...)` in tests, and shows old reset and step tuple shapes in examples. The project is less mature than the other wrappers, but it should still follow the same modern Gymnasium API once `nes-py` provides the base contract.
@@ -95,4 +97,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--gym-zelda-1-gymnasium-api.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
