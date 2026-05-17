@@ -33,6 +33,26 @@ titles to iNES mapper IDs, but it was not a normative hardware reference.
 - One old row, `Pac-Man (Unlicensed Version)`, used `J` in the mirroring column;
   treat that as another source-data warning rather than a real mirroring mode.
 
+## Current Native Baseline
+
+The archived mapper cleanup specs changed the native mapper baseline after this
+queue was first generated:
+
+- Mappers 0-3 already have synthetic characterization coverage in
+  `nes_py.tests.test_mappers`.
+- Mapper lifetime, backup/restore cloning, IRQ callbacks, CPU/PPU hooks,
+  expansion-area routing, PRG RAM hooks, nametable delegation, bus-conflict
+  helpers, and shared PRG/CHR bank helpers now exist in the native core.
+- Python mapper validation delegates to native support through
+  `_native.is_mapper_supported`; implementation specs should update the native
+  registry and verify that `NESEnv` observes the new support through that path.
+- New mapper specs should register implementations through the native mapper
+  registry, `MapperFactory`, and `IsMapperSupported`; do not refer to a
+  `MapperID` enum unless one is introduced by the implementation itself.
+- Verification commands should run the actual mapper test module or class names
+  present in the tree. The old generated `TestMapperNNN` class names were
+  placeholders and do not exist in the current suite.
+
 ## Retained Source Entry Notes
 
 These notes preserve the legacy table's per-ROM caveats without keeping the

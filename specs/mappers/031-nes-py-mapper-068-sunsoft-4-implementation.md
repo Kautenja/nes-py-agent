@@ -12,8 +12,8 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 - Work inside the `nes-py` submodule unless an umbrella gitlink update is required after committing the submodule.
 - Add a mapper implementation in the C++ NES core and register it in the mapper factory.
-- Update Python-side supported mapper validation so mapper 68 ROMs can initialize after the C++ mapper is wired.
-- Reuse existing mapper abstractions where possible, especially for MMC3-family variants.
+- Register mapper 68 in the native mapper registry so `_native.is_mapper_supported` and Python `NESEnv` validation accept mapper 68 only after the C++ mapper is wired.
+- Reuse existing mapper hooks and bank helpers where they fit the hardware; keep one-off boards isolated when sharing would be misleading.
 - Preserve existing behavior for all already-supported mappers.
 - Do not add, download, or commit commercial ROM files.
 
@@ -32,8 +32,8 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 ## Acceptance Criteria
 
 - [ ] A C++ mapper class for mapper 68 exists under `nes_py/nes/include/mappers` and `nes_py/nes/src/mappers`, or an existing class is safely generalized for this mapper.
-- [ ] `MapperID` and `MapperFactory` register mapper 68 with a clear mapper name.
-- [ ] Python ROM validation accepts mapper 68 only after the mapper implementation is wired.
+- [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 68 with a clear mapper name.
+- [ ] Python `NESEnv` validation accepts mapper 68 through `_native.is_mapper_supported` only after the mapper implementation is wired.
 - [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
 - [ ] Tests identify the mapper from the fixture header, instantiate `NESEnv`, run reset, deterministic steps, `rgb_array` rendering, and backup/restore.
 - [ ] Mapper-specific bank-switching behavior is covered by observable game smoke checks, a focused mapper/unit harness, or both.
@@ -50,7 +50,7 @@ Run focused checks inside the submodule:
 ```sh
 cd nes-py
 python -m pip install -e .
-python -m unittest nes_py.tests.test_mappers.TestMapper068
+python -m unittest nes_py.tests.test_mappers
 python -m unittest discover .
 ```
 

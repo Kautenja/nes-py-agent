@@ -8,13 +8,14 @@ This spec targets PPU address correctness and render-path simplification as a pr
 
 ## Current Findings
 
-- `PictureBus::read` and `write` use `< 0x3eff` and `< 0x3fff`, leaving edge addresses and mirrors easy to mishandle.
+- `PictureBus::read` and `write` mask to `$3FFF` and use broad nametable/palette ranges, but still branch on raw mirrored addresses instead of normalizing PPU addresses once.
 - `$3000-$3EFF` nametable mirrors are not normalized before selecting a name table.
 - Palette mirroring only special-cases `$3F10`, not `$3F14`, `$3F18`, `$3F1C`, or repeated palette mirrors.
 - `PPU::get_data` increments `data_address` before deciding whether to use the buffered-read path.
 - Background rendering fetches nametable, two pattern bytes, and attribute data per visible pixel.
 - OAM and scanline sprite data have fixed maximum sizes but are stored in vectors with resize/push operations.
 - PPU reset leaves some observable buffers and latch-like fields easy to miss in deterministic reset tests, such as the read buffer and rendered screen memory.
+- Mapper PPU address/read/write hooks from spec 012 now make render-path caching sensitive to the sequence of mapper-visible PPU accesses.
 
 ## Scope
 
@@ -24,6 +25,7 @@ This spec targets PPU address correctness and render-path simplification as a pr
 - Fix PPUDATA buffering behavior if tests confirm the current increment-before-check logic is wrong.
 - Replace fixed-size PPU memory vectors with fixed-size storage where appropriate.
 - Reduce background and sprite render overhead with a measured tile-row cache, shift-register pipeline, or equivalent local simplification.
+- Preserve mapper PPU hook behavior from spec 012 when caching or batching picture-bus reads.
 - Preserve frame output for existing fixtures except where tests identify a correctness bug.
 
 ## Non-Goals
@@ -42,7 +44,7 @@ This spec targets PPU address correctness and render-path simplification as a pr
 - [ ] PPU fixed-size memory such as OAM, scanline sprite indexes, palette RAM, and nametable RAM uses fixed-size storage unless a vector remains justified.
 - [ ] Background rendering avoids repeated per-pixel fetches of the same tile-row and attribute data where that can be done without breaking scroll or mapper read side effects.
 - [ ] Sprite evaluation avoids dynamic allocation or resize/push operations in the per-scanline path.
-- [ ] Mapper-visible PPU read side effects required by spec 012 remain possible after render-path caching.
+- [ ] Mapper-visible PPU address/read/write side effects from spec 012 preserve their required address sequence and timing after render-path caching.
 - [ ] Existing frame smoke tests pass for mapper 0 and mapper 1 fixtures, and any changed frame hashes/screenshots are explained by a documented correctness fix.
 - [ ] Before/after benchmark output covers render-heavy and normal step-heavy profiles.
 - [ ] No generated screenshots, profiling dumps, build artifacts, wheels, caches, or local virtual environments are committed.

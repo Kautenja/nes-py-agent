@@ -2,7 +2,7 @@
 
 ## Problem
 
-Mapper 2 (UxROM / UNROM) is already implemented in `nes-py`, but the test suite does not have mapper-focused coverage that proves representative cartridge behavior remains stable. The representative title for this spec is `Mega Man (USA)`, selected from the NES catalog and cross-checked against the repository mapper list. The local fixture target is `nes_py/tests/games/mega-man.nes`.
+Mapper 2 (UxROM / UNROM) is already implemented in `nes-py`, and recent mapper characterization work now covers its core synthetic ROM behavior. This spec now tracks the remaining mapper 2 coverage gaps, especially representative-fixture alignment for `Mega Man (USA)` and explicit save-state coverage for switchable PRG bank state. The local fixture target is `nes_py/tests/games/mega-man.nes`.
 
 ## ROM Fixture Policy
 
@@ -11,10 +11,16 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 ## Scope
 
 - Work inside the `nes-py` submodule unless an umbrella gitlink update is required after committing the submodule.
-- Do not change mapper behavior except to add focused tests and small test helpers.
-- Keep the current mapper factory registration unchanged unless a test exposes a real bug.
+- Do not change mapper behavior except to fix a real regression exposed by focused tests.
+- Reuse or reference existing `nes_py.tests.test_mappers.ShouldCharacterizeMapper002UxROM`, ROM header, and environment tests where they already satisfy this spec.
 - Preserve existing behavior for all already-supported mappers.
 - Do not add, download, or commit commercial ROM files.
+
+## Current Baseline
+
+- `nes_py.tests.test_mappers.ShouldCharacterizeMapper002UxROM` covers switchable PRG banking, fixed final PRG bank behavior, CHR RAM reads/writes, safe bank masking, and the current no-bus-conflict assumption.
+- `nes_py.tests.test_mappers.ShouldIdentifySupportedMapperFixtures` covers mapper 2 native metadata through synthetic fixtures.
+- Explicit mapper 2 backup/restore coverage for the selected PRG bank is still needed.
 
 ## Mapper Details
 
@@ -30,11 +36,12 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 ## Acceptance Criteria
 
-- [ ] Tests identify mapper 2 from the fixture header and assert the expected PRG/CHR sizes and mirroring mode.
-- [ ] Tests instantiate `NESEnv` with the representative fixture and run reset, several deterministic steps, and `rgb_array` rendering.
-- [ ] Tests include backup/restore coverage for the mapper so mapper state survives emulator save-state operations.
+- [ ] Current synthetic mapper 2 characterization remains green and is not duplicated unnecessarily.
+- [ ] Representative fixture header coverage is added when a legal fixture is available, or the mapper-level synthetic coverage remains runnable without the commercial ROM.
+- [ ] Representative fixture `NESEnv` reset, deterministic-step, and `rgb_array` rendering coverage is added when a legal fixture is available.
+- [ ] Mapper 2 backup/restore coverage proves the selected PRG bank and CHR RAM survive emulator save-state operations.
 - [ ] Tests cover the mapper-specific behavior listed in this spec's focus section, using observable emulator state or a focused mapper/unit harness.
-- [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
+- [ ] The test module or mapper spec explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide mapper header/unit tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.
 - [ ] Generated build artifacts, caches, `.DS_Store`, eggs, wheels, compiled objects, local virtual environments, and commercial ROM downloads are not committed.
@@ -47,7 +54,7 @@ Run focused checks inside the submodule:
 ```sh
 cd nes-py
 python -m pip install -e .
-python -m unittest nes_py.tests.test_mappers.TestMapper002
+python -m unittest nes_py.tests.test_mappers
 ```
 
 If the representative commercial fixture is absent, the implementer must also run any mapper-level tests that do not require the fixture and document the skipped integration coverage in the completion log. If a legal local fixture is present, the mapper-specific integration test must run and pass.
