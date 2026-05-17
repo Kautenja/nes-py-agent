@@ -1,5 +1,7 @@
 # Specification: Wrapper Python, CI, and Dependency Parity
 
+## Status: COMPLETE
+
 ## Problem
 
 `nes-py` now advertises and tests Python 3.13 and 3.14 across Linux, Windows,
@@ -34,24 +36,24 @@ when their code may already work.
 
 ## Acceptance Criteria
 
-- [ ] Each wrapper's `pyproject.toml` has a Python support range that is
+- [x] Each wrapper's `pyproject.toml` has a Python support range that is
       intentionally aligned with the current `nes-py` release, unless a tested
       wrapper-specific incompatibility is documented in the spec completion
       notes.
-- [ ] Each wrapper lists Python 3.13 and 3.14 classifiers if both versions are
+- [x] Each wrapper lists Python 3.13 and 3.14 classifiers if both versions are
       supported.
-- [ ] Each wrapper CI matrix tests Python 3.13 and 3.14 on the same operating
+- [x] Each wrapper CI matrix tests Python 3.13 and 3.14 on the same operating
       system runners currently used by the wrapper.
-- [ ] Wrapper CI artifact names include both platform and Python version, or
+- [x] Wrapper CI artifact names include both platform and Python version, or
       otherwise avoid collisions when multiple Python versions upload
       distributions.
-- [ ] The wrapper development bootstrap dependency on sibling or remote
+- [x] The wrapper development bootstrap dependency on sibling or remote
       `nes-py` uses one documented policy across all three repositories.
-- [ ] `requirements.txt` comments consistently state that canonical runtime
+- [x] `requirements.txt` comments consistently state that canonical runtime
       metadata lives in `pyproject.toml`.
-- [ ] CI still installs the package in a way that exercises the declared
+- [x] CI still installs the package in a way that exercises the declared
       package metadata and the selected `nes-py` dependency.
-- [ ] No generated artifacts, caches, build outputs, or local virtual
+- [x] No generated artifacts, caches, build outputs, or local virtual
       environments are committed.
 
 ## Verification
@@ -85,6 +87,14 @@ python -m build
 After pushing, verify that GitHub Actions runs the expanded Python matrix for
 each changed wrapper.
 
+## Completion Notes
+
+All three wrappers are intentionally aligned with the current `nes-py` Python
+support range. No wrapper-specific Python 3.14 incompatibility was found. The
+shared development bootstrap policy is to install `nes-py` from the `ralph-dev`
+branch in `requirements.txt`, while canonical runtime metadata remains in each
+wrapper's `pyproject.toml`.
+
 ## Completion Signal
 
 When all acceptance criteria are met:
@@ -96,4 +106,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after local verification passes and required remote checks
   are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
