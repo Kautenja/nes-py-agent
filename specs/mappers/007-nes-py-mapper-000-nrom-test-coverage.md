@@ -21,7 +21,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 - Mapper ID: `0` / iNES `000`
 - Mapper name: `NROM`
 - Hardware family: `No mapper / NROM`
-- Approximate entries in `nesmapper.txt`: `141`
+- Approximate entries in `nesmapper.txt`: `149`
 - Representative test title: `Super Mario Bros. (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Super_Mario_Bros._%28Japan%2C_USA%29/57098
 - Expected local fixture: `nes_py/tests/games/super-mario-bros-1.nes`

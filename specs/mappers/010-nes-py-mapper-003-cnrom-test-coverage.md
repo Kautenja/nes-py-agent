@@ -21,7 +21,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 - Mapper ID: `3` / iNES `003`
 - Mapper name: `CNROM`
 - Hardware family: `CNROM discrete CHR bank switching`
-- Approximate entries in `nesmapper.txt`: `121`
+- Approximate entries in `nesmapper.txt`: `122`
 - Representative test title: `Adventure Island (USA)`
 - Emuparadise catalog link: https://www.emuparadise.me/Nintendo_Entertainment_System_ROMs/Hudson's_Adventure_Island_(USA)/55793
 - Expected local fixture: `nes_py/tests/games/adventure-island.nes`
