@@ -27,3 +27,4 @@
 
 - `Kautenja/nes-py@812653b` - `Migrate CI to GitHub Actions`
 - `Kautenja/nes-py@62c1b20` - `Use current GitHub Actions versions`
+- `Kautenja/gym-nes@f28cb86` - `Complete nes-py GitHub Actions CI spec`
