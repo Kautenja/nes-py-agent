@@ -1,5 +1,7 @@
 # Specification: nes-py pyproject Build Modernization
 
+## Status: COMPLETE
+
 ## Problem
 
 `nes-py` already has a minimal `pyproject.toml`, but package metadata, dependencies, extension discovery, compiler flags, entry points, and release extras still live in `setup.py`. The project should move toward the standard `pyproject.toml` configuration path while preserving native extension builds across Linux, macOS, and Windows.
@@ -22,17 +24,17 @@ This is also a prerequisite for a cleaner Cython binding migration: the build sy
 
 ## Acceptance Criteria
 
-- [ ] `pyproject.toml` contains the canonical project metadata: name, version, description, README, Python requirement, classifiers, keywords, license, authors, dependencies, optional release dependencies, scripts, package discovery, and build backend configuration.
-- [ ] `setup.py` is removed or reduced to the smallest compatibility/build helper needed for native extensions.
-- [ ] Native extension source discovery is deterministic and includes C++ mapper sources and headers in sdists.
-- [ ] Compiler flags remain platform-aware and preserve the current C++ standard and optimization intent.
-- [ ] `python -m pip install .`, `python -m pip install -e .`, and `python -m build` work from a clean checkout.
-- [ ] Built wheels and sdists include the required C++ sources, headers, Python files, and package metadata.
-- [ ] The console script entry point `nes_py = nes_py.app.cli:main` still works.
-- [ ] The packaged benchmark module from spec 006 remains runnable after installation.
-- [ ] CI configuration, README developer notes, and packaging docs are updated if command names or requirements change.
-- [ ] No generated build artifacts, wheels, caches, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] `pyproject.toml` contains the canonical project metadata: name, version, description, README, Python requirement, classifiers, keywords, license, authors, dependencies, optional release dependencies, scripts, package discovery, and build backend configuration.
+- [x] `setup.py` is removed or reduced to the smallest compatibility/build helper needed for native extensions.
+- [x] Native extension source discovery is deterministic and includes C++ mapper sources and headers in sdists.
+- [x] Compiler flags remain platform-aware and preserve the current C++ standard and optimization intent.
+- [x] `python -m pip install .`, `python -m pip install -e .`, and `python -m build` work from a clean checkout.
+- [x] Built wheels and sdists include the required C++ sources, headers, Python files, and package metadata.
+- [x] The console script entry point `nes_py = nes_py.app.cli:main` still works.
+- [x] The packaged benchmark module from spec 006 remains runnable after installation.
+- [x] CI configuration, README developer notes, and packaging docs are updated if command names or requirements change.
+- [x] No generated build artifacts, wheels, caches, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -61,4 +63,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-pyproject-build-modernization.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
