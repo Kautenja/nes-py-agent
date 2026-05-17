@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper Bank Helpers and Current Mapper Cleanup
 
+## Status: COMPLETE
+
 ## Problem
 
 The existing mapper implementations duplicate bank math and leave several current-functionality risks in place. Mappers 0-3 work for the narrow fixtures, but future mapper specs will multiply the same patterns: fixed/switchable PRG windows, CHR ROM/RAM windows, mirroring changes, bus conflicts, bank masks, PRG RAM behavior, and variant-specific register decoding.
@@ -33,18 +35,18 @@ This spec adds shared mapper helpers and cleans up the currently supported mappe
 
 ## Acceptance Criteria
 
-- [ ] Shared bank helper code exists with focused tests for 8 KiB, 16 KiB, and 32 KiB PRG windows; 1 KiB, 2 KiB, 4 KiB, and 8 KiB CHR windows where useful; fixed first/final banks; and masked bank selection.
-- [ ] Current mapper implementations use the helpers where they reduce duplicated or fragile pointer arithmetic.
-- [ ] Mapper 0 behavior remains unchanged for NROM-128 and NROM-256 style layouts.
-- [ ] Mapper 1 behavior covers serial register reset, control register mirroring modes, PRG bank modes, CHR RAM, and PRG RAM enable/protect behavior needed by existing fixtures.
-- [ ] Mapper 1 tests cover 4 KiB and 8 KiB CHR banking math with low-bit masking in 8 KiB mode.
-- [ ] Mapper 2 behavior masks bank selection safely and documents or tests bus-conflict assumptions.
-- [ ] Mapper 3 behavior masks CHR bank selection safely and documents or tests bus-conflict assumptions.
-- [ ] Characterization tests from spec 010 pass without loosening assertions.
-- [ ] A small benchmark comparison is recorded before/after the helper refactor, and any performance regression over an agreed noise threshold is investigated or documented.
-- [ ] Code comments replace vague TODOs in touched mapper files with specific behavior notes or issue/spec references.
-- [ ] No generated binaries, wheels, caches, or local virtual environments are committed.
-- [ ] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
+- [x] Shared bank helper code exists with focused tests for 8 KiB, 16 KiB, and 32 KiB PRG windows; 1 KiB, 2 KiB, 4 KiB, and 8 KiB CHR windows where useful; fixed first/final banks; and masked bank selection.
+- [x] Current mapper implementations use the helpers where they reduce duplicated or fragile pointer arithmetic.
+- [x] Mapper 0 behavior remains unchanged for NROM-128 and NROM-256 style layouts.
+- [x] Mapper 1 behavior covers serial register reset, control register mirroring modes, PRG bank modes, CHR RAM, and PRG RAM enable/protect behavior needed by existing fixtures.
+- [x] Mapper 1 tests cover 4 KiB and 8 KiB CHR banking math with low-bit masking in 8 KiB mode.
+- [x] Mapper 2 behavior masks bank selection safely and documents or tests bus-conflict assumptions.
+- [x] Mapper 3 behavior masks CHR bank selection safely and documents or tests bus-conflict assumptions.
+- [x] Characterization tests from spec 010 pass without loosening assertions.
+- [x] A small benchmark comparison is recorded before/after the helper refactor, and any performance regression over an agreed noise threshold is investigated or documented.
+- [x] Code comments replace vague TODOs in touched mapper files with specific behavior notes or issue/spec references.
+- [x] No generated binaries, wheels, caches, or local virtual environments are committed.
+- [x] The `nes-py` submodule commit is pushed before the umbrella repository records the updated submodule pointer.
 
 ## Verification
 
@@ -72,4 +74,4 @@ When all acceptance criteria are met:
 - Add the required `completion_log/YYYY-MM-DD--HH-MM-SS--nes-py-mapper-bank-helpers-and-current-mapper-cleanup.md` file.
 - Output `DONE` only after all local verification passes and any required remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

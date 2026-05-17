@@ -10,3 +10,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py native mapper characterization with synthetic ROM coverage, mapper-state backup/restore, and current-mapper benchmark profiling.
 2026-05-17: Completed nes-py cartridge header and memory map metadata with aligned Python/native parsing, NES 2.0 fields, RAM separation, and synthetic edge coverage.
 2026-05-17: Completed nes-py mapper API lifecycle and timing hooks with RAII mapper ownership, state-only snapshots, IRQ/PPU/expansion/PRG-RAM/nametable hooks, and regression coverage.
+2026-05-17: Completed nes-py mapper bank helpers and current mapper cleanup with shared PRG/CHR windows, CHR RAM ownership, MMC1 fixes, safe bank masking, and benchmark documentation.
