@@ -53,6 +53,74 @@ queue was first generated:
   present in the tree. The old generated `TestMapperNNN` class names were
   placeholders and do not exist in the current suite.
 
+## Priority Ordering
+
+The numeric filename prefixes in this directory are the mapper work queue.
+Current ordering policy:
+
+- Specs for mappers already present in the native core come first. These protect
+  the compatibility baseline before new mapper work broadens the surface.
+- Missing mapper implementations are then ordered by a mix of approximate legacy
+  catalog coverage, representative title desirability, and implementation
+  leverage across related mapper families.
+- Hacked conversions, bootlegs, multicarts, and one-off boards are later unless
+  the representative title or mapper family has unusually high value.
+- Approximate entry counts come from the retired `nesmapper.txt` catalog and are
+  directional, not authoritative.
+
+| Prefix | Mapper | Approx. entries | Anchor title | Priority reason |
+| --- | --- | ---: | --- | --- |
+| `007` | MMC1 / SxROM | 449 | `The Legend of Zelda (USA)` | Already supported; largest baseline coverage. |
+| `008` | UxROM / UNROM | 203 | `Mega Man (USA)` | Already supported; broad high-value baseline. |
+| `009` | NROM | 149 | `Super Mario Bros. (USA)` | Already supported; canonical fixed-mapper baseline. |
+| `010` | CNROM | 122 | `Adventure Island (USA)` | Already supported; common CHR-switching baseline. |
+| `011` | MMC3 | 437 | `Super Mario Bros. 3 (USA)` | Largest missing implementation and major-library blocker. |
+| `012` | AxROM / AOROM | 43 | `Battletoads (USA)` | Highest remaining count after MMC3, with popular games. |
+| `013` | MMC5 | 11 | `Castlevania III - Dracula's Curse (USA)` | Small count, but very high desirability and important hardware. |
+| `014` | Sunsoft FME-7 / Sunsoft 5B | 6 | `Batman - Return of the Joker (USA)` | High-value Sunsoft board family and notable titles. |
+| `015` | Konami VRC6 | 1 | `Akumajou Densetsu (Japan)` | Very high desirability and expansion-audio relevance. |
+| `016` | Konami VRC6V | 1 | `Mouryou Senki Madara (Japan)` | Related VRC6 work, valuable Konami coverage. |
+| `017` | Konami VRC7 | 1 | `Lagrange Point (Japan)` | Very high desirability and expansion-audio relevance. |
+| `018` | Namco 163 / Namcot 106 | 16 | `Splatterhouse - Wanpaku Graffiti (Japan)` | Solid count plus important Namco mapper/audio family. |
+| `019` | Bandai | 18 | `Akuma-kun - Makai no Wana (Japan)` | Highest remaining count in a licensed mapper family. |
+| `020` | Color Dreams | 16 | `Bible Adventures (USA) (Unl)` | Broad unlicensed catalog footprint. |
+| `021` | Camerica | 12 | `Dizzy the Adventurer (USA) (Unl)` | Meaningful Codemasters/Camerica coverage. |
+| `022` | Jaleco SS8806 | 9 | `Jajamaru no Gekimaden (Japan)` | Mid-sized licensed mapper family. |
+| `023` | AVE / NINA | 9 | `Double Strike (USA) (Unl)` | Mid-sized unlicensed mapper family. |
+| `024` | GxROM / 74161/32 | 7 | `Dragon Power (USA)` | Discrete mapper with several commercial titles. |
+| `025` | BNROM / NINA-001 | 6 | `The 3-D Battles of WorldRunner (USA)` | Modest count with recognizable commercial titles. |
+| `026` | Taito TC0190/TC0350 | 6 | `Don Doko Don (Japan)` | Licensed Taito mapper coverage. |
+| `027` | MMC2 | 3 | `Mike Tyson's Punch-Out!! (USA)` | Very high desirability despite small count. |
+| `028` | MMC4 | 2 | `Fire Emblem (Japan)` | Small count, but notable Nintendo mapper family. |
+| `029` | Konami VRC2b / VRC4 | 5 | `Contra (Japan)` | Konami family coverage and desirable anchor. |
+| `030` | Konami VRC4 | 2 | `Gradius II (Japan)` | Desirable Konami VRC follow-up. |
+| `031` | Konami VRC4-2A | 2 | `Wai Wai World 2 (Japan)` | Related VRC follow-up. |
+| `032` | Konami VRC4-1B | 1 | `TwinBee 3 (Japan)` | Related VRC follow-up. |
+| `033` | TQROM | 4 | `High Speed (USA)` | MMC3-adjacent compatibility work. |
+| `034` | Irem G-101 | 4 | `Image Fight (Japan)` | Licensed Irem mapper coverage. |
+| `035` | RAMBO-1 | 3 | `Klax (USA)` | MMC3-like board with a small commercial set. |
+| `036` | Sunsoft 4 | 3 | `After Burner II (Japan)` | Licensed Sunsoft follow-up. |
+| `037` | Bandai 74161/32 | 3 | `Kamen Rider Club (Japan)` | Related Bandai/discrete follow-up. |
+| `038` | VS Unisystem | 3 | `Vs. Super Mario Bros. (Japan, USA)` | Arcade variant support with recognizable anchor. |
+| `039` | Irem H3001 | 2 | `Daiku no Gensan 2 (Japan)` | Long-tail licensed Irem coverage. |
+| `040` | Holy Diver / 74161/32 | 1 | `Holy Diver (Japan)` | One-off, but a cult title. |
+| `041` | Namco 118 | 1 | `Dragon Spirit (Japan)` | Namco commercial follow-up. |
+| `042` | Namco 1xx | 1 | `Dragon Buster (Japan)` | Namco commercial follow-up. |
+| `043` | Taito X005 | 1 | `Taito Grand Prix (Japan)` | Taito commercial follow-up. |
+| `044` | Taito X1-017 | 4 | `Kyuukyoku Harikiri Stadium (Japan)` | More entries, but narrower title appeal. |
+| `045` | Irem 74161/32 | 1 | `Crazy Climber (Japan)` | One-off licensed mapper. |
+| `046` | Taito TC190V | 1 | `Sangokushi - Chuugen no Hasha 2 (Hacked)` | Hacked/specialty Taito tail. |
+| `047` | FFE F8xxx | 8 | `Dynamite Batman 2 (Hacked)` | Hacked conversion family, lower canonical value. |
+| `048` | FFE F4xxx | 7 | `Arabian Dream Scheherazade (Hacked)` | Hacked conversion family, lower canonical value. |
+| `049` | FFE F3xxx | 2 | `Doraemon Kaitakuhen (Hacked)` | Hacked conversion family, lower canonical value. |
+| `050` | Mapper 015 multicart | 3 | `100 In 1 - Contra Function 16` | Multicart work after canonical boards. |
+| `051` | Mapper 090 bootleg | 2 | `Mortal Kombat 3` | Bootleg mapper with novelty value. |
+| `052` | Mapper 225 multicart | 2 | `58 In 1` | Multicart long tail. |
+| `053` | Mapper 227 multicart | 1 | `1200 In 1` | Multicart long tail. |
+| `054` | Mapper 228 | 1 | `Action 52 (USA) (Unl)` | Infamous one-off, but low compatibility yield. |
+| `055` | PC-Cony | 1 | `Garou Densetsu Special` | Bootleg one-off tail. |
+| `056` | HK-SF3 | 1 | `Street Fighter III` | Bootleg one-off tail. |
+
 ## Retained Source Entry Notes
 
 These notes preserve the legacy table's per-ROM caveats without keeping the
