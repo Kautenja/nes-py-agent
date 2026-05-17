@@ -15,3 +15,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py Cython binding migration with direct Emulator ownership, no-copy native buffers, GIL-released frame stepping, ctypes loader removal, and verified package builds.
 2026-05-17: Completed nes-py native hot-path benchmark pass with main-bus direct device dispatch, fixed RAM storage, portable mapper hook profiling, and before/after benchmark documentation.
 2026-05-17: Completed nes-py CPU, bus dispatch, and frame timing optimization with portable CPU flags, opcode-family dispatch, native CPU/main-bus characterization, and hot-path benchmark profiling.
+2026-05-17: Completed nes-py PPU addressing and render pipeline optimization with normalized picture-bus mirroring, fixed-size PPU storage, corrected PPUDATA buffering, mapper-safe tile-row caching, and native smoke coverage.
