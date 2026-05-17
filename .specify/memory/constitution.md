@@ -80,9 +80,11 @@ Ralph may run commands, edit files, test, commit, and push without asking for pe
 
 ## Specs
 
-Specs live in `specs/` as Markdown files. Lower numeric prefixes are higher priority, for example `001-fix-reset-determinism.md`.
+Active specs live in `specs/` as root Markdown files. Lower numeric prefixes are higher priority, for example `001-fix-reset-determinism.md`.
 
 A spec is incomplete unless it contains `## Status: COMPLETE`.
+
+Completed specs must be moved to `specs/archive/` after the completion log and history entry are written, before the final queue re-check. Archived specs are not part of the active Ralph queue. Leave their numeric prefix and contents intact so they remain auditable while keeping active-loop context small.
 
 Each spec should include:
 

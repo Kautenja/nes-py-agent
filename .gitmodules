@@ -13,4 +13,4 @@
 [submodule "gym-zelda-1"]
 	path = gym-zelda-1
 	url = git@github.com:Kautenja/gym-zelda-1.git
-	branch = master
+	branch = ralph-dev
