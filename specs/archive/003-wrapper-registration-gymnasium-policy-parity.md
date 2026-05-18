@@ -1,5 +1,7 @@
 # Specification: Wrapper Registration and Gymnasium Policy Parity
 
+## Status: COMPLETE
+
 ## Problem
 
 The wrappers expose Gymnasium environments, but their registration layout and
@@ -30,31 +32,31 @@ compare and raises ambiguity about which Gymnasium warnings are expected.
 
 ## Acceptance Criteria
 
-- [ ] Each wrapper has a `_registration.py` module that owns environment
+- [x] Each wrapper has a `_registration.py` module that owns environment
       registration and the `make = gymnasium.make` alias.
-- [ ] Each package `__init__.py` imports its public environment class or
+- [x] Each package `__init__.py` imports its public environment class or
       classes and imports `make` from `_registration.py`.
-- [ ] Public `__all__` definitions are stable and consistent across wrappers.
-- [ ] The registered IDs remain unchanged:
+- [x] Public `__all__` definitions are stable and consistent across wrappers.
+- [x] The registered IDs remain unchanged:
       `SuperMarioBros-v0` through `SuperMarioBros-v3`,
       `SuperMarioBrosRandomStages-v0` through
       `SuperMarioBrosRandomStages-v3`, `SuperMarioBros2-v0` through
       `SuperMarioBros2-v1`, Mario per-stage IDs and aliases,
       `TetrisA-v0` through `TetrisA-v3`, `TetrisB-v0` through
       `TetrisB-v3`, and `Zelda1-v0`.
-- [ ] The env-checker policy is explicit for each wrapper: either the checker
+- [x] The env-checker policy is explicit for each wrapper: either the checker
       runs cleanly in tests, or `disable_env_checker=True` remains with a
       comment and test coverage explaining why the registered environment
       disables it.
-- [ ] Registration-level `max_episode_steps` and truncation behavior are
+- [x] Registration-level `max_episode_steps` and truncation behavior are
       documented and tested where a wrapper sets or relies on them.
-- [ ] Tests assert each package-level `make` alias is `gymnasium.make`.
-- [ ] Tests assert each representative registered environment can be made with
+- [x] Tests assert each package-level `make` alias is `gymnasium.make`.
+- [x] Tests assert each representative registered environment can be made with
       `render_mode="rgb_array"`, reset with `seed=...`, stepped once, rendered,
       and closed.
-- [ ] Old comments that refer to "Gym" registration are updated to
+- [x] Old comments that refer to "Gym" registration are updated to
       "Gymnasium" where they describe current behavior.
-- [ ] No generated artifacts, caches, build outputs, or local virtual
+- [x] No generated artifacts, caches, build outputs, or local virtual
       environments are committed.
 
 ## Verification
@@ -133,4 +135,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after local verification passes and required remote checks
   are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
