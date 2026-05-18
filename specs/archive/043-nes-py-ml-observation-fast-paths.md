@@ -1,5 +1,7 @@
 # Specification: nes-py ML Observation Fast Paths
 
+## Status: COMPLETE
+
 ## Problem
 
 Raw emulator stepping is only one part of ML training throughput. The current
@@ -46,18 +48,18 @@ generic API is worth keeping.
 
 ## Acceptance Criteria
 
-- [ ] Benchmarks measure default step-only, `step + copy`, `step + contiguous`,
+- [x] Benchmarks measure default step-only, `step + copy`, `step + contiguous`,
   `step + grayscale`, and any new native fast-path modes.
-- [ ] Any kept mode has tests for shape, dtype, contiguity where promised,
+- [x] Any kept mode has tests for shape, dtype, contiguity where promised,
   buffer lifetime, reset behavior, render behavior, and close behavior.
-- [ ] The default `NESEnv.step` and `render('rgb_array')` behavior remains
+- [x] The default `NESEnv.step` and `render('rgb_array')` behavior remains
   backward compatible.
-- [ ] Documentation describes intended ML usage and tradeoffs without claiming
+- [x] Documentation describes intended ML usage and tradeoffs without claiming
   universal speedups.
-- [ ] Existing Python environment, wrapper, mapper, and speedtest tests pass.
-- [ ] Before/after training-loop-style benchmark output is recorded in a
+- [x] Existing Python environment, wrapper, mapper, and speedtest tests pass.
+- [x] Before/after training-loop-style benchmark output is recorded in a
   developer note or completion log.
-- [ ] No generated benchmark output, build artifact, cache, wheel, or virtual
+- [x] No generated benchmark output, build artifact, cache, wheel, or virtual
   environment is committed.
 
 ## Verification
@@ -87,4 +89,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
