@@ -45,3 +45,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py mapper direct-read fast paths with cached PRG/CHR bus pages for mappers 0-3, direct-read regression coverage, and before/after benchmark documentation.
 2026-05-17: Completed nes-py ML observation fast paths with reusable native contiguous RGB/grayscale helpers, observation benchmark profiling, compatibility coverage, and conservative usage documentation.
 2026-05-17: Completed nes-py CPU instruction batching with an instruction-level CPU API, mapper-hook-gated frame stepping, deterministic old/new frame coverage, and benchmark comparisons.
+2026-05-17: Completed Zelda RL contract parity with `Zelda1-v0` documented and tested as a zero-reward navigation/state-inspection sandbox with non-terminal death recovery.

@@ -1,5 +1,7 @@
 # Specification: Zelda RL Contract Parity
 
+## Status: COMPLETE
+
 ## Problem
 
 `gym-zelda-1` follows the modern Gymnasium tuple shapes, but its core
@@ -30,27 +32,27 @@ playable task, a navigation sandbox, or a state-inspection environment.
 
 ## Acceptance Criteria
 
-- [ ] A short design note in the spec completion log explains whether
+- [x] A short design note in the spec completion log explains whether
       `Zelda1-v0` is treated as a baseline task, navigation sandbox, or
       state-inspection environment.
-- [ ] The reward function is no longer a TODO-only placeholder. It either
+- [x] The reward function is no longer a TODO-only placeholder. It either
       implements a minimal documented signal or deliberately returns zero with
       a named rationale in code and docs.
-- [ ] The termination function is no longer a TODO-only placeholder. It either
+- [x] The termination function is no longer a TODO-only placeholder. It either
       detects a reliable Zelda terminal condition or deliberately documents why
       `Zelda1-v0` has no internal terminal condition yet.
-- [ ] Death, low-health, continue-screen, and post-death behavior are
+- [x] Death, low-health, continue-screen, and post-death behavior are
       characterized with focused tests or documented as unreliable RAM signals.
-- [ ] `_did_step()` does not silently erase a terminal condition before
+- [x] `_did_step()` does not silently erase a terminal condition before
       `_get_terminated()` can report it, unless the v0 contract explicitly
       defines death recovery as non-terminal.
-- [ ] README reward and termination sections describe the implemented contract
+- [x] README reward and termination sections describe the implemented contract
       without unresolved TODO wording.
-- [ ] Tests cover reset, step, reward, terminated, truncated, render, and info
+- [x] Tests cover reset, step, reward, terminated, truncated, render, and info
       keys for the selected contract.
-- [ ] If the public semantics change, apply an appropriate version bump and
+- [x] If the public semantics change, apply an appropriate version bump and
       note the change in release-facing documentation.
-- [ ] No generated artifacts, caches, build outputs, or local virtual
+- [x] No generated artifacts, caches, build outputs, or local virtual
       environments are committed.
 
 ## Verification
