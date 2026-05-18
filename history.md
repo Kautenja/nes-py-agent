@@ -39,4 +39,5 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py PPU benchmark suite with deterministic native render-mode, CHR-read stress, representative ROM frame profiles, and baseline speedtest documentation.
 2026-05-17: Completed wrapper Python and CI dependency parity across Mario, Tetris, and Zelda with Python 3.13/3.14 matrices, shared nes-py bootstrap policy, and green remote CI.
 2026-05-17: Completed nes-py sprite row prefetch with mapper-gated scanline sprite row caching, native sprite behavior coverage, and benchmarked sprite-heavy improvement.
+2026-05-17: Completed nes-py background tile row batching with mapper-gated bitplane decode caching, focused PPU scroll/mask/hook coverage, and benchmarked background/full-frame samples.
 2026-05-17: Completed wrapper CLI playback parity across Mario, Tetris, and Zelda with headless random playback, first-reset seeding, action-space selection, README examples, and focused CLI coverage.

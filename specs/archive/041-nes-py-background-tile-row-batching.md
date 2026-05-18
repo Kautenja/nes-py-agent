@@ -41,18 +41,18 @@ throw out the optimization instead of carrying fragile renderer complexity.
 
 ## Acceptance Criteria
 
-- [ ] Tests cover fine X scroll, nametable horizontal wrapping, vertical
+- [x] Tests cover fine X scroll, nametable horizontal wrapping, vertical
   increment behavior, attribute quadrant selection, left-edge background mask,
   and mapper-hook gating.
-- [ ] Frame smoke tests continue to pass for mapper 0, mapper 1, mapper 2, and
+- [x] Frame smoke tests continue to pass for mapper 0, mapper 1, mapper 2, and
   mapper 3 representative fixtures where available.
-- [ ] Background-only and full-frame ROM benchmarks are recorded before and
+- [x] Background-only and full-frame ROM benchmarks are recorded before and
   after the change.
-- [ ] The optimized path is either mapper-hook safe or disabled for mappers that
+- [x] The optimized path is either mapper-hook safe or disabled for mappers that
   need exact PPU address/read/write observation.
-- [ ] Existing Python environment, mapper, speedtest, and native tests pass.
-- [ ] Any no-op or abandoned implementation records why it was not kept.
-- [ ] No generated benchmark output, profiling dump, build artifact, cache,
+- [x] Existing Python environment, mapper, speedtest, and native tests pass.
+- [x] Any no-op or abandoned implementation records why it was not kept.
+- [x] No generated benchmark output, profiling dump, build artifact, cache,
   wheel, or virtual environment is committed.
 
 ## Verification
@@ -85,4 +85,19 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+## Completion Notes
+
+Implemented a mapper-gated background tile-row bit cache in `nes-py` that
+reverses pattern bitplanes once per fetched tile row, caches the attribute
+palette high bits, and keeps mapper PPU observer cases on the exact
+read-per-pixel path.
+
+An earlier decoded palette-address array experiment was abandoned before commit:
+it was correct but regressed the one-sample background-only benchmark from about
+458 us to about 631 us. The kept bit-mask version sampled at about 447 us for
+background-only rendering, with full-frame ROM samples remaining in the same
+noise band.
+
+## Status: COMPLETE
+
+<!-- NR_OF_TRIES: 1 -->
