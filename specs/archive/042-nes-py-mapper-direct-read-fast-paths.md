@@ -1,5 +1,7 @@
 # Specification: nes-py Mapper Direct Read Fast Paths
 
+## Status: COMPLETE
+
 ## Problem
 
 The current CPU and PPU hot paths still read PRG and CHR data through virtual
@@ -41,18 +43,18 @@ benchmark coverage and close without the optimization.
 
 ## Acceptance Criteria
 
-- [ ] Native mapper tests cover direct-read behavior for NROM, SxROM, UxROM,
+- [x] Native mapper tests cover direct-read behavior for NROM, SxROM, UxROM,
   and CNROM, including bank-switching and backup/restore state where relevant.
-- [ ] Direct-read state invalidates or updates correctly after mapper writes.
-- [ ] Direct reads are disabled or safely bypassed for CHR RAM writes,
+- [x] Direct-read state invalidates or updates correctly after mapper writes.
+- [x] Direct reads are disabled or safely bypassed for CHR RAM writes,
   mapper-visible PPU hooks, nametable mapping, expansion routing, and any mapper
   mode where direct memory cannot represent the active mapping.
-- [ ] Mapper direct-read and full-frame benchmarks are recorded before and
+- [x] Mapper direct-read and full-frame benchmarks are recorded before and
   after the change.
-- [ ] Existing mapper, environment, backup/restore, speedtest, and native tests
+- [x] Existing mapper, environment, backup/restore, speedtest, and native tests
   pass.
-- [ ] Any rejected direct-read design records why it was not kept.
-- [ ] No generated benchmark output, build artifact, cache, wheel, or virtual
+- [x] Any rejected direct-read design records why it was not kept.
+- [x] No generated benchmark output, build artifact, cache, wheel, or virtual
   environment is committed.
 
 ## Verification
@@ -85,4 +87,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
