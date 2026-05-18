@@ -1,5 +1,7 @@
 # Specification: nes-py CPU Instruction Batching
 
+## Status: COMPLETE
+
 ## Problem
 
 `Emulator::step` currently advances one CPU cycle at a time and calls the PPU
@@ -43,21 +45,21 @@ keep only the tests/benchmarks and discard the batched execution path.
 
 ## Acceptance Criteria
 
-- [ ] Native CPU tests cover instruction cycle counts, branch penalties,
+- [x] Native CPU tests cover instruction cycle counts, branch penalties,
   page-cross penalties, stack operations, interrupt entry, DMA cycle skipping,
   and representative addressing modes through the new instruction-level API.
-- [ ] Frame-level tests compare cycle-by-cycle and batched stepping for
+- [x] Frame-level tests compare cycle-by-cycle and batched stepping for
   deterministic ROM fixtures across reset, multiple steps, backup, restore,
   and continuation.
-- [ ] Mapper CPU-cycle hook behavior is preserved or batching is disabled for
+- [x] Mapper CPU-cycle hook behavior is preserved or batching is disabled for
   hooked mappers.
-- [ ] Public Python behavior remains unchanged for `NESEnv.reset`, `step`,
+- [x] Public Python behavior remains unchanged for `NESEnv.reset`, `step`,
   `render`, backup, restore, and RAM/controller/screen buffers.
-- [ ] Benchmarks compare old and new frame stepping for render-off, full-frame
+- [x] Benchmarks compare old and new frame stepping for render-off, full-frame
   Mario, Zelda, and at least one mapper 2 or mapper 3 fixture.
-- [ ] Any abandoned prototype records the correctness or performance reason it
+- [x] Any abandoned prototype records the correctness or performance reason it
   was thrown out.
-- [ ] No generated benchmark output, build artifact, cache, wheel, or virtual
+- [x] No generated benchmark output, build artifact, cache, wheel, or virtual
   environment is committed.
 
 ## Verification
@@ -90,4 +92,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
