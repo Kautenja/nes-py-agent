@@ -25,12 +25,27 @@ training throughput or just consumes more cores.
 - Treat CPU affinity as an experiment controlled by configuration, not default
   runtime behavior.
 - Document platform differences for macOS, Linux, and Windows when relevant.
+- Ensure the instrumentation can prove whether later vector changes improve
+  frame rate significantly or merely shift time into synchronization overhead.
 
 ## Non-Goals
 
 - Do not add always-on production logging.
 - Do not make performance numbers CI pass/fail thresholds.
 - Do not tune CPU affinity without evidence from the instrumentation.
+
+## Benchmark Decision Rule
+
+Instrumentation may land without increasing frame rate only if it is opt-in,
+clearly simplifies performance diagnosis, and has no measurable cost when
+disabled. Disabled instrumentation overhead must remain within 1% median
+throughput of the baseline on scalar and representative vector benchmarks.
+
+Any affinity, busy-wait, or synchronization tuning added under this spec must
+meet the performance rule from the vector emulator spec: at least a 10% median
+throughput gain for targeted vector workloads, or a documented simplification
+with no representative regression. Otherwise keep the measurement capability
+but reject the tuning change.
 
 ## Acceptance Criteria
 
@@ -41,6 +56,12 @@ training throughput or just consumes more cores.
 - [ ] CPU affinity experiments can be enabled and disabled explicitly.
 - [ ] Benchmark documentation explains how to interpret CPU usage and scaling
   across env counts.
+- [ ] Benchmark reports include release build configuration, warmups, at least
+  five measured runs, median throughput, min/max or IQR, percent change, and
+  instrumentation-enabled versus instrumentation-disabled overhead.
+- [ ] Any kept affinity or synchronization optimization has benchmark evidence
+  showing significant frame-rate improvement, or is documented as a simpler
+  no-regression implementation.
 - [ ] Existing scalar emulator benchmarks remain available and unchanged.
 - [ ] No generated benchmark artifacts are committed.
 

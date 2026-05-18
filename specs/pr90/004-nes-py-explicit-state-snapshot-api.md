@@ -30,6 +30,8 @@ struct copying from PR #90 is not safe to copy directly.
   pointers or raw implementation structs.
 - Preserve existing `_backup()` and `_restore()` behavior.
 - Test snapshots across the currently supported mapper set.
+- Benchmark snapshot creation, restore, and backup/restore-heavy frame loops
+  against the current private backup path.
 
 ## Non-Goals
 
@@ -37,6 +39,21 @@ struct copying from PR #90 is not safe to copy directly.
   that is explicitly accepted as API scope.
 - Do not expose raw native pointers to Python.
 - Do not make snapshots game-wrapper-specific.
+
+## Benchmark Decision Rule
+
+Snapshot work should maximize frame rate for reset, restore, branching, and
+vector rollout workflows. A new public or native snapshot path should be kept
+as a performance optimization only if backup/restore-heavy frame-loop
+benchmarks improve by at least 5% median throughput, or if snapshot create and
+restore latency improves by at least 10% without slowing normal `step` loops by
+more than 2%.
+
+If performance is neutral, the change may still land only when it clearly
+simplifies state management, vector reset plumbing, or user-facing checkpoint
+semantics while benchmark results show no meaningful regression. Raw struct
+copying or extra API complexity should not be kept without one of those
+benefits.
 
 ## Acceptance Criteria
 
@@ -50,6 +67,12 @@ struct copying from PR #90 is not safe to copy directly.
 - [ ] Existing `_backup()` and `_restore()` tests continue to pass.
 - [ ] Benchmarks measure snapshot creation and restore overhead against the
   current private backup path.
+- [ ] Benchmarks include normal step-only throughput, backup/restore-heavy loop
+  throughput, snapshot create latency, restore latency, warmups, at least five
+  measured runs, median, min/max or IQR, and percent change.
+- [ ] The completion note explicitly states whether the snapshot API was kept
+  for significant performance improvement, kept for simpler state management
+  with no regression, or rejected.
 
 ## Verification
 

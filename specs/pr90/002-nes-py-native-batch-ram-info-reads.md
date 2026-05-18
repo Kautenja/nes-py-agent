@@ -27,12 +27,27 @@ gets faster.
 - Keep game-specific address lists outside of `nes-py` unless they are test
   fixtures.
 - Benchmark Python RAM indexing loops against native batch reads.
+- Benchmark both isolated RAM-read loops and full `step + info` style loops so
+  improvements are tied to frame-rate-relevant workloads.
 
 ## Non-Goals
 
 - Do not move Super Mario Bros., Tetris, or Zelda reward logic into `nes-py`.
 - Do not change the public `env.ram` zero-copy buffer.
 - Do not add a complex expression language for reward computation.
+
+## Benchmark Decision Rule
+
+The primary success metric is frames per second or steps per second in
+wrapper-style loops that read multiple RAM addresses after each step. Keep a
+native batch-read implementation only if it improves the targeted `step + info`
+benchmark by at least 5% median throughput with no representative workload
+regressing by more than 2%.
+
+If the performance result is neutral, the change may still land only when it
+substantially simplifies wrapper code or provides a clearer shared primitive
+without measurable regression. If it adds API surface without speed or
+simplicity, document the attempt and do not keep it.
 
 ## Acceptance Criteria
 
@@ -43,6 +58,12 @@ gets faster.
   and close behavior.
 - [ ] Benchmarks compare current Python indexing with native batch reads for
   representative wrapper-style address sets.
+- [ ] Benchmark reports include warmup count, measured iterations, at least
+  five runs, median throughput, min/max or IQR, percent change, ROM, action
+  policy, and the RAM address set used.
+- [ ] The completion note explicitly states whether the implementation was kept
+  for significant frame-rate improvement, kept for simplicity with no
+  regression, or rejected.
 - [ ] The implementation avoids extra copies in the steady-state path unless a
   copy is explicitly documented.
 - [ ] Existing `NESEnv.ram` behavior remains unchanged.
@@ -60,7 +81,9 @@ Run inside `nes-py`:
 git diff --check
 ```
 
-If native C++ helpers are added, also run the native test target.
+If native C++ helpers are added, also run the native test target. Record exact
+benchmark commands and before/after results in a developer note or completion
+log before closing the spec.
 
 ## Completion Signal
 

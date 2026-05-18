@@ -36,6 +36,8 @@ observations.
 - Release the GIL while native workers step.
 - Benchmark against a Python loop of N `NESEnv` instances and at least one
   Gymnasium vector environment baseline.
+- Benchmark release builds with warmups and at least five measured runs per
+  env count so medians and run-to-run spread are visible.
 
 ## Non-Goals
 
@@ -43,6 +45,19 @@ observations.
 - Do not make busy-wait synchronization or CPU affinity the default without
   evidence.
 - Do not expose game-specific reward or info logic from `nes-py`.
+
+## Benchmark Decision Rule
+
+The primary success metric is total frames per second across all environments
+for realistic training loops. A vector implementation should be kept only if it
+shows at least a 10% median throughput improvement at 4 or more environments,
+or at least a 15% improvement at the highest tested env count, while avoiding
+more than a 2% median regression for 1-env scalar-style use.
+
+If the throughput difference is within noise, the work may still land only when
+the final code is simpler than the existing multi-env approach for users and
+the benchmark report shows no meaningful representative regression. Otherwise,
+leave the prototype documented and do not keep the implementation.
 
 ## Acceptance Criteria
 
@@ -58,6 +73,12 @@ observations.
 - [ ] Benchmarks report throughput for scalar Python loops, Gymnasium vector
   baselines, and the native vector prototype across at least 1, 2, 4, 8, and
   16 envs where hardware allows.
+- [ ] Benchmarks include median, min/max or IQR, build configuration, ROM,
+  action policy, warmup count, measured step count, env counts, and CPU usage
+  notes for any worker-thread implementation.
+- [ ] The completion note explicitly states whether the implementation was kept
+  because it significantly improved frame rate, because it simplified the API
+  without regression, or because it was rejected.
 - [ ] Any kept synchronization strategy has documented CPU usage and scaling
   behavior.
 - [ ] Existing scalar Python environment, mapper, native, and speedtest tests
@@ -78,7 +99,9 @@ git diff --check
 ```
 
 If the vector API adds new benchmark commands, record the exact commands and
-results in a developer note before closing the spec.
+results in a developer note before closing the spec. Include the baseline and
+changed medians, spread, percent change, and the decision under the benchmark
+rule above.
 
 ## Completion Signal
 

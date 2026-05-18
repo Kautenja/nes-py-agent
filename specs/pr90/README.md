@@ -30,6 +30,27 @@ There are still useful optimization ideas worth preserving as future work:
 - `003-nes-py-vector-throughput-instrumentation.md`
 - `004-nes-py-explicit-state-snapshot-api.md`
 
+## Benchmark Decision Rule
+
+The goal for this backlog is to maximize emulator frame rate for realistic
+training loops. Any performance-oriented change must include before/after
+benchmarks from the same host, same build type, same ROMs, same action policy,
+warmup steps, and at least five measured runs. Reports should include median
+throughput plus enough spread information, such as min/max or interquartile
+range, to distinguish a real improvement from noise.
+
+Keep additional complexity only when it produces a meaningful targeted
+throughput improvement and does not regress representative scalar workloads.
+As a default rule of thumb, require at least a 5% median throughput improvement
+for scalar helper changes and a larger 10-15% improvement for vector/threading
+changes. If a change does not improve performance, it is still acceptable only
+when it makes the implementation or public API simpler and benchmarks show no
+meaningful regression, defined here as no representative workload regressing by
+more than 2% beyond normal run-to-run noise.
+
+If a change is neither faster nor simpler, document the result and do not keep
+the change.
+
 ## Ideas Not Worth Copying Directly
 
 - The pybind11 migration is not a good fit for the current branch. `ralph-dev`
