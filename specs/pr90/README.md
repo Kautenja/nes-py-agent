@@ -4,24 +4,48 @@ Reviewed PR: <https://github.com/Kautenja/nes-py/pull/90>
 
 Author: `ali-mosavian`
 
-Local reference inspected: `origin/pr/90` at `860f145`
+PR reference inspected: `origin/pr/90` at `860f145`
 
-## Summary
+Refresh baseline inspected:
 
-PR #90 is too divergent to merge. The pybind11 build rewrite, legacy source
-layout, Gymnasium migration, and broad refactor overlap with work that has
-already landed differently on `ralph-dev`.
+- Umbrella `ralph-dev`: `4d73e84`
+- `nes-py` `ralph-dev`: `c089db2`
 
-There are still useful optimization ideas worth preserving as future work:
+## Current Project Baseline
 
-- A native vector emulator that steps multiple emulator instances through
-  persistent worker threads.
-- Native batch RAM reads for reward and info collection, especially for wrapper
-  workloads that currently pull many RAM bytes from Python.
-- Vector throughput instrumentation and optional worker affinity experiments so
-  parallel emulator changes are measured before being adopted.
-- Explicit native snapshot export/import as an enabling primitive for vector
-  reset, branching, and replay workflows.
+PR #90 is still too divergent to merge, and more of its surrounding context has
+now been superseded by current project work:
+
+- `nes-py` uses the current Cython binding, CMake/scikit-build-core layout, and
+  `nes_emu/` native source tree.
+- Gymnasium migration is complete across `nes-py` and the active wrappers.
+- Native PPU sprite-row prefetch and background tile-row batching have landed.
+- Mapper direct-read pages now accelerate common PRG/CHR read windows.
+- Native ML observation helpers now provide reusable contiguous RGB and
+  grayscale copies through `NESEnv.observation(...)`.
+- CPU instruction batching now powers `NES::Emulator::step()` for mappers that
+  do not observe CPU cycles, with timing-sensitive mappers kept on the
+  cycle-by-cycle path.
+- Current scalar speedtest completion logs report roughly `1480.70` fps for
+  `super-mario-bros-1.nes` and `1560.68` fps for `the-legend-of-zelda.nes` on
+  the local benchmark host.
+
+The remaining useful PR #90 inspiration is therefore not a pybind/build/API
+rewrite. It is a set of optional, measured training-loop throughput ideas that
+must build on the current fast scalar emulator.
+
+## Recommended Sequencing
+
+1. Start with vector/training-loop benchmark instrumentation. The project now
+   has scalar, mapper, and observation profiles, but no repeated-run vector
+   profile with median/spread summaries.
+2. Prototype native vector stepping only after the benchmark harness can prove
+   whether batching envs beats scalar loops and Gymnasium vector baselines.
+3. Consider native batch RAM/info reads only if wrapper profiling shows RAM
+   indexing is still a meaningful cost after the scalar and observation fast
+   paths.
+4. Consider explicit public snapshots only if vector reset/branching workflows
+   need more than the current private `_backup()`/`_restore()` path.
 
 ## Work Items
 
@@ -33,18 +57,21 @@ There are still useful optimization ideas worth preserving as future work:
 ## Benchmark Decision Rule
 
 The goal for this backlog is to maximize emulator frame rate for realistic
-training loops. Any performance-oriented change must include before/after
-benchmarks from the same host, same build type, same ROMs, same action policy,
-warmup steps, and at least five measured runs. Reports should include median
-throughput plus enough spread information, such as min/max or interquartile
-range, to distinguish a real improvement from noise.
+training loops on top of the current optimized scalar emulator. Any
+performance-oriented change must remeasure the current `ralph-dev` baseline and
+the proposed change on the same host, same build type, same ROMs, same action
+policy, same wrapper stack, same observation path, same warmup steps, and at
+least five measured runs.
 
-Keep additional complexity only when it produces a meaningful targeted
-throughput improvement and does not regress representative scalar workloads.
-As a default rule of thumb, require at least a 5% median throughput improvement
-for scalar helper changes and a larger 10-15% improvement for vector/threading
-changes. If a change does not improve performance, it is still acceptable only
-when it makes the implementation or public API simpler and benchmarks show no
+Reports must include median throughput plus spread information, such as
+min/max or interquartile range. Keep additional complexity only when it
+produces a meaningful targeted throughput improvement and does not regress
+representative scalar workloads. As a default rule of thumb, require at least a
+5% median throughput improvement for scalar helper changes and a larger 10-15%
+improvement for vector/threading changes.
+
+If a change does not improve performance, it is still acceptable only when it
+makes the implementation or public API simpler and benchmarks show no
 meaningful regression, defined here as no representative workload regressing by
 more than 2% beyond normal run-to-run noise.
 
@@ -53,13 +80,16 @@ the change.
 
 ## Ideas Not Worth Copying Directly
 
-- The pybind11 migration is not a good fit for the current branch. `ralph-dev`
-  already uses a Cython binding, scikit-build-core, and a separate `nes_emu`
-  native source tree.
+- The pybind11 migration is not a good fit for the current branch.
 - The Makefile/SCons replacement is stale relative to the current CMake build.
-- The Gymnasium API changes have already landed on `ralph-dev`.
+- The Gymnasium API changes have already landed.
+- Observation-copy fast paths have already landed as explicit
+  `NESEnv.observation(...)` helpers.
+- PR #90's raw struct snapshot copying is unsafe for the current mapper-owned
+  snapshot and callback model.
 - The lock-free busy-wait worker design may be useful to benchmark, but should
-  not be copied without power, fairness, oversubscription, and teardown tests.
+  not be copied without power, fairness, oversubscription, teardown, and scalar
+  regression tests.
 - CPU affinity should be treated as an optional experiment, not a default
   behavior. The PR iterated through several affinity designs before settling on
   simple round-robin pinning, which is a good hint that this area is fragile.

@@ -8,19 +8,37 @@ instances, persistent worker threads, zero-copy screen/RAM views, parallel
 stepping.
 
 The code cannot be merged as-is because the current branch uses the Cython
-binding in `nes_py/_native.pyx`, the `nes_emu/` native layout, CMake, and a
-newer mapper ownership model. The architecture is still worth exploring.
+binding in `nes_py/_native.pyx`, the `nes_emu/` native layout, CMake, current
+mapper ownership, mapper direct-read caches, native observation helpers, and
+instruction-batched scalar stepping.
+
+## Current Baseline
+
+Recent project updates changed what a useful vector emulator must prove:
+
+- `NES::Emulator::step()` is already instruction-batched for mappers without
+  CPU-cycle hooks.
+- PPU sprite/background caches and mapper direct-read pages have already lifted
+  scalar frame rates substantially.
+- `NESEnv.observation("rgb_array_contiguous")` and
+  `NESEnv.observation("grayscale")` already provide reusable native copy paths.
+- `nes_py.speedtest` now has scalar, mapper, and observation benchmark profiles,
+  but not a repeated-run vector profile.
+
+The vector API must therefore beat current scalar loops and Gymnasium vector
+baselines, not the older PR #90-era scalar implementation.
 
 ## Problem
 
-RL training often runs many NES environments at once. The current `NESEnv`
-API is optimized for one environment per Python object, so multi-env training
-typically pays Python dispatch, wrapper, RAM inspection, and scheduler overhead
-per environment.
+RL training often runs many NES environments at once. The current `NESEnv` API
+is optimized for one environment per Python object, so multi-env training may
+still pay Python dispatch, wrapper, observation selection, RAM inspection, and
+scheduler overhead per environment.
 
-A current-branch native vector stepping API may improve throughput by batching
-controller writes and native frame advances while preserving zero-copy
-observations.
+A current-branch native vector stepping API may improve total frames per second
+by batching controller writes, native frame advances, observation copies, and
+possibly wrapper-facing RAM collection while preserving deterministic scalar
+emulator behavior.
 
 ## Scope
 
@@ -30,29 +48,38 @@ observations.
   pybind11 implementation from PR #90.
 - Prototype an opt-in native vector emulator that owns N emulator instances for
   the same ROM.
+- Reuse the current `NES::Emulator` stepping path so instruction batching,
+  mapper CPU-cycle hook gating, PPU caches, mapper direct-read caches, backup,
+  restore, and screen/RAM buffers stay consistent with scalar `NESEnv`.
 - Provide an explicit Python API for batched `reset`, `reset_one`,
-  `step(actions)`, screen buffers, RAM buffers, and close/teardown.
+  `step(actions)`, close/teardown, screen views, RAM views, and current
+  observation copy modes where useful.
 - Preserve the existing scalar `NESEnv` API and behavior.
 - Release the GIL while native workers step.
-- Benchmark against a Python loop of N `NESEnv` instances and at least one
-  Gymnasium vector environment baseline.
-- Benchmark release builds with warmups and at least five measured runs per
-  env count so medians and run-to-run spread are visible.
+- Benchmark against a Python loop of N `NESEnv` instances, Gymnasium
+  `SyncVectorEnv`, Gymnasium `AsyncVectorEnv` when available, and the native
+  vector prototype.
+- Benchmark release builds with warmups and at least five measured runs per env
+  count so medians and run-to-run spread are visible.
 
 ## Non-Goals
 
 - Do not rewrite all wrappers to use the vector API in this spec.
+- Do not duplicate the already-landed scalar observation-copy helpers.
 - Do not make busy-wait synchronization or CPU affinity the default without
   evidence.
 - Do not expose game-specific reward or info logic from `nes-py`.
+- Do not change scalar `NESEnv.step`, `render`, `observation`, `_backup`, or
+  `_restore` semantics.
 
 ## Benchmark Decision Rule
 
 The primary success metric is total frames per second across all environments
-for realistic training loops. A vector implementation should be kept only if it
-shows at least a 10% median throughput improvement at 4 or more environments,
-or at least a 15% improvement at the highest tested env count, while avoiding
-more than a 2% median regression for 1-env scalar-style use.
+for realistic training loops on the current optimized scalar baseline. A vector
+implementation should be kept only if it shows at least a 10% median
+throughput improvement at 4 or more environments, or at least a 15% improvement
+at the highest tested env count, while avoiding more than a 2% median
+regression for 1-env scalar-style use.
 
 If the throughput difference is within noise, the work may still land only when
 the final code is simpler than the existing multi-env approach for users and
@@ -62,27 +89,30 @@ leave the prototype documented and do not keep the implementation.
 ## Acceptance Criteria
 
 - [ ] A design note explains the chosen native/Cython ownership model, buffer
-  lifetime rules, worker teardown semantics, and interaction with mapper
-  snapshots.
+  lifetime rules, worker teardown semantics, mapper snapshot interaction,
+  observation-mode handling, and whether workers are persistent or pooled.
 - [ ] Prototype tests cover vector construction, close, reset all, reset one,
   step with per-env actions, invalid action array shape/type, invalid env
-  index, and buffer lifetime after close.
-- [ ] Determinism tests show a vector env stepped with fixed actions matches N
-  scalar `NESEnv` instances for screen and RAM state on supported mapper
-  fixtures.
+  index, buffer lifetime after close, and exceptions during construction.
+- [ ] Determinism tests show vector envs stepped with fixed actions match N
+  scalar `NESEnv` instances for screen and RAM state across representative
+  mapper fixtures, including mappers with CPU-cycle hooks that must keep the
+  scalar cycle-by-cycle path.
 - [ ] Benchmarks report throughput for scalar Python loops, Gymnasium vector
   baselines, and the native vector prototype across at least 1, 2, 4, 8, and
   16 envs where hardware allows.
+- [ ] Benchmarks include step-only, native contiguous RGB observation,
+  native grayscale observation, and wrapper-like RAM/info consumption profiles.
 - [ ] Benchmarks include median, min/max or IQR, build configuration, ROM,
   action policy, warmup count, measured step count, env counts, and CPU usage
   notes for any worker-thread implementation.
 - [ ] The completion note explicitly states whether the implementation was kept
   because it significantly improved frame rate, because it simplified the API
   without regression, or because it was rejected.
-- [ ] Any kept synchronization strategy has documented CPU usage and scaling
-  behavior.
-- [ ] Existing scalar Python environment, mapper, native, and speedtest tests
-  pass.
+- [ ] Any kept synchronization strategy has documented CPU usage,
+  oversubscription behavior, fairness, and teardown behavior.
+- [ ] Existing scalar Python environment, observation, mapper, native, and
+  speedtest tests pass.
 
 ## Verification
 
@@ -93,8 +123,12 @@ Run inside `nes-py`:
 .venv/bin/python -m unittest nes_py.tests.test_nes_env
 .venv/bin/python -m unittest nes_py.tests.test_speedtest
 .venv/bin/python -m unittest discover .
-cmake --build build/nes-emu-release --config Release --target nes_emu_tests
+cmake -S . -B build/nes-emu-release -DCMAKE_BUILD_TYPE=Release -DNES_EMU_BUILD_TESTS=ON -DNES_EMU_BUILD_BENCHMARKS=ON
+cmake --build build/nes-emu-release --config Release --target nes_emu_tests nes_emu_benchmarks
 build/nes-emu-release/nes_emu_tests
+build/nes-emu-release/nes_emu_benchmarks --benchmark-samples 1 --benchmark-resamples 1
+.venv/bin/python -m nes_py.speedtest --rom nes_py/tests/games/super-mario-bros-1.nes --steps 1000 --warmup-steps 100 --json --no-progress
+.venv/bin/python -m nes_py.speedtest --rom nes_py/tests/games/super-mario-bros-1.nes --observation-profile --steps 1000 --warmup-steps 100 --action-policy noop --json --no-progress
 git diff --check
 ```
 
