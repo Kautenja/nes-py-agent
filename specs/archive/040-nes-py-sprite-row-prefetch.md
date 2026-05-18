@@ -41,19 +41,21 @@ and close the spec without keeping the risky prefetch path.
 
 ## Acceptance Criteria
 
-- [ ] Native PPU or mapper-hook tests cover sprite prefetch behavior for
+- [x] Native PPU or mapper-hook tests cover sprite prefetch behavior for
   horizontal flip, vertical flip, priority, transparent pixels, long sprites if
   currently supported, and sprite-zero hit behavior.
-- [ ] Tests or benchmark fixtures cover the mapper PPU hook sequence when the
+- [x] Tests or benchmark fixtures cover the mapper PPU hook sequence when the
   optimized path is enabled or prove the optimized path is disabled for hooked
   mappers.
-- [ ] The sprite-heavy benchmark profile shows no meaningful regression and a
+- [x] The sprite-heavy benchmark profile shows no meaningful regression and a
   documented improvement if the optimization is kept.
-- [ ] Full-frame Mario and at least one mapper 1 or mapper 2 ROM profile are
+- [x] Full-frame Mario and at least one mapper 1 or mapper 2 ROM profile are
   benchmarked before and after the change.
-- [ ] Existing Python environment, mapper, and speedtest tests pass.
-- [ ] No generated benchmark output, build artifacts, caches, wheels, or
+- [x] Existing Python environment, mapper, and speedtest tests pass.
+- [x] No generated benchmark output, build artifacts, caches, wheels, or
   virtual environments are committed.
+
+## Status: COMPLETE
 
 ## Verification
 
@@ -83,4 +85,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after all local verification passes and any required
   remote checks are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

@@ -38,3 +38,4 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py mapper 069 Sunsoft FME-7 support with native command/banking/IRQ coverage and Batman Return of the Joker public smoke coverage.
 2026-05-17: Completed nes-py PPU benchmark suite with deterministic native render-mode, CHR-read stress, representative ROM frame profiles, and baseline speedtest documentation.
 2026-05-17: Completed wrapper Python and CI dependency parity across Mario, Tetris, and Zelda with Python 3.13/3.14 matrices, shared nes-py bootstrap policy, and green remote CI.
+2026-05-17: Completed nes-py sprite row prefetch with mapper-gated scanline sprite row caching, native sprite behavior coverage, and benchmarked sprite-heavy improvement.
