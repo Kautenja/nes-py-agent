@@ -1,5 +1,7 @@
 # Specification: Wrapper Documentation and Metadata Parity
 
+## Status: COMPLETE
+
 ## Problem
 
 The wrappers have already moved to Gymnasium and modern `pyproject.toml`

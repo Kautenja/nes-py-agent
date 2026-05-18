@@ -42,6 +42,7 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py background tile row batching with mapper-gated bitplane decode caching, focused PPU scroll/mask/hook coverage, and benchmarked background/full-frame samples.
 2026-05-17: Completed wrapper CLI playback parity across Mario, Tetris, and Zelda with headless random playback, first-reset seeding, action-space selection, README examples, and focused CLI coverage.
 2026-05-17: Completed wrapper registration and Gymnasium policy parity across Mario, Tetris, and Zelda with shared registration-module layout, explicit env-checker/truncation policy coverage, and representative rgb_array smoke checks.
+2026-05-17: Completed wrapper documentation and metadata parity across Mario, Tetris, and Zelda with CI Python version docs, CLI/Gymnasium README cleanup, modernized proprietary license metadata, and successful wrapper package builds/tests.
 2026-05-17: Completed nes-py mapper direct-read fast paths with cached PRG/CHR bus pages for mappers 0-3, direct-read regression coverage, and before/after benchmark documentation.
 2026-05-17: Completed nes-py ML observation fast paths with reusable native contiguous RGB/grayscale helpers, observation benchmark profiling, compatibility coverage, and conservative usage documentation.
 2026-05-17: Completed nes-py CPU instruction batching with an instruction-level CPU API, mapper-hook-gated frame stepping, deterministic old/new frame coverage, and benchmark comparisons.
