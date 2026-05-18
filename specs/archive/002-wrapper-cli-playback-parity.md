@@ -1,5 +1,7 @@
 # Specification: Wrapper CLI Playback Parity
 
+## Status: COMPLETE
+
 ## Problem
 
 `nes_py.play` has a clear Gymnasium-era playback contract: human or random
@@ -29,22 +31,22 @@ make quick CI or local smoke runs harder than they need to be.
 
 ## Acceptance Criteria
 
-- [ ] Each wrapper CLI supports `--mode human|random`, `--steps`, and
+- [x] Each wrapper CLI supports `--mode human|random`, `--steps`, and
       `--render/--no-render` with semantics compatible with `nes_py.play`.
-- [ ] Human mode rejects `--no-render` with an argparse error.
-- [ ] Random mode can run headlessly without constructing a human render
+- [x] Human mode rejects `--no-render` with an argparse error.
+- [x] Random mode can run headlessly without constructing a human render
       window.
-- [ ] Each wrapper CLI supports an optional seed path that applies to the first
+- [x] Each wrapper CLI supports an optional seed path that applies to the first
       Gymnasium reset without reintroducing `env.seed(...)`.
-- [ ] Each wrapper CLI exposes action-space selection when the package has a
+- [x] Each wrapper CLI exposes action-space selection when the package has a
       public `actions.py` preset suitable for `nes_py.wrappers.JoypadSpace`.
-- [ ] Mario keeps `--stages/-S` behavior limited to random-stage environments.
-- [ ] Zelda can use `gym_zelda_1.actions.MOVEMENT` from the CLI, matching its
+- [x] Mario keeps `--stages/-S` behavior limited to random-stage environments.
+- [x] Zelda can use `gym_zelda_1.actions.MOVEMENT` from the CLI, matching its
       README guidance.
-- [ ] CLI parsing and playback helpers are covered by tests that do not require
+- [x] CLI parsing and playback helpers are covered by tests that do not require
       a graphical window.
-- [ ] README command-line examples match the implemented options.
-- [ ] No generated artifacts, caches, build outputs, or local virtual
+- [x] README command-line examples match the implemented options.
+- [x] No generated artifacts, caches, build outputs, or local virtual
       environments are committed.
 
 ## Verification
@@ -94,4 +96,4 @@ When all acceptance criteria are met:
 - Output `DONE` only after local verification passes and required remote checks
   are green.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
