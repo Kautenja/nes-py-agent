@@ -1,5 +1,7 @@
 # Specification: nes-py Explicit State Snapshot API
 
+## Status: COMPLETE
+
 ## Source Inspiration
 
 PR #90 exposed `dump_state()` and `load_state(snapshot)` returning snapshots as
@@ -116,4 +118,4 @@ When all acceptance criteria are met:
 - Add the required completion log.
 - Output `DONE` only after verification passes.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

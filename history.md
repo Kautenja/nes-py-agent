@@ -47,3 +47,7 @@ Append one-line summaries here after each completed Ralph spec. Put longer notes
 2026-05-17: Completed nes-py ML observation fast paths with reusable native contiguous RGB/grayscale helpers, observation benchmark profiling, compatibility coverage, and conservative usage documentation.
 2026-05-17: Completed nes-py CPU instruction batching with an instruction-level CPU API, mapper-hook-gated frame stepping, deterministic old/new frame coverage, and benchmark comparisons.
 2026-05-17: Completed Zelda RL contract parity with `Zelda1-v0` documented and tested as a zero-reward navigation/state-inspection sandbox with non-terminal death recovery.
+2026-05-17: Completed nes-py vectorized native emulator prototype with same-ROM vector ownership, batched reset/step/observation/RAM/snapshot APIs, determinism coverage, and benchmarked no-regression serial vector results.
+2026-05-17: Completed nes-py native batch RAM info reads with generic scalar/vector descriptors, reusable uint32 outputs, validation coverage, and wrapper-style profiling that kept the helper as a shared primitive.
+2026-05-17: Completed nes-py vector throughput instrumentation with repeated vector speedtest profiles, timing breakdowns, CPU-affinity experiment labels, and documented instrumentation overhead.
+2026-05-17: Completed nes-py explicit state snapshot API with opaque mapper-aware snapshot ownership, scalar/vector restore paths, mapper-wide continuation coverage, and latency benchmarks.

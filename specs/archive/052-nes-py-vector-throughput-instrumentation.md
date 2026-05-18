@@ -1,5 +1,7 @@
 # Specification: nes-py Vector Throughput Instrumentation
 
+## Status: COMPLETE
+
 ## Source Inspiration
 
 PR #90 added timing counters around vector `step(actions)`, per-worker timing
@@ -118,4 +120,4 @@ When all acceptance criteria are met:
 - Add the required completion log.
 - Output `DONE` only after verification passes.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

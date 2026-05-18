@@ -1,5 +1,7 @@
 # Specification: nes-py Native Batch RAM Info Reads
 
+## Status: COMPLETE
+
 ## Source Inspiration
 
 PR #90 added `configure_ram_reads` and `ram_values` to its `VectorEmulator`.
@@ -115,4 +117,4 @@ When all acceptance criteria are met:
 - Add the required completion log.
 - Output `DONE` only after verification passes.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->

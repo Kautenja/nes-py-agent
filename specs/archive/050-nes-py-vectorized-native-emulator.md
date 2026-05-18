@@ -1,5 +1,7 @@
 # Specification: nes-py Vectorized Native Emulator
 
+## Status: COMPLETE
+
 ## Source Inspiration
 
 PR #90 added a `VectorEmulator` pybind11 class that owns multiple emulator
@@ -147,4 +149,4 @@ When all acceptance criteria are met:
 - Add the required completion log.
 - Output `DONE` only after verification passes.
 
-<!-- NR_OF_TRIES: 0 -->
+<!-- NR_OF_TRIES: 1 -->
