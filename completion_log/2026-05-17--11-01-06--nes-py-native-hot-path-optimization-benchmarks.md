@@ -2,18 +2,19 @@
 
 ## Summary
 
-Completed the spec 016 native benchmark and optimization pass in `nes-py`.
+Completed work item 016, the native benchmark and optimization pass in
+`nes-py`.
 The measured native frame-step path stayed almost entirely under the Cython
 `NativeEmulator.frame_advance` boundary, so the optimization stayed inside the
 native hot path and avoided the broader CPU/bus and PPU refactors reserved for
-specs 017 and 018.
+work items 017 and 018.
 
 The landed optimization replaces `MainBus` unordered-map I/O register callback
 dispatch with direct CPU/PPU/controller device dispatch for emulator-owned
 devices, keeps fixed callback arrays only as fallback slots, and stores CPU RAM
 as a fixed 2 KiB `std::array`. The benchmark API/CLI now includes a portable
-mapper hook smoke profile so spec 012 CPU-cycle, IRQ, PPU, expansion, PRG RAM,
-and nametable hooks are covered by benchmark output.
+mapper hook smoke profile so work item 012 CPU-cycle, IRQ, PPU, expansion, PRG
+RAM, and nametable hooks are covered by benchmark output.
 
 Before/after benchmark medians and profiling notes are recorded in
 `nes-py/docs/native-hot-path-optimization-benchmarks.md`. The key measured

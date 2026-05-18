@@ -1,6 +1,6 @@
 # nes-py Cartridge Header and Memory Map Model
 
-Completed spec `011-nes-py-cartridge-header-and-memory-map-model.md`.
+Completed work item `011-nes-py-cartridge-header-and-memory-map-model.md`.
 
 ## Summary
 

@@ -26,4 +26,4 @@ Removed Travis README badges and stale Travis-era dependencies, added `pyproject
 ## Commits
 
 - `gym-super-mario-bros`: `b7762013dc2734d19899fd1d4c18ae3f7dd1631b` pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the updated `gym-super-mario-bros` gitlink and archived spec.
+- Umbrella repository: this completion commit records the updated `gym-super-mario-bros` gitlink and archive summary.

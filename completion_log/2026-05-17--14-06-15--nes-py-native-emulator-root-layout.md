@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 022 in `nes-py`.
+Completed work item 022 in `nes-py`.
 
 - Moved the native emulator implementation from `nes_py/nes` to `nes_emu`.
 - Placed headers under `nes_emu/include/nes_emu` and sources under

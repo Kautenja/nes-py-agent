@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 017 in `nes-py`.
+Completed work item 017 in `nes-py`.
 
 The native CPU status register no longer uses an implementation-defined bool
 bitfield union. It now stores one portable 6502 status byte with explicit masks,
@@ -27,14 +27,14 @@ hooked versus unhooked paths, and normal `NESEnv.step` throughput.
 
 ## Benchmarks
 
-Baseline before this spec, collected from the pre-change branch state:
+Baseline before this work item, collected from the pre-change branch state:
 
 - `super-mario-bros-1.nes` public step speedtest:
   `884.79` steps/s (`1000` measured steps, `100` warmup)
 - mapper hook smoke profile:
   `672,423.42` iterations/s (`5000` measured iterations, `100` warmup)
 
-Final native hot-path profile after this spec:
+Final native hot-path profile after this work item:
 
 - `cpu_dispatch`: `191,233,840.74` iterations/s
 - `main_bus_io_dispatch`: `33,722,036.00` iterations/s
@@ -43,7 +43,7 @@ Final native hot-path profile after this spec:
 - `nes_env_step`: `833.35` iterations/s (`10000` measured noop steps,
   `1000` warmup)
 
-Final public speedtest samples after this spec:
+Final public speedtest samples after this work item:
 
 - `super-mario-bros-1.nes` random step speedtest:
   `866.42` steps/s (`1000` measured steps, `100` warmup)
@@ -57,7 +57,7 @@ The final public Mario step sample is about two percent below the first baseline
 sample on this machine. I investigated by repeating the benchmark after the
 initial implementation, tightening status flag updates, and rerunning the
 sample serially after all native profile work finished. The remaining delta is
-accepted because the spec intentionally fixes the CPU status register's
+accepted because the work item intentionally fixes the CPU status register's
 portable byte layout and stack/interrupt status behavior; all current behavior
 tests and new characterization tests pass, and no generated benchmark artifacts
 were committed.

@@ -8,7 +8,7 @@ Completed the mapper characterization baseline in `nes-py`:
 - Added mapper clone support so emulator backup/restore captures mapper-visible bank state and CHR RAM.
 - Added narrow native inspection hooks for mapper characterization tests.
 - Added a current-mapper benchmark profile API/CLI that emits structured JSON with environment, compiler, platform, mapper, operation, elapsed time, and steps-per-second fields.
-- Documented native mapper capability gaps for the follow-up mapper architecture specs.
+- Documented native mapper capability gaps for the follow-up mapper architecture tasks.
 
 ## Verification
 
@@ -27,4 +27,4 @@ Run inside `nes-py` with the project `.venv` Python 3.14.2 environment:
 ## Commits
 
 - `nes-py`: `72dec533bb2cf70afe113fb3c1c46b6138bb08cf` pushed to `origin/ralph-dev`.
-- Umbrella: this repository commit records the updated `nes-py` gitlink, archived spec, history entry, and completion log, and is pushed to `origin/main`.
+- Umbrella: this repository commit records the updated `nes-py` gitlink, archive summary, history entry, and completion log, and is pushed to `origin/main`.

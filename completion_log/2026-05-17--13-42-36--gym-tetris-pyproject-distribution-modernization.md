@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 021 in `gym-tetris`.
+Completed work item 021 in `gym-tetris`.
 
 - Created `pyproject.toml` with distribution metadata, runtime dependencies,
   release extra, URLs, package discovery, ROM package data, and console script

@@ -5,7 +5,7 @@ function Get-RootSpecs {
         return @()
     }
 
-    Get-ChildItem -LiteralPath $SpecsDir -File -Filter "*.md" |
+    Get-ChildItem -LiteralPath $SpecsDir -File -Filter "[0-9]*.md" |
         Sort-Object -Property Name
 }
 

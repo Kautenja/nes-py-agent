@@ -17,7 +17,7 @@
 - Ran `.venv/bin/python -m nes_py.speedtest --rom nes_py/tests/games/super-mario-bros-1.nes --steps 25 --warmup-steps 5 --seed 1 --backup-interval 12 --restore-interval 27 --json --no-progress`.
 - Ran `git diff --check`.
 - Confirmed the packaged benchmark uses explicit one-based interval semantics; the old script's truthy modulo behavior was corrected rather than preserved.
-- No live tag or remote CI smoke test was required for this spec because the `nes-py` workflow does not run on arbitrary `ralph-dev` branch pushes.
+- No live tag or remote CI smoke test was required for this work item because the `nes-py` workflow does not run on arbitrary `ralph-dev` branch pushes.
 
 ## Commits Pushed
 

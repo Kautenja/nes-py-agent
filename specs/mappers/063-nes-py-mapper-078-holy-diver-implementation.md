@@ -10,7 +10,7 @@ Emuparadise NES catalog at https://www.emuparadise.me/Nintendo_Entertainment_Sys
 
 ## Post-023 Test Layering
 
-Mapper work in this backlog runs after the mapper test package and native test separation specs. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage under `nes_emu/test/nes_emu/*` and `nes_emu/benchmark/nes_emu/*`, not as Python private-hook tests.
+Mapper work in this backlog runs after the mapper test package, native test separation specs, and the native per-mapper test split. Treat C++ mapper correctness, native-internal edge cases, synthetic ROM characterization, IRQ timing, backup/restore internals, and performance-sensitive hook behavior as native C++ test-runner or benchmark coverage. Mapper-specific tests should live in a dedicated `nes_emu/test/nes_emu/mappers/test_mapper_<mapper>.cpp` file with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; shared mapper API harnesses stay under `nes_emu/test/nes_emu/*`, and benchmarks stay under `nes_emu/benchmark/nes_emu/*`. Do not add Python private hooks or Python tests whose purpose is to characterize C++ internals.
 
 Each mapper must still have a Python application-layer test keyed to the representative title and expected local fixture path listed below. That test should be written so a legal ROM can be placed at the fixture path later; when the ROM is absent, skip only that representative-title integration check with a clear message. The Python test should exercise public package behavior such as ROM/header metadata, `NESEnv` construction, reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if that remains part of the package workflow.
 
@@ -38,12 +38,12 @@ Each mapper must still have a Python application-layer test keyed to the represe
 
 ## Acceptance Criteria
 
-- [ ] A C++ mapper class for mapper 78 exists under `nes_py/nes/include/mappers` and `nes_py/nes/src/mappers`, or an existing class is safely generalized for this mapper.
+- [ ] A C++ mapper class for mapper 78 exists under `nes_emu/include/nes_emu/mappers` and `nes_emu/src/nes_emu/mappers`, or an existing class is safely generalized for this mapper.
 - [ ] The native mapper registry, `MapperFactory`, and `IsMapperSupported` register mapper 78 with a clear mapper name.
 - [ ] Python `NESEnv` validation accepts mapper 78 through `_native.is_mapper_supported` only after the mapper implementation is wired.
 - [ ] The mapper implements the PRG, CHR, mirroring, RAM, IRQ, audio-register, and variant behavior needed by the representative title or documents any intentionally unsupported secondary feature.
 - [ ] A Python application-layer mapper test exists for the representative title and expected local fixture path listed above; when a legal fixture is present it identifies the mapper from the header, instantiates `NESEnv`, runs reset, a short deterministic step sequence, `rgb_array` rendering, close, and public backup/restore behavior if retained.
-- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior without routing through Python private hooks; Python coverage remains a public application-layer smoke/fixture test.
+- [ ] Native C++ tests cover mapper-specific bank switching and other low-level behavior in a dedicated per-mapper file under `nes_emu/test/nes_emu/mappers/` with a mapper-specific Catch2 tag such as `[mapper][mmc3]`; Python coverage remains a public application-layer smoke/fixture test and does not route through private hooks.
 - [ ] The test module explains how to provide the representative ROM legally and never fetches it from the network.
 - [ ] Missing fixture skips are narrow and explicit; they do not hide native C++ tests or public Python tests that can run without the commercial ROM.
 - [ ] Existing mapper tests still pass after this spec lands.
