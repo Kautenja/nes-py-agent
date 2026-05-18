@@ -28,4 +28,4 @@ continuation for representative mapper 0-3 ROM fixtures.
 ## Commits
 
 - `nes-py`: `c089db295c1b91c5a8e0ae3a7159bda960b7b9f1` pushed to `origin/ralph-dev`
-- Umbrella repository: this commit records the updated `nes-py` gitlink, archived spec, history entry, and completion log.
+- Umbrella repository: this commit records the updated `nes-py` gitlink, archive summary, history entry, and completion log.

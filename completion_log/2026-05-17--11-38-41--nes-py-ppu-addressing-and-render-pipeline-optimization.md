@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 018 in `nes-py`.
+Completed work item 018 in `nes-py`.
 
 - Normalized picture-bus pattern, nametable, `$3000-$3EFF`, palette, and `$3FFF` address handling.
 - Fixed PPUDATA buffering to use the original read address for delayed-read decisions.

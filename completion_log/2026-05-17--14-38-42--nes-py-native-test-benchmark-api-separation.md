@@ -36,4 +36,4 @@ Notes:
 ## Commits
 
 - `nes-py` child submodule: `13952a9abc1782cea7d743bed5fd5dd7e8d21c89` (`Separate native tests and benchmarks`), pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `nes-py` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `nes-py` gitlink update, archive summary, history entry, and completion log.

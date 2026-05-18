@@ -49,4 +49,4 @@ Commands run in `nes-py`:
 
 - `nes-py`: `4b8b2df` (`ralph-dev`) pushed to origin.
 - Umbrella repository: this commit records the `nes-py` submodule pointer,
-  completion log, history entry, and archived spec.
+  completion log, history entry, and archive summary.

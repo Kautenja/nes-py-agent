@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 053 by adding an opaque `NES::Emulator::Snapshot` state model,
+Completed work item 053 by adding an opaque `NES::Emulator::Snapshot` state model,
 heap-owned native snapshot handoff for Cython, public scalar `dump_state()` and
 `load_state(snapshot)`, and vector per-slot snapshot helpers. Snapshots clone
 mapper state and reload through callback rewiring rather than exposing raw

@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 051 by adding generic RAM read descriptors in `nes_py.ram`,
+Completed work item 051 by adding generic RAM read descriptors in `nes_py.ram`,
 scalar `NESEnv.ram_values(...)`, and vector `VectorNESEmulator.ram_values(...)`
 with reusable uint32 outputs. The helper supports byte, little-endian,
 big-endian, packed BCD, and digit-sequence reads while keeping game-specific

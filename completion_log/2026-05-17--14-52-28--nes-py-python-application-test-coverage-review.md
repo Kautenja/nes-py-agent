@@ -59,4 +59,4 @@ Notes:
 ## Commits
 
 - `nes-py` child submodule: `d7bef3a259c9fcedcaf277118722b7e2b9c7698b` (`Review Python application test coverage`), pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `nes-py` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `nes-py` gitlink update, archive summary, history entry, and completion log.

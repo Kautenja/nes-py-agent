@@ -49,11 +49,11 @@ Commands run in `nes-py`:
 - `git diff --check` passed in `nes-py`.
 
 No C++ observation helper was added, so no new native Catch2 target was required
-for this spec.
+for this work item.
 
 ## Commits
 
 - `nes-py`: `4f55cf8` (`Add ML observation fast paths`), pushed to
   `origin/ralph-dev`.
 - Umbrella repository: this commit records the `nes-py` submodule pointer,
-  completion log, history entry, and archived spec.
+  completion log, history entry, and archive summary.

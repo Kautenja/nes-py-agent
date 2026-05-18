@@ -34,4 +34,4 @@ Notes:
 ## Commits
 
 - `nes-py` child submodule: `e8170c74e45f21d0cebc3aac69d20819b927c26a` (`Migrate nes-py to Gymnasium API`), pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `nes-py` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `nes-py` gitlink update, archive summary, history entry, and completion log.

@@ -1,6 +1,6 @@
 # nes-py PPU Benchmark Suite
 
-Completed spec 039 by adding a native PPU benchmark suite and baseline
+Completed work item 039 by adding a native PPU benchmark suite and baseline
 developer note in `nes-py`.
 
 ## Summary

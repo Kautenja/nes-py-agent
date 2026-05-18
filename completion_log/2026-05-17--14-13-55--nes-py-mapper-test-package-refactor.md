@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 023 in `nes-py`.
+Completed work item 023 in `nes-py`.
 
 - Split the former monolithic `nes_py/tests/test_mappers.py` coverage into the
   `nes_py/tests/mappers/` package.
@@ -14,7 +14,7 @@ Completed spec 023 in `nes-py`.
 - Converted existing non-mapper test fixture imports to absolute package imports
   so `unittest discover nes_py/tests` works with the requested filesystem start
   directory.
-- Updated the active Python coverage review spec to point at
+- Updated the active Python coverage review task to point at
   `nes_py/tests/mappers/`.
 
 ## Verification

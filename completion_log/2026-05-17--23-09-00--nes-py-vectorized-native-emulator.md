@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 050 by adding an opt-in `VectorNESEmulator` API backed by a
+Completed work item 050 by adding an opt-in `VectorNESEmulator` API backed by a
 Cython `NativeVectorEmulator` that owns same-ROM native emulator instances and
 supports batched reset, reset-one, step, step-one, zero-copy per-slot screen/RAM
 views, contiguous RGB and grayscale batch copies, RAM readback, close semantics,

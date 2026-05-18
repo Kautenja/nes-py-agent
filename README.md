@@ -60,11 +60,25 @@ git add nes-py
 git commit -m "Update nes-py submodule"
 ```
 
+## Release Context
+
+- `CHANGELOG.md` summarizes the release-relevant work across the umbrella repo
+  and submodules.
+- `release-notes/` holds draft maintainer-facing notes for coordinated
+  releases.
+- `history.md` keeps the chronological completion record, with detailed
+  verification notes in `completion_log/` when needed.
+
 ## Ralph Wiggum Workflow
 
 This repo includes the Ralph Wiggum loop scripts from `fstandhartinger/ralph-wiggum` at commit `3f15f0fb83b8c2e0ac8d11abdae0e83ab8204981`.
 
 Work items live in `specs/` as Markdown specs. In build mode, Ralph picks the highest priority incomplete spec, implements it, verifies the acceptance criteria, commits and pushes, then emits the completion signal.
+
+Completed work should be summarized into `history.md` and, when release
+relevant, `CHANGELOG.md`. Avoid accumulating completed task bodies under
+`specs/archive/`; that directory is only a short pointer for old archive
+context.
 
 Useful commands:
 

@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 020 in `gym-zelda-1`.
+Completed work item 020 in `gym-zelda-1`.
 
 - Moved distribution metadata, runtime dependencies, release extra, URLs,
   package discovery, ROM package data, and console script metadata into

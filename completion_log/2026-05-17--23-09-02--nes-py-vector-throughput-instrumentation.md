@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 052 by extending `nes_py.speedtest` with repeated vector
+Completed work item 052 by extending `nes_py.speedtest` with repeated vector
 profiles for scalar loops, Gymnasium vector baselines, and the native vector
 prototype. The JSON output includes host/build metadata, env counts, action and
 observation modes, setup/teardown timing, native step timing, synchronization,

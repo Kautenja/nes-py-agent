@@ -39,4 +39,4 @@ names, and uses a consistent `requirements.txt` bootstrap policy for
 - `gym-zelda-1`: `e2f9e3aa473bd124ca7b25455d927518610d68bb`,
   `fe3baff35497dbb7da5bb5a355706bb3edf1ebc4`.
 - Umbrella repository: this commit records the wrapper submodule pointers,
-  completion log, history entry, and archived spec.
+  completion log, history entry, and archive summary.

@@ -19,7 +19,8 @@ You are in Ralph Loop Mode when started by `scripts/ralph-loop*.sh`, when the pr
 In this mode:
 
 - Read this constitution before doing anything else.
-- Read `history.md` and relevant files in `history/` before selecting work.
+- Read `history.md`, `CHANGELOG.md`, and relevant files in `history/` before
+  selecting work.
 - Pick the highest priority incomplete root Markdown spec from `specs/`.
 - Implement all acceptance criteria for that spec.
 - Verify with focused tests, smoke checks, or build commands appropriate to the changed submodule.
@@ -84,7 +85,11 @@ Active specs live in `specs/` as root Markdown files. Lower numeric prefixes are
 
 A spec is incomplete unless it contains `## Status: COMPLETE`.
 
-Completed specs must be moved to `specs/archive/` after the completion log and history entry are written, before the final queue re-check. Archived specs are not part of the active Ralph queue. Leave their numeric prefix and contents intact so they remain auditable while keeping active-loop context small.
+Completed specs must be retired from the active queue after the completion log
+and history entry are written, before the final queue re-check. Keep durable
+context in `history.md`, `CHANGELOG.md`, and focused files under `history/`.
+Use `specs/archive/` only as a short-term or pointer archive; do not let full
+completed task bodies pile up there.
 
 Each spec should include:
 
@@ -100,7 +105,10 @@ Track attempts per spec with an `<!-- NR_OF_TRIES: N -->` comment at the bottom 
 
 ## History
 
-Append a one-line summary to `history.md` after each completed spec. For larger decisions or lessons learned, create `history/YYYY-MM-DD--spec-name.md`.
+Append a one-line summary to `history.md` after each completed spec. For larger
+decisions or lessons learned, create `history/YYYY-MM-DD--spec-name.md`. Update
+`CHANGELOG.md` when the completed work changes release notes or durable project
+context.
 
 ---
 

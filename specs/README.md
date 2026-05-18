@@ -20,6 +20,16 @@ Each spec should include concrete acceptance criteria and verification commands.
 ## Status: COMPLETE
 ```
 
+## Completion Archive
+
+Completed root-level work should be retired from the live queue after its
+history entry and completion log are written. Keep the durable context in
+`history.md`, `CHANGELOG.md`, and focused notes under `history/` rather than
+letting completed task bodies accumulate here.
+
+`specs/archive/` is now intentionally lightweight. It exists as a pointer for
+old archive context, not as the primary historical record.
+
 ## Active Mapper Queue
 
 The current active root queue promotes the popular unsupported NES mappers

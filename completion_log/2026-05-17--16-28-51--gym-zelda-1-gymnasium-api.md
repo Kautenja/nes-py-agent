@@ -23,4 +23,4 @@ Notes:
 ## Commits
 
 - `gym-zelda-1` child submodule: `4f3b7fe2f22ac847cad82aa80c6cda2dbee471e1`, pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `gym-zelda-1` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `gym-zelda-1` gitlink update, archive summary, history entry, and completion log.

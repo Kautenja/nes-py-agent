@@ -1,23 +1,21 @@
-# Upcoming Wrapper Release Notes
+# May 2026 NES Gym Release Notes
 
-Draft notes for the next coordinated wrapper release:
+Draft notes for the next coordinated NES Gym release:
 
+- `nes-py` `9.0.0`
 - `gym-super-mario-bros` `8.0.0`
 - `gym-tetris` `4.0.0`
 - `gym-zelda-1` `0.3.0`
 
-These releases align the game wrappers with `nes-py` `9.0.0` and the
-Gymnasium API.
-
 ## Summary
 
-This release refreshes the maintained NES Gym wrappers for the current Python
-and reinforcement-learning ecosystem. The largest user-facing change is the
-move from the legacy Gym API to Gymnasium across all three projects.
+This release refreshes the maintained NES Gym stack for the current Python and
+reinforcement-learning ecosystem. The largest user-facing change is the move
+from the legacy Gym API to Gymnasium across the emulator package and all three
+game wrappers.
 
-The release also standardizes packaging and maintenance by moving each wrapper
-to `pyproject.toml`, GitHub Actions, trusted PyPI publishing, and the shared
-`main.sh` workflow.
+The release also standardizes packaging and maintenance with `pyproject.toml`,
+GitHub Actions, tag-gated publishing, and consistent wrapper documentation.
 
 ## Breaking Changes
 
@@ -27,6 +25,15 @@ to `pyproject.toml`, GitHub Actions, trusted PyPI publishing, and the shared
 - Wrapper releases now depend on `nes-py>=9.0.0`.
 
 ## Package Highlights
+
+### `nes-py` `9.0.0`
+
+- Migrates the core environment API to Gymnasium.
+- Modernizes native packaging and the Cython binding layer.
+- Adds cartridge metadata, stronger mapper lifecycle support, explicit state
+  snapshots, batch RAM reads, and vectorized emulator instrumentation.
+- Improves native mapper coverage and performance-sensitive emulator paths
+  while keeping ROM asset handling conservative.
 
 ### `gym-super-mario-bros` `8.0.0`
 
@@ -56,14 +63,14 @@ to `pyproject.toml`, GitHub Actions, trusted PyPI publishing, and the shared
 ## Maintainer Notes
 
 - Publish `nes-py` `9.0.0` before publishing the wrapper releases.
-- Create Git tags and GitHub releases after final smoke checks so the changelog
-  "unreleased" sections can be dated consistently.
+- Create Git tags and GitHub releases after final smoke checks so changelog
+  sections can be dated consistently.
 - Consider calling out `gym-zelda-1` as a compatibility refresh rather than a
   stable-major launch because it remains on a `0.x` version line.
 
-## Historical Sources
+## Release Context
 
-- `gym-super-mario-bros`: local git tags plus GitHub Releases for the 7.x line.
-- `gym-tetris`: local git tags plus GitHub Releases for the 2.x and 3.x line.
-- `gym-zelda-1`: local git tags and repository history; the GitHub Releases
-  page currently has no published releases.
+- Use the root `CHANGELOG.md` for the consolidated development summary.
+- Use `history.md` for the chronological one-line completion record.
+- Use `completion_log/` only when verification commands or pushed commit
+  references are needed.

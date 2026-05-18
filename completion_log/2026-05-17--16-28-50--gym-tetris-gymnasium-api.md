@@ -25,4 +25,4 @@ Notes:
 ## Commits
 
 - `gym-tetris` child submodule: `d77063ac936efc779c5d812b59793c0eac91768d`, pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `gym-tetris` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `gym-tetris` gitlink update, archive summary, history entry, and completion log.

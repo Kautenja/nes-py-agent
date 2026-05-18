@@ -21,9 +21,9 @@ Notes:
 
 - `python` was not on PATH and system `python3` rejected editable installs under PEP 668, so verification used the repository virtualenv interpreter.
 - The local Zelda fixture was present, so the representative ROM-backed integration test ran and passed. No ROM downloads or new ROM assets were added.
-- Native benchmarks were not run because this spec changed tests only, not mapper timing hooks or hot-path behavior.
+- Native benchmarks were not run because this work item changed tests only, not mapper timing hooks or hot-path behavior.
 
 ## Commits
 
 - `nes-py` child submodule: `800c4d062e32662cfe7d2b77d74f683db3a76343`, pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `nes-py` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `nes-py` gitlink update, archive summary, history entry, and completion log.

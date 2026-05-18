@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 019 in `gym-super-mario-bros`.
+Completed work item 019 in `gym-super-mario-bros`.
 
 - Moved distribution metadata, runtime dependencies, release extra, URLs,
   package discovery, ROM package data, and console script metadata into

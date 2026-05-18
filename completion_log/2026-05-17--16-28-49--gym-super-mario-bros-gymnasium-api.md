@@ -22,4 +22,4 @@ Notes:
 ## Commits
 
 - `gym-super-mario-bros` child submodule: `4e1d4b5e6ad61aa9c14c8c0deedb201b967a28ec`, pushed to `origin/ralph-dev`.
-- Umbrella repository: this completion commit records the `gym-super-mario-bros` gitlink update, archived spec, history entry, and completion log.
+- Umbrella repository: this completion commit records the `gym-super-mario-bros` gitlink update, archive summary, history entry, and completion log.

@@ -38,4 +38,4 @@ Commands run in `nes-py`:
 - `nes-py`: `8e33e74` (`Add mapper direct read fast paths`), pushed to
   `origin/ralph-dev`.
 - Umbrella repository: this commit records the `nes-py` submodule pointer,
-  completion log, history entry, and archived spec.
+  completion log, history entry, and archive summary.

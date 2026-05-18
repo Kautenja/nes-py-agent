@@ -2,7 +2,7 @@
 
 ## Summary
 
-Completed spec 005 across `gym-super-mario-bros`, `gym-tetris`, and
+Completed work item 005 across `gym-super-mario-bros`, `gym-tetris`, and
 `gym-zelda-1` by aligning README usage and publishing docs with the current
 Gymnasium and CLI behavior, documenting the supported CI Python targets, and
 normalizing wrapper `pyproject.toml` metadata toward the current `nes-py`
