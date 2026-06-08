@@ -64,6 +64,8 @@ When not in Ralph Loop Mode, collaborate normally: answer questions, refine spec
 | `gym-super-mario-bros` | Super Mario Bros. Gym wrapper | `git@github.com:Kautenja/gym-super-mario-bros.git` | `ralph-dev` |
 | `gym-tetris` | Tetris Gym wrapper | `git@github.com:Kautenja/gym-tetris.git` | `ralph-dev` |
 | `gym-zelda-1` | The Legend of Zelda Gym wrapper | `git@github.com:Kautenja/gym-zelda-1.git` | `master` |
+| `playing-mario-with-deep-reinforcement-learning` | Deep-Q learning examples for Super Mario Bros. | `git@github.com:Kautenja/playing-mario-with-deep-reinforcement-learning.git` | `master` |
+| `playing-tetris-with-deep-learning` | Deep-Q learning examples for Tetris | `git@github.com:Kautenja/playing-tetris-with-deep-learning.git` | `master` |
 
 Submodule work must be committed inside the child repository before the umbrella repo records the updated gitlink. Do not treat a dirty submodule as complete work.
 

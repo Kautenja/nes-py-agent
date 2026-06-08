@@ -14,3 +14,11 @@
 	path = gym-zelda-1
 	url = git@github.com:Kautenja/gym-zelda-1.git
 	branch = ralph-dev
+[submodule "playing-mario-with-deep-reinforcement-learning"]
+	path = playing-mario-with-deep-reinforcement-learning
+	url = git@github.com:Kautenja/playing-mario-with-deep-reinforcement-learning.git
+	branch = master
+[submodule "playing-tetris-with-deep-learning"]
+	path = playing-tetris-with-deep-learning
+	url = git@github.com:Kautenja/playing-tetris-with-deep-learning.git
+	branch = master
