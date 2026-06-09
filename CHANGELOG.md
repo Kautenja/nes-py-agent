@@ -13,6 +13,10 @@
   selection, channel-first downsampling/frame-stack preprocessing, reward
   accounting, record-statistics integration, optional OpenCV MP4 recording, and
   deterministic fake-env plus real Mario smoke coverage.
+- Added `mario_rl.config` with a single typed dataclass config tree, packaged
+  YAML configs, nested CLI overrides, import-safe train/play/random entrypoints,
+  and `main.sh` routes for config discovery, training, play, random rollout, and
+  unittest workflows.
 
 ## 2026-05 Coordinated Release Preparation
 

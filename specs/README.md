@@ -32,11 +32,11 @@ old archive context, not as the primary historical record.
 
 ## Active Mapper Queue
 
-The root queue currently continues with the Playing Mario modernization specs:
+The root queue currently continues with the remaining Playing Mario
+modernization specs:
 
 | Prefix | Spec |
 | --- | --- |
-| `003` | Playing Mario config CLI project layout |
 | `004` | Playing Mario PyTorch DQN core |
 | `005` | Playing Mario Lightning training and device smoke |
 
