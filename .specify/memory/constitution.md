@@ -24,9 +24,10 @@ In this mode:
 - Pick the highest priority incomplete root Markdown spec from `specs/`.
 - Implement all acceptance criteria for that spec.
 - Verify with focused tests, smoke checks, or build commands appropriate to the changed submodule.
-- Commit and push changes inside child submodules first.
-- Commit and push the umbrella submodule pointer and root-level workflow changes second.
-- Output `DONE` only after all acceptance criteria are verified, tests pass, and required commits/pushes are complete.
+- Commit changes locally inside child submodules first.
+- Commit the umbrella submodule pointer and root-level workflow changes locally second.
+- Do not push local commits to remotes during Ralph Loop Mode unless the user explicitly requests it for that run.
+- Output `DONE` only after all acceptance criteria are verified, tests pass, and required local commits are complete.
 - Output `ALL_DONE` only when there are no incomplete specs, after re-checking that state.
 
 ### Interactive Mode
@@ -75,9 +76,9 @@ Submodule work must be committed inside the child repository before the umbrella
 
 YOLO Mode: ENABLED
 
-Git Autonomy: ENABLED
+Local Git Autonomy: ENABLED
 
-Ralph may run commands, edit files, test, commit, and push without asking for per-command approval when running in loop mode. Interactive sessions should still use normal judgment and respect user intent.
+Ralph may run commands, edit files, test, and commit locally without asking for per-command approval when running in loop mode. Remote pushes require explicit user direction. Interactive sessions should still use normal judgment and respect user intent.
 
 ---
 
@@ -116,13 +117,13 @@ context.
 
 ## Completion Logs
 
-After each completed spec, create `completion_log/YYYY-MM-DD--HH-MM-SS--spec-name.md` with a brief summary, the verification performed, and the commits pushed.
+After each completed spec, create `completion_log/YYYY-MM-DD--HH-MM-SS--spec-name.md` with a brief summary, the verification performed, and the local commits created.
 
 ---
 
 ## Completion Signal
 
-All acceptance criteria verified, tests pass, child submodule changes committed and pushed, umbrella gitlink committed and pushed -> output `DONE`.
+All acceptance criteria verified, tests pass, child submodule changes committed locally, umbrella gitlink committed locally -> output `DONE`.
 
 No incomplete specs remain after re-checking the queue -> output `ALL_DONE`.
 
