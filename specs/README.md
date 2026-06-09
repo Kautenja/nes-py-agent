@@ -32,8 +32,19 @@ old archive context, not as the primary historical record.
 
 ## Active Mapper Queue
 
-The current active root queue promotes the popular unsupported NES mappers
-identified from the mapper backlog, excluding mapper 24 / VRC6:
+The root queue currently continues with the Playing Mario modernization specs:
+
+| Prefix | Spec |
+| --- | --- |
+| `002` | Playing Mario Gymnasium environment pipeline |
+| `003` | Playing Mario config CLI project layout |
+| `004` | Playing Mario PyTorch DQN core |
+| `005` | Playing Mario Lightning training and device smoke |
+
+The mapper backlog remains available under `specs/mappers/`. Those specs are
+not active root work unless promoted or explicitly targeted in the Ralph
+prompt. The previously active mapper queue promoted the popular unsupported NES
+mappers identified from the mapper backlog, excluding mapper 24 / VRC6:
 
 | Prefix | Mapper | Anchor title |
 | --- | --- | --- |

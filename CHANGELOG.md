@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-06 Playing Mario Modernization
+
+- Started the Mario learner modernization queue by adding PEP 621 package
+  metadata, a lightweight `mario_rl` namespace, modern Gymnasium/PyTorch/
+  Lightning dependency floors, and documented editable install paths for the
+  umbrella `nes-py` and `gym-super-mario-bros` submodules.
+- Added dependency and package-layout unittest coverage so the modern package
+  imports without TensorFlow or Keras, while legacy Keras model tests are kept
+  skipped until the PyTorch port owns them.
+
 ## 2026-05 Coordinated Release Preparation
 
 This entry consolidates the completed development archive that previously lived
