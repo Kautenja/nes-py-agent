@@ -17,6 +17,10 @@
   YAML configs, nested CLI overrides, import-safe train/play/random entrypoints,
   and `main.sh` routes for config discovery, training, play, random rollout, and
   unittest workflows.
+- Added the native PyTorch DQN core with `DQN` and `DuelingDQN` modules,
+  selected-action SmoothL1 TD-loss helpers, Double-DQN target selection, typed
+  uniform replay batches, seeded epsilon-greedy scheduling, and focused CPU
+  optimizer-step coverage.
 
 ## 2026-05 Coordinated Release Preparation
 
