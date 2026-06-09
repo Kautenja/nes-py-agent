@@ -36,7 +36,6 @@ The root queue currently continues with the Playing Mario modernization specs:
 
 | Prefix | Spec |
 | --- | --- |
-| `002` | Playing Mario Gymnasium environment pipeline |
 | `003` | Playing Mario config CLI project layout |
 | `004` | Playing Mario PyTorch DQN core |
 | `005` | Playing Mario Lightning training and device smoke |

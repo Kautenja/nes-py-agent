@@ -9,6 +9,10 @@
 - Added dependency and package-layout unittest coverage so the modern package
   imports without TensorFlow or Keras, while legacy Keras model tests are kept
   skipped until the PyTorch port owns them.
+- Added `mario_rl.envs` with a Gymnasium Mario factory, JoypadSpace action-set
+  selection, channel-first downsampling/frame-stack preprocessing, reward
+  accounting, record-statistics integration, optional OpenCV MP4 recording, and
+  deterministic fake-env plus real Mario smoke coverage.
 
 ## 2026-05 Coordinated Release Preparation
 

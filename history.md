@@ -54,3 +54,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-05-17: Completed nes-py vector throughput instrumentation with repeated vector speedtest profiles, timing breakdowns, CPU-affinity experiment labels, and documented instrumentation overhead.
 2026-05-17: Completed nes-py explicit state snapshot API with opaque mapper-aware snapshot ownership, scalar/vector restore paths, mapper-wide continuation coverage, and latency benchmarks.
 2026-06-09: Completed Playing Mario modern dependency baseline with pyproject metadata, a lightweight `mario_rl` package, modern Gymnasium/PyTorch/Lightning dependencies, editable submodule install docs, and focused dependency/layout tests.
+2026-06-09: Completed Playing Mario Gymnasium environment pipeline with a `mario_rl.envs` factory, JoypadSpace action sets, channel-first preprocessing wrappers, deterministic Mario smoke tests, and optional OpenCV video recording.
