@@ -21,6 +21,10 @@
   selected-action SmoothL1 TD-loss helpers, Double-DQN target selection, typed
   uniform replay batches, seeded epsilon-greedy scheduling, and focused CPU
   optimizer-step coverage.
+- Added the Lightning DQN training and evaluation path with manual
+  replay-driven optimization, checkpointed schedule/counter state, resolved
+  config/log/checkpoint/metrics artifacts, CPU and MPS smoke verification, and
+  README commands for CPU, MPS, CUDA, and checkpoint play.
 
 ## 2026-05 Coordinated Release Preparation
 

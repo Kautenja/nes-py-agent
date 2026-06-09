@@ -30,14 +30,12 @@ letting completed task bodies accumulate here.
 `specs/archive/` is now intentionally lightweight. It exists as a pointer for
 old archive context, not as the primary historical record.
 
+## Active Root Queue
+
+There are currently no incomplete root-level specs. Promote or copy a backlog
+item into this directory when the next autonomous Ralph loop should work it.
+
 ## Active Mapper Queue
-
-The root queue currently continues with the remaining Playing Mario
-modernization spec:
-
-| Prefix | Spec |
-| --- | --- |
-| `005` | Playing Mario Lightning training and device smoke |
 
 The mapper backlog remains available under `specs/mappers/`. Those specs are
 not active root work unless promoted or explicitly targeted in the Ralph
