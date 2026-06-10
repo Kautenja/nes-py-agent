@@ -76,6 +76,19 @@ python -m unittest discover .
 ./main.sh unittest
 ```
 
+After spec `005-playing-mario-macbook-trainability-guardrails` is complete,
+also run:
+
+```shell
+./main.sh verify-macbook
+```
+
+If MPS is available on the current Mac, also run:
+
+```shell
+./main.sh verify-macbook --device mps
+```
+
 If wrapper changes are needed:
 
 ```shell

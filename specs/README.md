@@ -38,6 +38,7 @@ The current active root queue focuses on modernizing
 
 | Prefix | Spec |
 | --- | --- |
+| `005` | `playing-mario-macbook-trainability-guardrails` |
 | `006` | `playing-mario-task-conditioning` |
 | `007` | `playing-mario-task-suite-curriculum` |
 | `008` | `playing-mario-universal-action-space` |
@@ -52,6 +53,29 @@ These specs may touch `nes-py`, `gym-super-mario-bros`, and
 needs changes, make them on a new child branch, bump that child version when
 package behavior changes, commit locally, and defer publishing to the final
 human-approved release sequence.
+
+## MacBook Trainability Gates
+
+The Mario RL queue is not complete merely because unit tests pass. The goal is
+a project the user can train locally on a MacBook. Spec `005` establishes the
+shared trainability harness. After it is complete, each later active Mario RL
+spec must preserve or extend that harness and include:
+
+- focused unit tests for the changed behavior;
+- full `mario_rl` unittest verification;
+- a bounded real-environment mini training run that performs optimizer steps;
+- a tiny evaluation/play run against the produced checkpoint when applicable;
+- artifact checks for config, checkpoint, metrics, and logs;
+- timing or throughput output so optimization regressions are visible;
+- CPU verification and MPS verification when Apple Silicon MPS is available;
+- documentation of any temporary skip, known performance issue, or follow-up
+  optimization required before long training.
+
+Specs that add a new model, algorithm, rollout path, action space, reward
+transform, task suite, metrics path, or auxiliary loss must add or update a
+small config that can be exercised by the MacBook gate. Prefer conservative
+warning thresholds at first, but do not accept silent slowdowns, missing
+artifacts, or fake-only training as sufficient completion evidence.
 
 ## Active Mapper Queue
 
