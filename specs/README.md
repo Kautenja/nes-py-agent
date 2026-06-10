@@ -38,7 +38,6 @@ The current active root queue focuses on modernizing
 
 | Prefix | Spec |
 | --- | --- |
-| `006` | `playing-mario-task-conditioning` |
 | `007` | `playing-mario-task-suite-curriculum` |
 | `008` | `playing-mario-universal-action-space` |
 | `009` | `playing-mario-reward-transform-pipeline` |

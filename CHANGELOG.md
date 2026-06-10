@@ -29,6 +29,10 @@
   bounded real-environment config, CPU/MPS auto-selection, fast unit-test
   preflight, train/eval artifact verification, wall-clock/throughput/memory
   summaries, warning-based performance budgets, and benchmark-only profiling.
+- Added deterministic task conditioning for the Mario learner with a public
+  `MarioTask` feature encoder, canonical alias handling, unknown/custom task
+  fallbacks, optional DQN/DuelingDQN task inputs, replay-carried task features,
+  train/eval wiring, and an opt-in task-conditioned fast-dev config.
 
 ## 2026-05 Coordinated Release Preparation
 
