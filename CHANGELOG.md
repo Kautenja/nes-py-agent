@@ -25,6 +25,10 @@
   replay-driven optimization, checkpointed schedule/counter state, resolved
   config/log/checkpoint/metrics artifacts, CPU and MPS smoke verification, and
   README commands for CPU, MPS, CUDA, and checkpoint play.
+- Added a documented MacBook trainability gate for the Mario learner with a
+  bounded real-environment config, CPU/MPS auto-selection, fast unit-test
+  preflight, train/eval artifact verification, wall-clock/throughput/memory
+  summaries, warning-based performance budgets, and benchmark-only profiling.
 
 ## 2026-05 Coordinated Release Preparation
 

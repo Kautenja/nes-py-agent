@@ -38,7 +38,6 @@ The current active root queue focuses on modernizing
 
 | Prefix | Spec |
 | --- | --- |
-| `005` | `playing-mario-macbook-trainability-guardrails` |
 | `006` | `playing-mario-task-conditioning` |
 | `007` | `playing-mario-task-suite-curriculum` |
 | `008` | `playing-mario-universal-action-space` |
@@ -57,8 +56,9 @@ human-approved release sequence.
 ## MacBook Trainability Gates
 
 The Mario RL queue is not complete merely because unit tests pass. The goal is
-a project the user can train locally on a MacBook. Spec `005` establishes the
-shared trainability harness. After it is complete, each later active Mario RL
+a project the user can train locally on a MacBook. The shared trainability
+harness is `./main.sh verify-macbook` in
+`playing-mario-with-deep-reinforcement-learning`. Each later active Mario RL
 spec must preserve or extend that harness and include:
 
 - focused unit tests for the changed behavior;

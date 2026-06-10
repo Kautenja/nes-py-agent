@@ -58,3 +58,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-06-09: Completed Playing Mario config CLI project layout with typed dataclass configs, packaged YAML discovery, import-safe train/play/random entrypoints, TISV-style `main.sh` routing, and focused config/entrypoint tests.
 2026-06-09: Completed Playing Mario PyTorch DQN core with native DQN/DuelingDQN modules, selected-action TD loss helpers, uniform replay batches, epsilon schedules, and focused PyTorch/replay coverage.
 2026-06-09: Completed Playing Mario Lightning training and device smoke with a Lightning DQN module, bounded replay-driven smoke training, checkpoint evaluation, CPU/MPS verification, and artifact documentation.
+2026-06-10: Completed Playing Mario MacBook trainability guardrails with a documented `verify-macbook` gate, bounded real-environment CPU/MPS mini train/eval runs, artifact checks, warning budgets, and benchmark summaries.
