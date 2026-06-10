@@ -52,6 +52,10 @@
   episode accumulation, global/per-game-family/per-task summaries, stable
   Lightning scalar names, structured train/eval JSON artifacts, and
   missing-info counters for optional Gymnasium `info` fields.
+- Added a recurrent PPO actor-critic path for the Mario learner with a visual
+  encoder, optional task embedding, GRU memory, policy/value heads, rollout
+  storage with GAE, clipped PPO losses, algorithm-selectable training, a
+  packaged `smb_ppo_fast_dev` smoke config, and focused fake-env coverage.
 
 ## 2026-05 Coordinated Release Preparation
 
