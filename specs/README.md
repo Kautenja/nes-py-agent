@@ -32,8 +32,26 @@ old archive context, not as the primary historical record.
 
 ## Active Root Queue
 
-There are currently no incomplete root-level specs. Promote or copy a backlog
-item into this directory when the next autonomous Ralph loop should work it.
+The current active root queue focuses on modernizing
+`playing-mario-with-deep-reinforcement-learning` for the
+`gym-super-mario-bros` 9.1.0 task surface:
+
+| Prefix | Spec |
+| --- | --- |
+| `006` | `playing-mario-task-conditioning` |
+| `007` | `playing-mario-task-suite-curriculum` |
+| `008` | `playing-mario-universal-action-space` |
+| `009` | `playing-mario-reward-transform-pipeline` |
+| `010` | `playing-mario-task-metrics` |
+| `011` | `playing-mario-recurrent-actor-critic` |
+| `012` | `playing-mario-evaluation-matrix` |
+| `013` | `playing-mario-auxiliary-losses` |
+
+These specs may touch `nes-py`, `gym-super-mario-bros`, and
+`playing-mario-with-deep-reinforcement-learning` as needed. If a child package
+needs changes, make them on a new child branch, bump that child version when
+package behavior changes, commit locally, and defer publishing to the final
+human-approved release sequence.
 
 ## Active Mapper Queue
 
