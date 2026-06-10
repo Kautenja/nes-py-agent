@@ -60,3 +60,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-06-09: Completed Playing Mario Lightning training and device smoke with a Lightning DQN module, bounded replay-driven smoke training, checkpoint evaluation, CPU/MPS verification, and artifact documentation.
 2026-06-10: Completed Playing Mario MacBook trainability guardrails with a documented `verify-macbook` gate, bounded real-environment CPU/MPS mini train/eval runs, artifact checks, warning budgets, and benchmark summaries.
 2026-06-10: Completed Playing Mario task conditioning with a deterministic MarioTask feature encoder, optional DQN/DuelingDQN task inputs, replay task feature batches, train/eval wiring, and CPU/MPS gate verification.
+2026-06-10: Completed Playing Mario task-suite curriculum with metadata-only TaskSuite sampling, balanced family weights, episode-boundary task switching, SMB3 catalog reporting, and CPU/MPS gate verification.

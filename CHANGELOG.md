@@ -33,6 +33,11 @@
   `MarioTask` feature encoder, canonical alias handling, unknown/custom task
   fallbacks, optional DQN/DuelingDQN task inputs, replay-carried task features,
   train/eval wiring, and an opt-in task-conditioned fast-dev config.
+- Added deterministic task-suite curriculum sampling for the Mario learner with
+  typed suite configs, metadata-only candidate resolution across SMB1, Lost
+  Levels, SMB2 USA, and SMB3, balanced per-family weights, SMB3 catalog
+  reporting, episode-boundary task switching, and a tiny task-suite smoke
+  config.
 
 ## 2026-05 Coordinated Release Preparation
 
