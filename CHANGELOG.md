@@ -43,6 +43,11 @@
   256-action NES support, automatic `model.num_actions` config resolution,
   fixed-count mismatch validation, and action metadata in train/play/random
   artifacts and MacBook gate summaries.
+- Added configurable reward transforms for the Mario learner with `env`,
+  `sign`, `unclipped`, `clipped`, and component-weight modes, disabled default
+  sign clipping for modern Mario training, preserved raw/unclipped/clipped
+  reward diagnostics in replay and train metrics, and aggregated reward info
+  across frame-skip steps.
 
 ## 2026-05 Coordinated Release Preparation
 
