@@ -38,8 +38,6 @@ The current active root queue focuses on modernizing
 
 | Prefix | Spec |
 | --- | --- |
-| `011` | `playing-mario-recurrent-actor-critic` |
-| `012` | `playing-mario-evaluation-matrix` |
 | `013` | `playing-mario-auxiliary-losses` |
 
 These specs may touch `nes-py`, `gym-super-mario-bros`, and

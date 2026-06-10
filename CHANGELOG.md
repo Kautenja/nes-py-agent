@@ -56,6 +56,10 @@
   encoder, optional task embedding, GRU memory, policy/value heads, rollout
   storage with GAE, clipped PPO losses, algorithm-selectable training, a
   packaged `smb_ppo_fast_dev` smoke config, and focused fake-env coverage.
+- Added an evaluation matrix runner with task metadata filters, deterministic
+  seed expansion, optional full SMB3 catalog reporting, JSON and CSV artifacts
+  with one row per task/seed/episode, fake-env tests, and a packaged
+  `smb_dqn_eval_matrix_fast_dev` smoke config.
 
 ## 2026-05 Coordinated Release Preparation
 
