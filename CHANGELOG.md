@@ -38,6 +38,11 @@
   Levels, SMB2 USA, and SMB3, balanced per-family weights, SMB3 catalog
   reporting, episode-boundary task switching, and a tiny task-suite smoke
   config.
+- Added universal action-space sizing for the Mario learner with explicit
+  `nes`, `right`, `right_only`, `simple`, and `complex` resolution, native
+  256-action NES support, automatic `model.num_actions` config resolution,
+  fixed-count mismatch validation, and action metadata in train/play/random
+  artifacts and MacBook gate summaries.
 
 ## 2026-05 Coordinated Release Preparation
 

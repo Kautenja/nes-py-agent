@@ -61,3 +61,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-06-10: Completed Playing Mario MacBook trainability guardrails with a documented `verify-macbook` gate, bounded real-environment CPU/MPS mini train/eval runs, artifact checks, warning budgets, and benchmark summaries.
 2026-06-10: Completed Playing Mario task conditioning with a deterministic MarioTask feature encoder, optional DQN/DuelingDQN task inputs, replay task feature batches, train/eval wiring, and CPU/MPS gate verification.
 2026-06-10: Completed Playing Mario task-suite curriculum with metadata-only TaskSuite sampling, balanced family weights, episode-boundary task switching, SMB3 catalog reporting, and CPU/MPS gate verification.
+2026-06-10: Completed Playing Mario universal action-space sizing with native NES 256-action support, right/right_only aliasing, automatic model-head resolution, mismatch validation, action metadata artifacts, and CPU/MPS gate verification.
