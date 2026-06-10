@@ -60,6 +60,10 @@
   seed expansion, optional full SMB3 catalog reporting, JSON and CSV artifacts
   with one row per task/seed/episode, fake-env tests, and a packaged
   `smb_dqn_eval_matrix_fast_dev` smoke config.
+- Added optional auxiliary prediction losses for recurrent PPO with masked
+  targets for progress, clear/death flags, transformed rewards, reward totals,
+  and game-family classification, plus durable PPO/auxiliary loss artifacts and
+  a packaged `smb_ppo_auxiliary_fast_dev` smoke config.
 
 ## 2026-05 Coordinated Release Preparation
 

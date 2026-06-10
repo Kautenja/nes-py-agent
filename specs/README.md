@@ -32,15 +32,9 @@ old archive context, not as the primary historical record.
 
 ## Active Root Queue
 
-The current active root queue focuses on modernizing
-`playing-mario-with-deep-reinforcement-learning` for the
-`gym-super-mario-bros` 9.1.0 task surface:
+No active root specs remain in the live queue.
 
-| Prefix | Spec |
-| --- | --- |
-| `013` | `playing-mario-auxiliary-losses` |
-
-These specs may touch `nes-py`, `gym-super-mario-bros`, and
+Future promoted Mario RL specs may touch `nes-py`, `gym-super-mario-bros`, and
 `playing-mario-with-deep-reinforcement-learning` as needed. If a child package
 needs changes, make them on a new child branch, bump that child version when
 package behavior changes, commit locally, and defer publishing to the final
