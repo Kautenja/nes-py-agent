@@ -48,6 +48,10 @@
   sign clipping for modern Mario training, preserved raw/unclipped/clipped
   reward diagnostics in replay and train metrics, and aggregated reward info
   across frame-skip steps.
+- Added structured task metrics for the Mario learner with typed step and
+  episode accumulation, global/per-game-family/per-task summaries, stable
+  Lightning scalar names, structured train/eval JSON artifacts, and
+  missing-info counters for optional Gymnasium `info` fields.
 
 ## 2026-05 Coordinated Release Preparation
 

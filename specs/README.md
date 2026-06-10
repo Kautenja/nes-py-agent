@@ -38,7 +38,6 @@ The current active root queue focuses on modernizing
 
 | Prefix | Spec |
 | --- | --- |
-| `010` | `playing-mario-task-metrics` |
 | `011` | `playing-mario-recurrent-actor-critic` |
 | `012` | `playing-mario-evaluation-matrix` |
 | `013` | `playing-mario-auxiliary-losses` |
