@@ -68,3 +68,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-06-10: Completed Playing Mario evaluation matrix with filtered task selection, deterministic seed expansion, SMB3 catalog metadata, per-task JSON/CSV artifacts, fake-env coverage, and CPU/MPS gate verification.
 2026-06-10: Completed Playing Mario auxiliary losses with optional PPO heads for progress, clear/death, transformed reward, and game-family targets, explicit missing-value masks, durable loss artifacts, and CPU/MPS gate verification.
 2026-06-10: Completed Playing Mario vectorized PPO rollouts with two-environment fast-dev training, per-slot recurrent state resets, multi-active task metrics, PPO checkpoint play support, and CPU/MPS gate verification.
+2026-06-10: Completed Playing Mario adaptive curriculum with frontier-based task progression, serializable mastery state, Lost Levels gating, curriculum artifacts, checkpoint/artifact resume coverage, and CPU/MPS gate verification.

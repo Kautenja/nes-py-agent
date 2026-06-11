@@ -68,6 +68,10 @@
   two-environment fast-dev and MacBook gate coverage, per-slot hidden-state
   resets, multi-active task metrics, PPO checkpoint play support, and durable
   vector rollout artifact fields.
+- Added adaptive Mario curriculum training with fixed/adaptive task-suite
+  modes, serializable per-task mastery records, deterministic active-frontier
+  sampling, Lost Levels gating behind SMB1 mastery, curriculum state artifacts,
+  and checkpoint/artifact resume coverage.
 
 ## 2026-05 Coordinated Release Preparation
 
