@@ -25,6 +25,80 @@
   replay-driven optimization, checkpointed schedule/counter state, resolved
   config/log/checkpoint/metrics artifacts, CPU and MPS smoke verification, and
   README commands for CPU, MPS, CUDA, and checkpoint play.
+- Added a documented MacBook trainability gate for the Mario learner with a
+  bounded real-environment config, CPU/MPS auto-selection, fast unit-test
+  preflight, train/eval artifact verification, wall-clock/throughput/memory
+  summaries, warning-based performance budgets, and benchmark-only profiling.
+- Added deterministic task conditioning for the Mario learner with a public
+  `MarioTask` feature encoder, canonical alias handling, unknown/custom task
+  fallbacks, optional DQN/DuelingDQN task inputs, replay-carried task features,
+  train/eval wiring, and an opt-in task-conditioned fast-dev config.
+- Added deterministic task-suite curriculum sampling for the Mario learner with
+  typed suite configs, metadata-only candidate resolution across SMB1, Lost
+  Levels, SMB2 USA, and SMB3, balanced per-family weights, SMB3 catalog
+  reporting, episode-boundary task switching, and a tiny task-suite smoke
+  config.
+- Added universal action-space sizing for the Mario learner with explicit
+  `nes`, `right`, `right_only`, `simple`, and `complex` resolution, native
+  256-action NES support, automatic `model.num_actions` config resolution,
+  fixed-count mismatch validation, and action metadata in train/play/random
+  artifacts and MacBook gate summaries.
+- Added configurable reward transforms for the Mario learner with `env`,
+  `sign`, `unclipped`, `clipped`, and component-weight modes, disabled default
+  sign clipping for modern Mario training, preserved raw/unclipped/clipped
+  reward diagnostics in replay and train metrics, and aggregated reward info
+  across frame-skip steps.
+- Added structured task metrics for the Mario learner with typed step and
+  episode accumulation, global/per-game-family/per-task summaries, stable
+  Lightning scalar names, structured train/eval JSON artifacts, and
+  missing-info counters for optional Gymnasium `info` fields.
+- Added a recurrent PPO actor-critic path for the Mario learner with a visual
+  encoder, optional task embedding, GRU memory, policy/value heads, rollout
+  storage with GAE, clipped PPO losses, algorithm-selectable training, a
+  packaged `smb_ppo_fast_dev` smoke config, and focused fake-env coverage.
+- Added an evaluation matrix runner with task metadata filters, deterministic
+  seed expansion, optional full SMB3 catalog reporting, JSON and CSV artifacts
+  with one row per task/seed/episode, fake-env tests, and a packaged
+  `smb_dqn_eval_matrix_fast_dev` smoke config.
+- Added optional auxiliary prediction losses for recurrent PPO with masked
+  targets for progress, clear/death flags, transformed rewards, reward totals,
+  and game-family classification, plus durable PPO/auxiliary loss artifacts and
+  a packaged `smb_ppo_auxiliary_fast_dev` smoke config.
+- Added vectorized recurrent PPO rollouts with configurable `ppo.num_envs`,
+  two-environment fast-dev and MacBook gate coverage, per-slot hidden-state
+  resets, multi-active task metrics, PPO checkpoint play support, and durable
+  vector rollout artifact fields.
+- Added adaptive Mario curriculum training with fixed/adaptive task-suite
+  modes, serializable per-task mastery records, deterministic active-frontier
+  sampling, Lost Levels gating behind SMB1 mastery, curriculum state artifacts,
+  and checkpoint/artifact resume coverage.
+- Added process-local emulator snapshot curriculum support for Mario training
+  with opaque `nes-py` snapshot reuse, ROM-hash compatibility metadata,
+  ranked/tagged reset sampling, normal-reset fallback, snapshot-start metrics,
+  metadata-only artifacts, DQN/PPO integration, and fake plus real Mario smoke
+  coverage.
+- Added explicit Mario pixel-observation profiles with the default
+  `grayscale_84` baseline, `rgb_balanced_90x96` laptop RGB smoke config,
+  `rgb_high_fidelity_120x128` longer-experiment config, automatic
+  replay/model shape resolution, train artifact pixel metadata, and documented
+  RGB memory/throughput guidance.
+- Added opt-in pixel-only Random Network Distillation for recurrent PPO with a
+  frozen target network, trainable predictor, clipped/scaled intrinsic rewards,
+  separate extrinsic/transformed/intrinsic/total reward artifacts, and a
+  packaged `smb_ppo_rnd_fast_dev` smoke config.
+- Added opt-in proportional prioritized replay for DQN with replay indices,
+  normalized importance-sampling weights, weighted TD loss, deterministic
+  priority updates from absolute TD error plus epsilon, replay metadata in
+  train/checkpoint artifacts, and a packaged `smb_dqn_prioritized_fast_dev`
+  smoke config.
+- Added opt-in Mario macro action abstractions with deterministic Joypad-index
+  sequences, primitive-action preservation, macro-aware model action sizing,
+  frame-skip/reward diagnostic aggregation, train/play/random artifact
+  metadata, and a packaged `smb_ppo_macro_fast_dev` smoke config.
+- Added a pixel-only Mario imitation pretraining framework with an ignored
+  local demonstration directory, documented `.npz` observation/action metadata
+  contract, deterministic validation/splitting, recurrent-PPO behavior cloning,
+  metrics/checkpoint artifacts, and normal PPO train-from-pretrain support.
 
 ## 2026-05 Coordinated Release Preparation
 
