@@ -95,6 +95,10 @@
   sequences, primitive-action preservation, macro-aware model action sizing,
   frame-skip/reward diagnostic aggregation, train/play/random artifact
   metadata, and a packaged `smb_ppo_macro_fast_dev` smoke config.
+- Added a pixel-only Mario imitation pretraining framework with an ignored
+  local demonstration directory, documented `.npz` observation/action metadata
+  contract, deterministic validation/splitting, recurrent-PPO behavior cloning,
+  metrics/checkpoint artifacts, and normal PPO train-from-pretrain support.
 
 ## 2026-05 Coordinated Release Preparation
 

@@ -32,13 +32,9 @@ old archive context, not as the primary historical record.
 
 ## Active Root Queue
 
-The active root queue is currently focused on making the Mario learner more
-learnable while preserving the constraint that the policy plays from pixels:
-
-| Prefix | Spec | Focus |
-| --- | --- | --- |
-| `020` | `020-playing-mario-action-abstractions.md` | Macro-actions/options built from existing Joypad actions |
-| `021` | `021-playing-mario-imitation-pretraining-framework.md` | Local demonstration dataset and behavior-cloning pretrain framework |
+There are currently no incomplete root-level specs. Future promoted Mario RL
+specs should continue preserving the constraint that the policy plays from
+pixels.
 
 Future promoted Mario RL specs may touch `nes-py`, `gym-super-mario-bros`, and
 `playing-mario-with-deep-reinforcement-learning` as needed. If a child package
