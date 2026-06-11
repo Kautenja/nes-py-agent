@@ -64,6 +64,10 @@
   targets for progress, clear/death flags, transformed rewards, reward totals,
   and game-family classification, plus durable PPO/auxiliary loss artifacts and
   a packaged `smb_ppo_auxiliary_fast_dev` smoke config.
+- Added vectorized recurrent PPO rollouts with configurable `ppo.num_envs`,
+  two-environment fast-dev and MacBook gate coverage, per-slot hidden-state
+  resets, multi-active task metrics, PPO checkpoint play support, and durable
+  vector rollout artifact fields.
 
 ## 2026-05 Coordinated Release Preparation
 

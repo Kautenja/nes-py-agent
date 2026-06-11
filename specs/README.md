@@ -32,7 +32,18 @@ old archive context, not as the primary historical record.
 
 ## Active Root Queue
 
-No active root specs remain in the live queue.
+The active root queue is currently focused on making the Mario learner more
+learnable while preserving the constraint that the policy plays from pixels:
+
+| Prefix | Spec | Focus |
+| --- | --- | --- |
+| `015` | `015-playing-mario-adaptive-curriculum.md` | Mastery-gated task progression from easier Mario tasks to harder ones |
+| `016` | `016-playing-mario-emulator-snapshot-curriculum.md` | Save-state style hard-problem starts using ROM-safe emulator snapshots |
+| `017` | `017-playing-mario-pixel-fidelity.md` | RGB and less aggressive pixel downsampling profiles |
+| `018` | `018-playing-mario-curiosity-exploration.md` | Pixel-only RND curiosity bonuses |
+| `019` | `019-playing-mario-prioritized-replay.md` | DQN prioritized replay with importance weighting |
+| `020` | `020-playing-mario-action-abstractions.md` | Macro-actions/options built from existing Joypad actions |
+| `021` | `021-playing-mario-imitation-pretraining-framework.md` | Local demonstration dataset and behavior-cloning pretrain framework |
 
 Future promoted Mario RL specs may touch `nes-py`, `gym-super-mario-bros`, and
 `playing-mario-with-deep-reinforcement-learning` as needed. If a child package
