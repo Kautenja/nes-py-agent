@@ -86,6 +86,11 @@
   frozen target network, trainable predictor, clipped/scaled intrinsic rewards,
   separate extrinsic/transformed/intrinsic/total reward artifacts, and a
   packaged `smb_ppo_rnd_fast_dev` smoke config.
+- Added opt-in proportional prioritized replay for DQN with replay indices,
+  normalized importance-sampling weights, weighted TD loss, deterministic
+  priority updates from absolute TD error plus epsilon, replay metadata in
+  train/checkpoint artifacts, and a packaged `smb_dqn_prioritized_fast_dev`
+  smoke config.
 
 ## 2026-05 Coordinated Release Preparation
 
