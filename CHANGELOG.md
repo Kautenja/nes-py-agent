@@ -82,6 +82,10 @@
   `rgb_high_fidelity_120x128` longer-experiment config, automatic
   replay/model shape resolution, train artifact pixel metadata, and documented
   RGB memory/throughput guidance.
+- Added opt-in pixel-only Random Network Distillation for recurrent PPO with a
+  frozen target network, trainable predictor, clipped/scaled intrinsic rewards,
+  separate extrinsic/transformed/intrinsic/total reward artifacts, and a
+  packaged `smb_ppo_rnd_fast_dev` smoke config.
 
 ## 2026-05 Coordinated Release Preparation
 

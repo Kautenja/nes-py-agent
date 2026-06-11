@@ -37,7 +37,6 @@ learnable while preserving the constraint that the policy plays from pixels:
 
 | Prefix | Spec | Focus |
 | --- | --- | --- |
-| `018` | `018-playing-mario-curiosity-exploration.md` | Pixel-only RND curiosity bonuses |
 | `019` | `019-playing-mario-prioritized-replay.md` | DQN prioritized replay with importance weighting |
 | `020` | `020-playing-mario-action-abstractions.md` | Macro-actions/options built from existing Joypad actions |
 | `021` | `021-playing-mario-imitation-pretraining-framework.md` | Local demonstration dataset and behavior-cloning pretrain framework |

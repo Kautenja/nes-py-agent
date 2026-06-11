@@ -71,3 +71,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-06-10: Completed Playing Mario adaptive curriculum with frontier-based task progression, serializable mastery state, Lost Levels gating, curriculum artifacts, checkpoint/artifact resume coverage, and CPU/MPS gate verification.
 2026-06-10: Completed Playing Mario emulator snapshot curriculum with process-local opaque snapshots, compatibility metadata, DQN/PPO reset sampling, snapshot-start metrics, metadata-only artifacts, and CPU/MPS gate verification.
 2026-06-11: Completed Playing Mario pixel fidelity with explicit grayscale/RGB observation profiles, automatic replay/model shape resolution, RGB PPO fast-dev training, artifact metadata, and CPU/MPS gate verification.
+2026-06-11: Completed Playing Mario curiosity exploration with disabled-by-default pixel-only PPO RND, separate intrinsic reward metrics, a real RND smoke config, and CPU/MPS gate verification.
