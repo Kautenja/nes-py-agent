@@ -91,6 +91,10 @@
   priority updates from absolute TD error plus epsilon, replay metadata in
   train/checkpoint artifacts, and a packaged `smb_dqn_prioritized_fast_dev`
   smoke config.
+- Added opt-in Mario macro action abstractions with deterministic Joypad-index
+  sequences, primitive-action preservation, macro-aware model action sizing,
+  frame-skip/reward diagnostic aggregation, train/play/random artifact
+  metadata, and a packaged `smb_ppo_macro_fast_dev` smoke config.
 
 ## 2026-05 Coordinated Release Preparation
 

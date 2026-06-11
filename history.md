@@ -73,3 +73,4 @@ notes in `history/YYYY-MM-DD--name.md`, and keep release-facing rollups in
 2026-06-11: Completed Playing Mario pixel fidelity with explicit grayscale/RGB observation profiles, automatic replay/model shape resolution, RGB PPO fast-dev training, artifact metadata, and CPU/MPS gate verification.
 2026-06-11: Completed Playing Mario curiosity exploration with disabled-by-default pixel-only PPO RND, separate intrinsic reward metrics, a real RND smoke config, and CPU/MPS gate verification.
 2026-06-11: Completed Playing Mario prioritized replay with opt-in proportional DQN sampling, importance-weighted TD loss, deterministic priority updates, replay artifacts/checkpoint metadata, and CPU/MPS gate verification.
+2026-06-11: Completed Playing Mario action abstractions with opt-in Joypad macro actions, macro-aware model sizing/artifacts, real macro PPO smoke training, and CPU/MPS gate verification.
