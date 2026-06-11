@@ -77,6 +77,11 @@
   ranked/tagged reset sampling, normal-reset fallback, snapshot-start metrics,
   metadata-only artifacts, DQN/PPO integration, and fake plus real Mario smoke
   coverage.
+- Added explicit Mario pixel-observation profiles with the default
+  `grayscale_84` baseline, `rgb_balanced_90x96` laptop RGB smoke config,
+  `rgb_high_fidelity_120x128` longer-experiment config, automatic
+  replay/model shape resolution, train artifact pixel metadata, and documented
+  RGB memory/throughput guidance.
 
 ## 2026-05 Coordinated Release Preparation
 

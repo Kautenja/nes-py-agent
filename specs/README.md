@@ -37,7 +37,6 @@ learnable while preserving the constraint that the policy plays from pixels:
 
 | Prefix | Spec | Focus |
 | --- | --- | --- |
-| `017` | `017-playing-mario-pixel-fidelity.md` | RGB and less aggressive pixel downsampling profiles |
 | `018` | `018-playing-mario-curiosity-exploration.md` | Pixel-only RND curiosity bonuses |
 | `019` | `019-playing-mario-prioritized-replay.md` | DQN prioritized replay with importance weighting |
 | `020` | `020-playing-mario-action-abstractions.md` | Macro-actions/options built from existing Joypad actions |
