@@ -72,6 +72,11 @@
   modes, serializable per-task mastery records, deterministic active-frontier
   sampling, Lost Levels gating behind SMB1 mastery, curriculum state artifacts,
   and checkpoint/artifact resume coverage.
+- Added process-local emulator snapshot curriculum support for Mario training
+  with opaque `nes-py` snapshot reuse, ROM-hash compatibility metadata,
+  ranked/tagged reset sampling, normal-reset fallback, snapshot-start metrics,
+  metadata-only artifacts, DQN/PPO integration, and fake plus real Mario smoke
+  coverage.
 
 ## 2026-05 Coordinated Release Preparation
 

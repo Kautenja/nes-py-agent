@@ -37,8 +37,6 @@ learnable while preserving the constraint that the policy plays from pixels:
 
 | Prefix | Spec | Focus |
 | --- | --- | --- |
-| `015` | `015-playing-mario-adaptive-curriculum.md` | Mastery-gated task progression from easier Mario tasks to harder ones |
-| `016` | `016-playing-mario-emulator-snapshot-curriculum.md` | Save-state style hard-problem starts using ROM-safe emulator snapshots |
 | `017` | `017-playing-mario-pixel-fidelity.md` | RGB and less aggressive pixel downsampling profiles |
 | `018` | `018-playing-mario-curiosity-exploration.md` | Pixel-only RND curiosity bonuses |
 | `019` | `019-playing-mario-prioritized-replay.md` | DQN prioritized replay with importance weighting |
